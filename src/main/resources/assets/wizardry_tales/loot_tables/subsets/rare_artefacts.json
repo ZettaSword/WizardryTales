@@ -1,0 +1,35 @@
+{
+	"pools": [
+		{
+			"name": "main",
+			"rolls": 1,
+			"entries": [
+				{
+                    "type": "item",
+                    "name": "wizardry_tales:artefact_earth",
+                    "weight": 2
+                },
+				{
+					"type": "item",
+					"name": "wizardry_tales:amulet_petal_blooming",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wizardry_tales:ring_protector",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wizardry_tales:ring_poison_entangle",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "wizardry_tales:casting_ring",
+					"weight": 2
+				}
+			]
+		}
+	]
+}

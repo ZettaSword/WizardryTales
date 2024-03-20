@@ -1,0 +1,21 @@
+{
+    "display": {
+        "title": {
+            "translate": "advancement.wizardry_tales:root"
+        },
+        "description": {
+            "translate": "advancement.wizardry_tales:root.desc"
+        },
+        "show_toast": false,
+        "announce_to_chat": false,
+        "background": "ebwizardry:textures/gui/advancement_background.png",
+        "icon": {
+            "item": "wizardry_tales:tales_book"
+        }
+    },
+    "criteria": {
+        "tick": {
+            "trigger": "minecraft:tick"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "5. Spells replication",
+  "icon": "wizardry_tales:mana_dust",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "You can replicate any spell you know and discovered with Incantation."
+    },
+    {
+      "type": "text",
+      "text": "To do so, say: 'Mana, replicate magic_missile'"
+    },
+    {
+      "type": "text",
+      "text": "If it's not from EBWiz, you need mod id before spell id: 'Mana, replicate wizardry_tales:locating'"
+    },
+    {
+      "type": "text",
+      "text": "You can also combine spells, replicating not one but multiple spells: `Mana, replicate magic_missile, replicate ignite`"
+    }
+  ]
+}

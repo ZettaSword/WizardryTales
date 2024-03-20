@@ -1,0 +1,16 @@
+{
+  "name": "6. Own Artefacts",
+  "icon": "wizardry_tales:mana_dust",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Check out Artifice category for this."
+    },
+    {
+      "type": "text",
+      "text": "There, you can learn how to create own Artefacts with own effects, which may replicate spells you know, or apply any potion effects."
+    }
+  ]
+}

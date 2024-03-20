@@ -1,0 +1,16 @@
+{
+  "name": "Chanting Cloak",
+  "icon": "wizardry_tales:chanting_cloak",
+  "category": "wizardry_tales:artefacts",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "wizardry_tales:chanting_cloak",
+      "text": "The $(l)Chanting Cloak$() is an item that casts chants inscribed on it under a predefined Condition. Can be worn."
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:chanting_cloak"
+    }
+  ]
+}

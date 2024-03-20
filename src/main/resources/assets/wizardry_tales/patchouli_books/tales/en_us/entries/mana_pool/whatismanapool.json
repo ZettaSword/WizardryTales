@@ -1,0 +1,20 @@
+{
+  "name": "What is Mana Pool?",
+  "icon": "ebwizardry:empty_scroll",
+  "category": "wizardry_tales:mana_pool",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Your $(l)Mana Pool$() is the amount of Mana your soul can gather and input into your body. Most Wizards nowadays can feel their mana pool as a bar of 10 spheres, which approximately shows the amount of mana in your body- one sphere is about 10% of your Mana Pool."
+    },
+    {
+      "type": "text",
+      "text": "In the old times, there was another social use for Mana- Wizards used their magic to make contracts with powerful, incorporeal souls that have no physical body. These rituals have since been lost to time, and nowadays Wizards use their Mana Pool to activate spells engraved in wand crystals. The same method is used to cast spell scrolls: Wizards provide Mana to activate the sealed spell inside the scroll, usually destroying it in the process."
+    },
+    {
+      "type": "text",
+      "text": "Your Mana Pool will grow with each usage- constant use of your Mana Pool causes your body to adapt and slowly be able to collect more Mana from its surroundings. But, there is a limit to how much Mana our physical bodies can hold, No matter if your race is Fairy, Dwarf or any others - this can't be changed as long as you are bound to your physical form."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Check Mana",
+  "icon": "ebwizardry:magic_silk",
+  "category": "wizardry_tales:commands",
+  "pages": [
+    {
+      "type": "text",
+      "text": "/checkMana <player>"
+    },
+    {
+      "type": "text",
+      "text": "Use this command to check the Mana points of yourself, or other players."
+    }
+  ]
+}

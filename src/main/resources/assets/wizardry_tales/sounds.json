@@ -1,0 +1,23 @@
+{
+  "spell.necro_attack": {"category": "spells",
+    "sounds": ["mob/wither/hurt1", "mob/wither/hurt2", "mob/wither/hurt3", "mob/wither/hurt4"]},
+  "spell.curse_of_nausea":{"category": "spells", "sounds": ["mob/guardian/curse"]},
+  "spell.entangle": {"category": "spells", "sounds": ["dig/grass1", "dig/grass2", "dig/grass3", "dig/grass4"]},
+  "spell.summon_ember":{"category": "spells", "sounds": ["ebwizardry:summon1", "ebwizardry:summon2"]},
+  "spell.leaf_disguise": {"category": "spells", "sounds": ["ebwizardry:buff"]},
+  "spell.binding": {"category": "spells", "sounds": ["ebwizardry:buff"]},
+  "spell.burning_disease": {"category": "spells", "sounds": ["fire/ignite"]},
+  "spell.blooming": {"category": "spells", "sounds": ["dig/grass1", "dig/grass2", "dig/grass3", "dig/grass4"]},
+  "spell.earth_bending": {"category": "spells", "sounds": ["dig/grass1", "dig/grass2", "dig/grass3", "dig/grass4"]},
+  "spell.wind_cut": {"category": "spells", "sounds": []},
+  "spell.wind_slash": {"category": "spells", "sounds": []},
+  "spell.meow": {"category": "spells", "sounds": ["ebwizardry:magic"]},
+  "spell.locating": {"category": "spells", "sounds": ["ebwizardry:conjure"]},
+  "spell.water_healing": {"category": "spells", "sounds": []},
+  "spell.focused_teleportation": {"category": "spells", "sounds": ["mob/endermen/portal", "mob/endermen/portal2"]},
+  "spell.conjure_ice_halberd": {"category": "spells", "sounds": ["ebwizardry:conjure"]},
+  "spell.storm_armour": {"category": "spells", "sounds": ["ebwizardry:buff"]},
+  "spell.mantis_agility": {"category": "spells", "sounds": ["ebwizardry:buff"]},
+  "spell.teleportation_curse": {"category": "spells", "sounds": ["mob/endermen/portal", "mob/endermen/portal2"]},
+  "spell.mana_bomb": {"category": "spells", "sounds": ["random/bow"]}
+}

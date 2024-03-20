@@ -1,0 +1,143 @@
+import com.wynprice.cursemaven.CurseMavenPlugin
+
+buildscript {
+    repositories {
+        maven {
+            url = "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        jcenter()
+        //maven { url = 'https://maven.minecraftforge.net/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath 'com.wynprice.cursemaven:CurseMaven:2.1.1'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: CurseMavenPlugin
+
+version = '2.2.3'
+group = 'astramusfate.wizardry_tales' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'WizardryTales'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+minecraft {
+    mappings channel: 'snapshot', version: '20171003-1.12'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2859'
+
+    //// Dependencies ////
+    implementation fg.deobf("curse.maven:ElectroblobsWizardry-${wizardry_projectid}:${wizardry_fileid}")
+    implementation fg.deobf("curse.maven:Baubles-${baubles_projectid}:${baubles_fileid}")
+    compile "potion-core:PotionCore:1.9_for_1.12.2"
+    //implementation fg.deobf("curse.maven:PotionCore-${potion_core_projectid}:${potion_core_fileid}")
+    //implementation fg.deobf("electroblobs-wizardry:ElectroblobsWizardry:4.3.9:MC1.12.2")
+
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
+
+    compile "vazkii.patchouli:Patchouli:${patchouli_version}"
+    implementation fg.deobf("curse.maven:artemislib-${artemislib_projectid}:${artemislib_fileid}")
+    //compile "curse.maven:ElectroblobsWizardry-${wizardry_projectid}:${wizardry_fileid}"
+}
+
+// Example for how to get properties into the manifest for reading by the runtime..
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "examplemod",
+            "Specification-Vendor": "examplemodsareus",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"examplemodsareus",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+// Example configuration to allow publishing using the maven-publish task
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar') 
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+//publish.dependsOn('reobfJar')
+
+repositories {
+
+    maven {
+        name 'Curseforge Maven'
+        url 'https://minecraft.curseforge.com/api/maven/'
+    }
+
+    maven {
+        url "https://www.cursemaven.com"
+    }
+
+    maven {
+        name = "itsmeow maven"
+        url = "https://maven.itsmeow.dev/"
+    }
+
+    maven { url 'https://maven.blamejared.com' }
+
+    maven {
+        name 'hellfirepvp maven'
+        url 'https://maven.hellfiredev.net/'
+    }
+
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "modmaven.k-4u.nl"
+    }
+
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven { url 'https://maven.blamejared.com' }
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file('build/classes/main/')
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}

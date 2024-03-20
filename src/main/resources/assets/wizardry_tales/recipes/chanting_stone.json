@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " z ",
+    "yxy",
+    " y "
+  ],
+  "key": {
+    "y": {
+      "item": "ebwizardry:spectral_dust",
+      "data": 32767
+    },
+    "x": {
+      "item": "ebwizardry:transportation_stone"
+    },
+    "z": {
+      "item": "ebwizardry:medium_mana_flask"
+    }
+  },
+  "result": {
+    "item": "wizardry_tales:chanting_stone"
+  }
+}

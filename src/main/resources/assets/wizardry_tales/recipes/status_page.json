@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " y ",
+    " z "
+  ],
+  "key": {
+    "x": {
+      "item": "ebwizardry:spectral_dust"
+    },
+    "y": {
+      "item": "minecraft:paper"
+    },
+    "z": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "wizardry_tales:status_page"
+  }
+}

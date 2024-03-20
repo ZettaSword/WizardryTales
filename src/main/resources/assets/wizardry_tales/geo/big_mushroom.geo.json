@@ -1,0 +1,86 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bone",
+					"pivot": [-0.275, 30.95, 7]
+				},
+				{
+					"name": "chest",
+					"parent": "bone",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 0, -8], "size": [16, 16, 16], "uv": [0, 45]}
+					]
+				},
+				{
+					"name": "top_head",
+					"parent": "bone",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "top",
+					"parent": "top_head",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "top_left",
+					"parent": "top",
+					"pivot": [-0.275, 24.5, 7],
+					"cubes": [
+						{"origin": [-11.775, 25.775, -0.475], "size": [23, 3.825, 10.075], "pivot": [-0.275, 30.95, 7], "rotation": [-5, 0, 0], "uv": [64, 58]},
+						{"origin": [-14.775, 19.7, -0.675], "size": [29, 7, 15.075], "pivot": [-0.275, 24.5, 7], "rotation": [-5, 0, 0], "uv": [0, 1]}
+					]
+				},
+				{
+					"name": "top_right",
+					"parent": "top",
+					"pivot": [-0.275, 30.98547, -3.3667],
+					"cubes": [
+						{"origin": [-14.775, 19.8, -16.375], "size": [29, 7, 16.575], "pivot": [-0.275, 24.5, -7], "rotation": [5, 0, 0], "uv": [0, 0]},
+						{"origin": [-11.775, 26.28547, -10.4667], "size": [23, 3.825, 10], "pivot": [-0.275, 30.98547, -3.3667], "rotation": [5, 0, 0], "uv": [48, 45]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "top_head",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, 16, -6], "size": [12, 5, 12], "uv": [52, 71]}
+					]
+				},
+				{
+					"name": "eyebrowns",
+					"parent": "head",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "right",
+					"parent": "eyebrowns",
+					"pivot": [6.0625, 18.75, -2.8625],
+					"cubes": [
+						{"origin": [5.75, 18.175, -4.925], "size": [0.625, 1.15, 4.125], "uv": [0, 1]}
+					]
+				},
+				{
+					"name": "left",
+					"parent": "eyebrowns",
+					"pivot": [6.0625, 18.75, 2.8125],
+					"cubes": [
+						{"origin": [5.75, 18.175, 0.75], "size": [0.625, 1.15, 4.125], "uv": [0, 0.9]}
+					]
+				}
+			]
+		}
+	]
+}

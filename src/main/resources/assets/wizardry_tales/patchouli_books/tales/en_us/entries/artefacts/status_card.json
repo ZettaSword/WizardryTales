@@ -1,0 +1,16 @@
+{
+  "name": "Status Card",
+  "icon": "wizardry_tales:status_page",
+  "category": "wizardry_tales:artefacts",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "wizardry_tales:status_page",
+      "text": "$(l)Status Card$() is an item that gives you to see your status and Stats like Strength, and others."
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:status_page"
+    }
+  ]
+}

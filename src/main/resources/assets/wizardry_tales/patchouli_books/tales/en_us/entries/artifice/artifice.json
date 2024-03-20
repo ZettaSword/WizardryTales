@@ -1,0 +1,48 @@
+{
+  "name": "0. Artifice & Adjustment",
+  "icon": "ebwizardry:charm_light",
+  "category": "wizardry_tales:artifice",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Important: Learn to experiment with these Examples. These examples are not predefined, you can make own spell if you'll learn how all works."
+    },
+    {
+      "type": "text",
+      "text": "You can inscribe in the artefact or item ANY your incantation."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Artifice$() is ancient process of Artefacts and Enchantments creation. It was used to make own artefacts do what they need upon some condition."
+    },
+    {
+      "type": "text",
+      "text": "Artifice is divided to two phases: $(l)Inscription$() - where spell is inscribed in the item. And $(l)Adjustment$() - where Condition on which spell in item will activate is set.$(l)Chanting Stone$() is required for both to be in inventory."
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:chanting_stone"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Inscription$(): $(br) 'Mana, shape inscribe, ...' $(br)After saying shape inscribe, rest of spell will be written in item in hands."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Adjustment$(): $(br) 'Mana, shape adjust, add condition X, add parameter Y.' $(br)Where X - is condition on which spell will happen, and where Y is parameter if it's required."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Example Enchant$(): $(br)'Mana, shape inscribe, duration 10 apply wizardry_tales:entangled, focus caster apply speed.'$(br)'Mana, shape adjust, add condition hit.'"
+    },
+    {
+      "type": "text",
+      "text": "In this spell we use Condition `hit`, which automatically chooses entity hit as spell target. That's why we use `apply` to apply effect from Wizardry Tales world on the entity. Later we focus spell on caster, and apply speed to caster."
+    },
+    {
+      "type": "text",
+      "text": "As you see we didn't changed duration since we defined it, meaning it'll be 'duration 10' for the rest of the spell. This means Caster will get Speed for 10 seconds in this spell example."
+    }
+  ]
+}

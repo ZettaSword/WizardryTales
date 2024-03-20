@@ -1,0 +1,25 @@
+{
+  "name": "Casting Ring",
+  "icon": "wizardry_tales:casting_ring",
+  "category": "wizardry_tales:artefacts",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "wizardry_tales:casting_ring",
+      "text": "The $(l)Casting Ring$()- is an item that allows casting spells without your wand in hand.$(br) The Casting Ring doesn't use wand mana, only your Mana Pool mana. $(br)To use, first equip the Casting Ring and put your wand anywhere in inventory."
+    },
+    {
+      "type": "text",
+      "text": "Next, set a casting key in your keyboard control settings to cast spells. When using, you can switch spells the same way you do with a wand."
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:casting_ring",
+      "recipe2": "wizardry_tales:chanting_ring"
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:dull_ring"
+    }
+  ]
+}

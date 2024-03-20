@@ -1,0 +1,20 @@
+{
+  "name": "Flame Enchantment",
+  "icon": "ebwizardry:flaming_axe",
+  "category": "wizardry_tales:artifice",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Take item in your hand, and say:$(br)'Mana shape inscribe, ignite!'"
+    },
+    {
+      "type": "text",
+      "text": "Then, say:$(br)'Mana shape adjust, add condition hit.'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "This is very simple Enchantment, which sets those who was hit with item on fire.$(br)You can add 'duration 10' to make target be on fire for 10 seconds."
+    }
+  ]
+}

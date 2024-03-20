@@ -1,0 +1,38 @@
+{
+  "name": "4. Cosmetic",
+  "icon": "ebwizardry:magic_silk",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Spell Element",
+      "text": "You can say `element magic/fire/ice/earth/lightning/healing/necromancy/sorcery' or 'element arcane/blaze/frost/nature/storm/light/darkness/time` in your spell."
+    },
+    {
+      "type": "text",
+      "title": "Spell Element",
+      "text": "This means shape sigil or shape area for example will have circle of said element. This is purely cosmetic."
+    },
+    {
+      "type": "text",
+      "title": "Spell Element",
+      "text": "Example usage:$(br)`Mana, element fire, shape entity, ignite!`"
+    },
+    {
+      "type": "text",
+      "title": "Effects & Sounds",
+      "text": "If you'll say 'remove/off effects/fx' in spell.$(br)Or add them back if you removed them earlier with 'add/on effects/fx'."
+    },
+    {
+      "type": "text",
+      "title": "Effects & Sounds",
+      "text": "Removing effects will remove appearing circle on your feet or one appearing in front of you, with also particles, and sounds."
+    },
+    {
+      "type": "text",
+      "title": "Spell Element",
+      "text": "Example usage:$(br)`Mana, off effects, shape entity, ignite!`"
+    }
+  ]
+}

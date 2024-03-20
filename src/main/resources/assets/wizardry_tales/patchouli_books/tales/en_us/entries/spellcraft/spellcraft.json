@@ -1,0 +1,24 @@
+{
+  "name": "1. What is Incantations?",
+  "icon": "ebwizardry:magic_silk",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(l)Incantations$() is an ancient magical art that allows a Wizard to cast magic spells simply by speaking (typing in chat). The word 'mana' needs to be anywhere in your spell in order for it to work- usually, Wizards put it as the first word of spell."
+    },
+    {
+      "type": "text",
+      "text": "If you want to create own spells, you must remember that if the spell's mana usage is higher than what you have in your Mana Pool, the spell will not work as you want."
+    },
+    {
+      "type": "text",
+      "text": "Incantations is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments."
+    },
+    {
+      "type": "text",
+      "text": "You can add ',', '!', '?' or '.' in your spell, and it will not interrupt the casting. Example is:$(br)'Mana, shape entity ignite!'$(br)As you see here ',' and '!' are both used, and it still works!"
+    }
+  ]
+}

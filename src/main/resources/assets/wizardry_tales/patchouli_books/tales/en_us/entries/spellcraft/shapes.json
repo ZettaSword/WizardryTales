@@ -1,0 +1,40 @@
+{
+  "name": "3. Shapes",
+  "icon": "ebwizardry:magic_silk",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(l)Shape$()- this parameter is used for changing how a Chanting spell works and is cast. $(br2)$(l)Shapes$(): Entity, Block, Sigil, Me"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Shape$(): Entity $(br2)Range parameter affects range of searching for any entity, and equals to 12 by default."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Shape$(): Block $(br2)Range parameter affects range of searching for any block, and equals to 12 by default."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Shape$(): Sigil $(br2)Lifetime parameter will affect how long this sigil will stay, you can make it -1, to make it infinite, and to remove infinite one - sneak and touch with your wand. You can also allow/deny ally to be affected by sigil. If you allow this, then ally or you can sneak to activate it. You can make it attack you with `remove owner`. This shape can be used for traps and more in combination with other shapes!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Shape$(): Me $(br2)Is default shape, but you can set it back. Affects spell focal point. Can be Caster, or Sigil, etc."
+    },
+    {
+      "type": "text",
+      "text": "You can use `summon ` to summon any known construct, or minion. Both require lifetime to be defined. Constructs require size if they have size. Minions require health and potency/damage defined. Look at `Summon Embers` if you do not understand well."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Some of minions id's$(): ebwizardry:zombie_minion, ebwizardry:husk_minion, wizardry_tales:ember, ebwizardry:spirit_horse, ebwizardry:skeleton_minion, ebwizardry:spider_minion, ebwizardry:vex_minion, ebwizardry:decoy, ebwizardry:blaze_minion, ebwizardry:ice_wraith, ebwizardry:lightning_wraith, ebwizardry:shadow_wraith, ebwizardry:storm_elemental and a lot more!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Some of constructs id's$(): ebwizardry:decay, ebwizardry:fire_sigil, ebwizardry:frost_sigil, ebwizardry:lightning_sigil, ebwizardry:ring_of_fire, ebwizardry:radiant_totem, ebwizardry:withering_totem, ebwizardry:blizzard, ebwizardry:black_hole, ebwizardry:combustion_rune and a lot more!"
+    }
+  ]
+}

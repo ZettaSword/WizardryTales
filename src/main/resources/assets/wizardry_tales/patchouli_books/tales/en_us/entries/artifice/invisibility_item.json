@@ -1,0 +1,20 @@
+{
+  "name": "Invisibility in Darkness",
+  "icon": "wizardry_tales:chanting_cloak",
+  "category": "wizardry_tales:artifice",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Take item in your hand, and say:$(br)'Mana shape inscribe, duration 5 apply invisibility.'"
+    },
+    {
+      "type": "text",
+      "text": "Then, say:$(br)'Mana shape adjust, add condition light add parameter 50.'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "It applies short-term invisibility.$(br)Condition is 'light' - artefact will activate when there is not enough light."
+    }
+  ]
+}

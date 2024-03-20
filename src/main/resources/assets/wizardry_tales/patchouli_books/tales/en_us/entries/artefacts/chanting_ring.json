@@ -1,0 +1,17 @@
+{
+  "name": "Chanting Ring",
+  "icon": "wizardry_tales:chanting_ring",
+  "category": "wizardry_tales:artefacts",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "wizardry_tales:chanting_ring",
+      "text": "The $(l)Chanting Ring$() is an item that casts chants inscribed on it under a predefined Condition. Can be worn."
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:chanting_ring",
+      "recipe2": "wizardry_tales:dull_ring"
+    }
+  ]
+}

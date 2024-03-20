@@ -1,0 +1,48 @@
+{
+  "name": "2. Parameters",
+  "icon": "ebwizardry:magic_silk",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(l)Parameters$() are words that change spell properties of a Chanting spell, if added. $(br2)Parameters should be defined right before spell actions!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Range$()- this parameter is used for increasing range of spell. It can affect different spell parts, but generally it affects $(l)Entity and Block$() shapes.$(br)Example Usage:$(br)Mana, range 10 shape block, ignite.$(br)Mana, set range 10, shape entity, duration 10 ignite."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Size$()- this parameter is used for increasing size of spell. It can affect different spell parts, but generally it affects $(l)Shapes$() like Sigil, Area.$(br)Example Usage:$(br)Mana, size 10 shape area, duration 10, ignite.$(br)Mana,set range 10, shape entity, duration 10 ignite"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Potency/power$()- this parameter is used for increasing damage, or overall power of spell. $(br)Example Usage:$(br)Mana, shape entity, set potency to 4 attack with fire, duration 10, ignite!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Duration$()- this parameter is used for changing duration of spell effects. $(br)Example Usage:$(br)Mana, duration 10, ignite."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Lifetime$()- this parameter is used for changing lifetime/delay of spell constructs and circles. $(br)Example Usage:$(br)Mana, lifetime 10, add pos 0 5 0, summon arrow_rain!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Health$()- this parameter is generally used for minions health. $(br)Example Usage:$(br)Mana, shape minion, lifetime 20, potency 2, health 10 summon ebwizardry:zombie_minion!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Shape$()- this parameter is used for changing how spell works and is cast. $(br)Example Usage:$(br)Mana, set range to 10, shape area, with potency 2  attack with ice!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Allow/deny allies/ally$()- this parameter is used for allowing some shapes to be used on Allies and Caster. $(br)Example Usage:$(br)Mana, allow allies, lifetime 10, range 10 shape area, with potency 2, attack with ice! Deny allies, range 9, shape ray, with duration 10, ignite!"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Add/remove owner/caster$()- this parameter is used for removing you from owning some construct or minion. $(br)Example Usage:$(br)Mana, remove owner, lifetime -1, shape sigil, lifetime 5, size 4 summon ring_of_fire!"
+    }
+  ]
+}

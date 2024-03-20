@@ -1,0 +1,19 @@
+{
+    "display": {
+        "title": {
+            "translate": "advancement.wizardry_tales:tales_book"
+        },
+        "description": {
+            "translate": "advancement.wizardry_tales:tales_book.desc"
+        },
+        "icon": {
+            "item": "wizardry_tales:tales_scroll"
+        }
+    },
+    "parent": "wizardry_tales:root",
+    "criteria": {
+        "tick": {
+            "trigger": "minecraft:tick"
+        }
+    }
+}

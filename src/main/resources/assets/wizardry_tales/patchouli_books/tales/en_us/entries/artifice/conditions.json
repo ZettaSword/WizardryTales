@@ -1,0 +1,60 @@
+{
+  "name": "1. Conditions",
+  "icon": "ebwizardry:charm_light",
+  "category": "wizardry_tales:artifice",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Conditions are used in Adjustment process.$(br)Conditions to apply to your item: Day/Night/Constant/Use/Hit/Manual/Light/Spell"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Day$() - if this condition is defined - spell will activate on Daytime once per second."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Night$() - if this condition is defined - spell will activate on Nighttime once per second."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Constant$() - if this condition is defined - spell will activate once per second as long as you have enough mana."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Use$() - if this condition is defined - spell will activate when you use item."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Hit$() - if this condition is defined - spell will activate when you hit with item."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Manual$() - if this condition is defined - spell will activate when you press `Chant Activation key` from Keyboard Settings, or just use your mana to use it."
+    },
+    {
+      "type": "text",
+      "text": "$(l)Light$() - if this condition is defined - spell will activate when there is [Parameter you've set] %% of light or lower. Example: `Mana, shape adjust, add condition light, add parameter 50`"
+    },
+    {
+      "type": "text",
+      "text": "$(l)Spell$() - if this condition is defined - spell will activate when you use SPELLCASTING ITEM with spell called `Chanting` in slot you've bound spell in. "
+    },
+    {
+      "type": "crafting",
+      "recipe": "wizardry_tales:chanting_spellbook"
+    },
+    {
+      "type": "text",
+      "text": "1) Take wand, apply spell called `Chanting` on it. It's craft-able just like Magic Missile!$(br)2) Choose said spell with your wand in hand."
+    },
+    {
+      "type": "text",
+      "text": "$(br)3) Do Inscription process to wand. If successful -> Look on tooltip, there be your Spell bound to chosen slot.$(br)4) Write in Chat this: `Mana, shape adjust, add condition spell`.$(br)5) When you'll use Chanting spell, if there bound to this slot Chant, it'll activate."
+    },
+    {
+      "type": "text",
+      "text": "This means you can bind your Chant to specific wand slot, and activate it if on this slot you'll apply Chanting spellbook."
+    }
+  ]
+}

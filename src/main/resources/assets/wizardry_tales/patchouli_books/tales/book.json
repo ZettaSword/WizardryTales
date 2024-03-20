@@ -1,0 +1,12 @@
+{
+  "name": "Wizardry Tales Guidebook",
+  "landing_text": "The book was written to give others write their own stories!",
+  "version": 1,
+  "creative_tab": "tales_items",
+  "book_texture": "wizardry_tales:textures/gui/arcana.png",
+  "model": "wizardry_tales:tales",
+  "header_color": "010018",
+  "text_color": "010018",
+  "filler_texture": "wizardry_tales:textures/gui/arcana_filler.png",
+  "show_progress": "false"
+}

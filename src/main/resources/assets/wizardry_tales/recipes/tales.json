@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xy ",
+    "zg ",
+    "   "
+  ],
+  "key": {
+    "z": {
+      "item": "minecraft:feather"
+    },
+    "x": {
+      "item": "minecraft:book"
+    },
+    "y": {
+      "item": "ebwizardry:magic_silk"
+    },
+    "g": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "wizardry_tales:tales"
+    }
+  }
+}

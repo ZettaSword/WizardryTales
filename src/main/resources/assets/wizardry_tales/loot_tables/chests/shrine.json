@@ -1,0 +1,40 @@
+{
+    "pools": [
+        {
+			"name": "artefact",
+            "rolls": 2,
+            "entries": [
+                {
+                    "type": "loot_table",
+                    "name": "wizardry_tales:subsets/uncommon_artefacts",
+                    "weight": 3
+                },
+				{
+                    "type": "loot_table",
+                    "name": "wizardry_tales:subsets/rare_artefacts",
+                    "weight": 3
+                },
+                {
+                    "type": "loot_table",
+                    "name": "wizardry_tales:subsets/epic_artefacts",
+                    "weight": 3
+                },
+                {
+                    "type": "loot_table",
+                    "name": "ebwizardry:subsets/uncommon_artefacts",
+                    "weight": 5
+                },
+                {
+                    "type": "loot_table",
+                    "name": "ebwizardry:subsets/rare_artefacts",
+                    "weight": 3
+                },
+                {
+                    "type": "loot_table",
+                    "name": "ebwizardry:subsets/epic_artefacts",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}

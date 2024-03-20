@@ -1,0 +1,12 @@
+[
+  {
+    "modid": "wizardry_tales",
+    "name": "Wizardry Tales",
+    "description": "Mod about Magic, made to give new experience of EBWiz gameplay",
+    "version": "2.2.3",
+    "mcversion": "1.12.2",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/wizardry-tales",
+    "authorList": ["ZettaSword"],
+    "credits": "Thanks to JadenR for Textures! And Thanks to Lord of Ashes(Structures) and 'i love you579'(Spell ideas)! Thanks to Elso(spell ideas). Others be added with mod progress continues"
+  }
+]

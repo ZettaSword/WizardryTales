@@ -1,0 +1,98 @@
+{
+  "name": "Example: Heal",
+  "icon": "ebwizardry:ring_paladin",
+  "category": "wizardry_tales:spellcraft",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Heal",
+      "text": "Say:$(br)'Mana power 2 heal!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Heals current spell target for 2 HP. 'Power' can also be referred to as 'potency' or 'damage'.$(br)Deals doubled damage to Undeads."
+    },
+    {
+      "type": "text",
+      "title": "Heal Others",
+      "text": "Say:$(br)'Mana shape entity, power 2 heal!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Heals entity you're looking at for 2 HP. 'Power' can also be referred to as 'potency' or 'damage'.$(br)Deals doubled damage to Undeads."
+    },
+    {
+      "type": "text",
+      "title": "Heal Area",
+      "text": "Say:$(br)'Mana, filter allies size 5 shape area, power 2 heal!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Heals entities in range for 2 HP. 'Power' can also be referred to as 'potency' or 'damage'.$(br)Deals doubled damage to Undeads.$(br)Size here defines range."
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Because 'filter allies' applied before 'shape area' - It will only affect you and your allies.$(br)We do not need 'add ally' because we used 'filter allies'."
+    },
+    {
+      "type": "text",
+      "title": "Healing Aura",
+      "text": "Say:$(br)'Mana, filter allies size 5 shape area, power 2 duration 20 apply regeneration!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Applies minecraft:regeneration to allies, including you. 'Power' is potion power, and 'duration' is potion duration in seconds. You can apply ebwizardry:ward to protect them as well!"
+    },
+    {
+      "type": "text",
+      "title": "Protective Aura",
+      "text": "Say:$(br)'Mana, filter allies size 5 shape area, power 2 duration 20 apply regeneration apply ebwizardry:ward!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Applies minecraft:regeneration and ebwizardry:ward to allies, including you. You can use any potion effects to buff you or allies obviously."
+    },
+    {
+      "type": "text",
+      "title": "Holy Area - 1",
+      "text": "Say:$(br)'Mana, filter undeads size 5 shape area, power 2 heal!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Deals doubled damage to undeads in the area. Removing filter will cause it affect any entities."
+    },
+    {
+      "type": "text",
+      "title": "Holy Area - 2",
+      "text": "Say:$(br)'Mana, add allies size 5 shape area, power 2 heal!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Deals damage to undeads in the area. Can heal you or your allies because of 'add allies'."
+    },
+    {
+      "type": "text",
+      "title": "Healing Sigil",
+      "text": "Say:$(br)'Mana, remove owner shape block shape sigil, power 2 heal duration 10 apply regeneration!'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "Places sigil at where you're looking. Deals damage to undeads in the area and applies regeneration effect.$(br)Can heal you and your allies because of 'remove owner'."
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "'Remove owner' can be replaced with 'add ally' to make it work for allies and you only when sneaking instead.$(br)If you want it to affect only allies, add `filter ally` instead of `add ally`."
+    }
+  ]
+}

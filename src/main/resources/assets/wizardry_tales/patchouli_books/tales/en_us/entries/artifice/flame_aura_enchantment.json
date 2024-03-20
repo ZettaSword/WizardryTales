@@ -1,0 +1,22 @@
+{
+  "name": "Flame Aura Enchantment",
+  "icon": "minecraft:blaze_powder",
+  "category": "wizardry_tales:artifice",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Inscription",
+      "text": "Take item in your hand, and say:$(br)'Mana shape inscribe, shape area ignite!'"
+    },
+    {
+      "type": "text",
+      "title": "Adjustment",
+      "text": "Then, say:$(br)'Mana shape adjust, add condition hit.'"
+    },
+    {
+      "type": "text",
+      "title": "Description",
+      "text": "This is very simple Enchantment, which sets entities in some area around caster on fire.$(br)You can add 'duration 10' to make targets be on fire for 10 seconds."
+    }
+  ]
+}
