@@ -30,7 +30,7 @@ import software.bernie.geckolib3.GeckoLib;
 public class WizardryTales {
     public static final String MODID = "wizardry_tales";
     public static final String NAME = "Wizardry Tales";
-    public static final String VERSION = "2.2.3";
+    public static final String VERSION = "2.2.4";
 
     @SidedProxy(clientSide = "astramusfate.wizardry_tales.proxy.ClientProxy",
             serverSide = "astramusfate.wizardry_tales.proxy.CommonProxy")

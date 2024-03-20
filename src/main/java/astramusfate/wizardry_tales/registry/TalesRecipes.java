@@ -109,6 +109,7 @@ public class TalesRecipes {
                 Ingredient.fromStacks(new ItemStack(WizardryItems.magic_crystal, 1, Element.HEALING.ordinal())),
                 Ingredient.fromStacks(new ItemStack(WizardryItems.magic_crystal, 1, Element.SORCERY.ordinal())));
 
+
     }
 
     public static void shapedRecipe(Item result, @Nonnull Object... recipe){
