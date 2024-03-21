@@ -117,7 +117,8 @@ public class StatsListener extends EventsBase {
 
         // Constitution
         checkAttributes(knockback, "constitution",
-                getStat2(soul, StatIds.con_id, Tales.stats.con_cost, 0.5F), Solver.MULTIPLY);
+                Math.min((float) soul.getStat(StatIds.con_id) /Tales.stats.con_cost,
+                        0.5F * ((float) StatIds.con_id /Tales.stats.con_cost)/Tales.stats.con_max), Solver.MULTIPLY);
 
         // Strength
         checkAttributes(attack, "strength",

@@ -87,6 +87,7 @@ public class TalesEntities {
         // Not Animated:
         reg.register(createEntry(EntityMidnightTrader.class, "midnight_trader", TrackingType.LIVING).egg(0x934DFF, 0x929193).build());
         reg.register(createEntry(EntityMidnightGuard.class, "midnight_guard", TrackingType.LIVING).egg(0x934DFF, 0x929193).build());
+        reg.register(createEntry(EntityTenebria.class, "tenebria", TrackingType.LIVING).build());
 
         reg.register(createEntry(EntityEarthWolf.class, "earth_wolf", TrackingType.LIVING).egg(0x895F21, 0x70AA4D)
                 // For reference: 5, 1, 1 are the parameters for the witch in vanilla
@@ -151,6 +152,7 @@ public class TalesEntities {
         registerRender(EntityMushroom.class, RenderMushroom::new);
         registerRender(EntityBigMushroom.class, RenderBigMushroom::new);
         registerRender(EntityEnvenomedBlade.class, RenderEnvenomedBlade::new);
+        registerRender(EntityTenebria.class, RenderTenebria::new);
 
         // Not animated:
         RenderingRegistry.registerEntityRenderingHandler(EntityLightningSpider.class, RenderLightningSpider::new);
