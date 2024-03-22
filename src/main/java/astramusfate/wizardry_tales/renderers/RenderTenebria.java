@@ -16,6 +16,7 @@ public class RenderTenebria extends GeoEntityRenderer<EntityTenebria> {
 
 	@Override
 	public void doRender(@Nonnull EntityTenebria entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		this.renderName(entity, x, y, z);
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

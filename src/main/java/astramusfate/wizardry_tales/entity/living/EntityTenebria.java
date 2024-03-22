@@ -19,6 +19,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -44,10 +45,12 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
         this.setSize(0.6F, 1.8F);
         this.spawnOnDeath = false;
         this.hurtTime = 0;
+        this.setAlwaysRenderNameTag(true);
+        this.setCustomNameTag("Tenebria");
     }
 
     @Override
-    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
+    public boolean isPotionApplicable(@Nonnull PotionEffect potioneffectIn) {
         return false;
     }
 
@@ -174,12 +177,6 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
 
     @Override
     public boolean getCanSpawnHere(){
-        if (super.getCanSpawnHere()){
-            BlockPos blockpos = new BlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
-            Biome biome = this.world.getBiome(blockpos);
-            return Arrays.stream(Tales.toResourceLocations(Tales.entities.mushroomBiomeWhitelist))
-                    .anyMatch(e -> biome.getRegistryName() == e);
-        }
         return false;
     }
 }

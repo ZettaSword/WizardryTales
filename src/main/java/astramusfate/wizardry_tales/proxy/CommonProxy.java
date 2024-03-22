@@ -54,6 +54,7 @@ public class CommonProxy
 
     public void registerKeyBindings(){}
     public void registerParticles(){}
+    public void registerExtraHandbookContent() {}
 
     public EntityPlayer getPlayerEntity(MessageContext ctx) {
         return ctx.getServerHandler().player;

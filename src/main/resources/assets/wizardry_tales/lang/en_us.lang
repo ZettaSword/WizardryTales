@@ -118,6 +118,7 @@ entity.wizardry_tales:thunder_wolf.name=Thunder Wolf
 entity.wizardry_tales:spell_witch.name=Spellcasting Witch
 entity.wizardry_tales:midnight_trader.name=Midnight Trader
 entity.wizardry_tales:midnight_guard.name=Midnight Guard
+entity.wizardry_tales:tenebria.name=Tenebria
 
 # Talking
 entity.talk=<%s>: %s

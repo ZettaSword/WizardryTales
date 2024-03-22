@@ -119,6 +119,10 @@ public class Aterna {
         caster.sendMessage(new TextComponentString("<" + name + ">: " + message));
     }
 
+    public static void dialogue(EntityPlayer caster, TextFormatting formatting, String name, String message){
+        caster.sendMessage(new TextComponentString(formatting + "<" + name + ">: " + message));
+    }
+
     /** Returns Text Formatting color of element for you! **/
     public static TextFormatting getColor(Element element){
         return element.getColour().getColor();

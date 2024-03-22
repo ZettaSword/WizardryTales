@@ -12,6 +12,7 @@ import astramusfate.wizardry_tales.renderers.GuiTalesSpellDisplay;
 import astramusfate.wizardry_tales.renderers.layers.*;
 import astramusfate.wizardry_tales.registry.TalesBlocks;
 import astramusfate.wizardry_tales.registry.TalesEntities;
+import electroblob.wizardry.client.gui.handbook.GuiWizardHandbook;
 import electroblob.wizardry.client.particle.*;
 import electroblob.wizardry.util.ParticleBuilder;
 import net.minecraft.client.Minecraft;
@@ -161,6 +162,11 @@ public class ClientProxy extends CommonProxy {
     public void registerParticles(){
         // I'll be a good programmer and use the API method rather than the one above. Lead by example, as they say...
         ParticleWizardry.registerParticle(ParticlesCreator.Type.RING, ParticleRing::new);
+    }
+
+    @Override
+    public void registerExtraHandbookContent() {
+        GuiWizardHandbook.registerAddonHandbookContent(WizardryTales.MODID);
     }
 
     @Override

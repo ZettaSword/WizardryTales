@@ -2,11 +2,14 @@ package astramusfate.wizardry_tales.events;
 
 import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.*;
+import astramusfate.wizardry_tales.api.classes.IRendaCreature;
 import astramusfate.wizardry_tales.data.EventsBase;
 import astramusfate.wizardry_tales.data.Tales;
 import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.Mana;
 import astramusfate.wizardry_tales.data.cap.SoulProvider;
+import astramusfate.wizardry_tales.entity.ai.EntityAIFollowCaster;
+import astramusfate.wizardry_tales.entity.ai.EntityAIFollowCasterNoTp;
 import astramusfate.wizardry_tales.registry.TalesEffects;
 import com.google.common.collect.Lists;
 import electroblob.wizardry.block.BlockBookshelf;
@@ -37,6 +40,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.ai.EntityAIFollow;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
@@ -62,6 +66,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
@@ -86,6 +91,16 @@ import static astramusfate.wizardry_tales.data.ChantWorker.useMana;
 
 @Mod.EventBusSubscriber(modid = WizardryTales.MODID)
 public class EventsHandler extends EventsBase {
+
+    @SubscribeEvent
+    public static void onEntityJoinGiveTasks(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof EntityLiving){
+            EntityLiving entity = (EntityLiving) event.getEntity();
+            if (entity instanceof ISummonedCreature) {
+                entity.tasks.addTask(6, new EntityAIFollowCasterNoTp((ISummonedCreature) entity,entity, 1.0F, 3, 20));
+            }
+        }
+    }
 
     @SideOnly(Side.SERVER)
     @SubscribeEvent()

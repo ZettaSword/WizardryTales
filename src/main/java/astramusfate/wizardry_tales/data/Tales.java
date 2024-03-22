@@ -399,6 +399,10 @@ public class Tales {
         @Config.Comment("If enabled - Then all monsters will have leveling system which can make game harder. Is made specifically for player stats system.")
         @Config.Name("Monsters Leveling")
         public boolean monsters_leveling=true;
+
+        @Config.Comment("If enabled - Then all summons will try to follow caster if possible.")
+        @Config.Name("Summon follows Caster")
+        public boolean summons_follow=true;
     }
 
     @Config.Comment("Change their frequency, or allowed dimensions")

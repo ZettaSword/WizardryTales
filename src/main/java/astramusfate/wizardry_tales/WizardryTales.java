@@ -70,6 +70,7 @@ public class WizardryTales {
 
         proxy.registerResourceReloadListeners();
         proxy.registerKeyBindings();
+        proxy.registerExtraHandbookContent();
 
         GeckoLib.initialize();
     }

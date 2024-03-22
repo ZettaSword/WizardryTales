@@ -69,6 +69,7 @@ public class StatEvents extends EventsBase {
                 145, 180);
 
         Arcanist.push();
+        Minecraft.getMinecraft().fontRenderer.drawString(player.getDisplayNameString(), left + 45, y + 22, 0x0D1228);
         Minecraft.getMinecraft().fontRenderer.drawString("Health Points: " + (int)(player.getHealth()) + "/" + (int)((player.getMaxHealth())), left + 20, y + 50, 0x902C2E);
         Minecraft.getMinecraft().fontRenderer.drawString("Mana Points: " + (int)(Math.floor(soul.getMP())) + "/" + (int)(Math.floor(soul.getMaxMP())), left + 20, y + 70, 0x1D2A60);
 

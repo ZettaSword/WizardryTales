@@ -1,0 +1,86 @@
+{
+	"bookmark_start_section": "wizardry_tales",
+	"colours": {
+		"text": "#000000",
+		"caption": "#666666",
+		"hyperlink": "#601ba0",
+		"highlight": "#dd4c1d",
+		"new_section": "#aaaaaa"
+	},
+	"images": {
+	},
+	"recipes": {
+
+	},
+	"sections": {
+		"wizardry_tales": {
+			"title": "Tales",
+			"include_in_contents": "main_contents",
+			"contents": {
+				"id": "wizardry_tales",
+				"hyperlinks": true,
+				"page_numbers": true,
+				"separator": "."
+			},
+			"triggers": [
+				"ebwizardry:on_subsection_unlock"
+			]
+		},
+		"mana_pool": {
+			"title": "Mana Pool",
+			"include_in_contents": "wizardry_tales",
+			"text": [
+				"Your Mana Pool is the amount of Mana your soul can gather and input into your body. Most Wizards nowadays can feel their mana pool as a bar of 10 spheres, which approximately shows the amount of mana in your body- one sphere is about 10% of your Mana Pool.",
+				"Your Mana Pool will grow with each usage- constant use of your Mana Pool causes your body to adapt and slowly be able to collect more Mana from its surroundings. But, there is a limit to how much Mana our physical bodies can hold, No matter if your race is Fairy, Dwarf or any others - this can't be changed as long as you are bound to your physical form.",
+				"In the old times, there was another social use for Mana- Wizards used their magic to make contracts with powerful, incorporeal souls that have no physical body. These rituals have since been lost to time, and nowadays Wizards use their Mana Pool to activate spells engraved in different items.",
+				"Magical items like magic wands usually can hold more than one spell, while usual items can only hold one. Usual items can be enchanted with a spell, and the process is named Artifice. This is method of own artefacts creation.",
+				"You can replenish your mana pool with mana flasks, you just need to exchange usual one into inner one, using any crafting grid available."
+			]
+		},
+		"gods": {
+			"title": "Gods",
+			"include_in_contents": "wizardry_tales",
+			"text": [
+				"Initially, by the words of ancient wizards, this world were not elemental, and had magic of all sorts and kind, but with time, the Chronos, god of Time and Space divided world by elements, and banned some properties in energy from appearing. From that time, our world became elemental.",
+				"Here are described different Gods. How they behave, and what they do.",
+				"God of Fire and Destruction - Blaze, is hardworking god, which blacksmiths powerful gear, and burns to ash all his enemies. He is aggressive, but very fair.",
+				"God of Ice and Discipline - Arcticus, his face doesn't shows any emotions, but there are rumors that he's very emotional. He is very careful, and is perfectionist.",
+				"Goddess of Nature, and Earth - Selena, is the one who meets alongside with Aterna newborn Spirits, she looks like very kind of person, but she is very impulsive if something will anger her.",
+				"God of Thunder, and Lightning - Ashura, is god of inventions and ideas, he is ambitious, and has the aura of a leader among 7 gods.",
+				"Goddess of Healing, and Protection - Lux, is known also as Goddess of Protection, she is fair, but she wants her followers to share her wisdom and religion with everyone.",
+				"Goddess of Darkness and Souls - Tenebria, loves to play pranks at her followers, and she controls how souls of other worlds get in here. There are rumors that sometimes she transfers soul from other world by herself and claims person as Hero.",
+				"The God of Sorcery and Artifice - Chronos, the one, who tries to control passage of mana towards physical world.",
+				"Arcane Goddess of Knowledge - Yuna, is known for her knowledge and wisdom. She's very hideous.",
+				"There are a lot more Gods, but there is not enough information about them."
+			]
+		},
+		"heroes": {
+			"title": "Heroes",
+			"include_in_contents": "wizardry_tales",
+			"text": [
+				"Once there were a peaceful world, where we lived together with all the elemental creatures of all kinds, and where were no monsters. It was world with freedom of Magic, some very powerful Wizards were able to move mountains and shift continents.",
+				"But, that's where calamity began. Veil of Eternity were summoned, and Monsters flooded the world. Civilizations died because of how powerful those were.",
+				"That's where once proud of themselves, creatures of this world, started praying all together to the different spirits of the elements. And those were spirits that we know nowadays as Gods.",
+				"Gods helped us to fight off the Veil, and to protect our world, even if our civilizations were ravished.",
+				"Tenebria, Goddess of Souls, were helping lost souls of other worlds to be transferred here. Some of them we now call Heroes. And some, became Gods.",
+				"And so, Era of Heroes began. They protected our land, as their owns, they believed in our world, and their power were unmatched.",
+				"Even when they died, Tenebria gave them one more chance to live, reviving their dead body. That's how we defended our world, and that's how the Veil was stopped.",
+				"All we know, is that the Veil is now sealed in other dimension where no one ever lived."
+			]
+		},
+		"stats": {
+			"title": "Stats",
+			"include_in_contents": "wizardry_tales",
+			"text": [
+				"Gods support every creature of this world, including us, that's why we have Stats, which we can see with Status Card.",
+				"Monsters do also have stats, though, their whole status for us is unknown, and we can only identify part of their stats.",
+				"In status card, you can see HP, which stands for Hit Points. Those reflect relative state of your physical body.",
+				"MP stands for Mana Points, which are used for Magic. Those reflect your mana pool. You can get bigger mana pool by practicing magic slowly.",
+				"Strength is stat, that gives some additional damage to your melee attacks. Hurting monsters is the best way to increase it.",
+				"Constitution is stat, that makes you get less damage. Trained by getting damage to your body. So, it reflects how well your body handles wounds.",
+				"Agility is stat, that gives you better sprinting capabilities. Trained by running. Reflects capabilities of your body to sustain itself when you run.",
+				"Intelligence is stat, that allows to deal more magical damage. Trained by spell-casting. Reflects how your body behaves with Mana when using it."
+			]
+		}
+	}
+}
