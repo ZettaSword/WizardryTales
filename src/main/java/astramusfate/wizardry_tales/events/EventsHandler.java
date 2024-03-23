@@ -94,7 +94,7 @@ public class EventsHandler extends EventsBase {
 
     @SubscribeEvent
     public static void onEntityJoinGiveTasks(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof EntityLiving){
+        if (Tales.addon.summons_follow && event.getEntity() instanceof EntityLiving){
             EntityLiving entity = (EntityLiving) event.getEntity();
             if (entity instanceof ISummonedCreature) {
                 entity.tasks.addTask(6, new EntityAIFollowCasterNoTp((ISummonedCreature) entity,entity, 1.0F, 3, 20));

@@ -13,6 +13,7 @@ import astramusfate.wizardry_tales.data.cap.StatIds;
 import astramusfate.wizardry_tales.registry.TalesItems;
 import electroblob.wizardry.client.DrawingUtils;
 import electroblob.wizardry.event.SpellCastEvent;
+import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.util.MagicDamage;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.client.Minecraft;
@@ -161,10 +162,15 @@ public class StatEvents extends EventsBase {
                     Aterna.dialogue(player, "Tenebria", "You'll need status card to see your stats");
                     Thief.addItem(player, new ItemStack(TalesItems.status_page, 1));
                 }
-                if (Tales.addon.first_enter_book){
+                if (Tales.addon.first_enter_book || Tales.addon.first_enter_book_ebw){
                     Aterna.dialogue(player, "Tenebria", "Oh, and also here's small gift from me! :)");
-                    if (WizardryTales.canCompat("patchouli"))
-                        Thief.addItem(player, ItemModBook.forBook("wizardry_tales:tales"));
+                    if (Tales.addon.first_enter_book) {
+                        if (WizardryTales.canCompat("patchouli"))
+                            Thief.addItem(player, ItemModBook.forBook("wizardry_tales:tales"));
+                    }
+                    if (Tales.addon.first_enter_book_ebw) {
+                        Thief.addItem(player, new ItemStack(WizardryItems.wizard_handbook, 1));
+                    }
                     ItemStack cookie = new ItemStack(TalesItems.tenebria_cookie, 1);
                     cookie.setStackDisplayName("Special Cookie");
                     Thief.addItem(player, cookie);

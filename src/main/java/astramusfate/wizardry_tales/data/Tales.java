@@ -344,6 +344,10 @@ public class Tales {
         @Config.Name("First enter Book")
         public boolean first_enter_book=true;
 
+        @Config.Comment("Should we give player EBWiz guidebook when player first time enters world?")
+        @Config.Name("First enter EBWiz Book")
+        public boolean first_enter_book_ebw=false;
+
         @Config.Comment("Should we give player Status card on first time?")
         @Config.Name("First enter Status Card")
         public boolean first_enter_status=true;
