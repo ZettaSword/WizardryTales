@@ -1,6 +1,7 @@
 package astramusfate.wizardry_tales.registry;
 
 import astramusfate.wizardry_tales.WizardryTales;
+import astramusfate.wizardry_tales.data.Tales;
 import astramusfate.wizardry_tales.items.TalesScroll;
 import astramusfate.wizardry_tales.spells.TalesSpells;
 import electroblob.wizardry.constants.Element;
@@ -110,6 +111,45 @@ public class TalesRecipes {
                 Ingredient.fromStacks(new ItemStack(WizardryItems.magic_crystal, 1, Element.SORCERY.ordinal())));
 
 
+        // Spellcasting Items
+        if(Tales.addon.magical_wands) {
+            shapedRecipe(TalesItems.wand_novice, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.MAGIC.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_fire, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.FIRE.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_ice, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.ICE.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_nature, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.EARTH.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_thunder, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.LIGHTNING.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_darkness, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.NECROMANCY.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_light, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.HEALING.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+            shapedRecipe(TalesItems.wand_novice_sorcery, "  S", " F ", "X  ",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.SORCERY.ordinal()), 'S', Items.STICK, 'F', WizardryItems.magic_silk);
+        }
+
+
+        if(Tales.addon.magical_grimoires){
+            shapedRecipe(TalesItems.grimoire_novice, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.MAGIC.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_fire, "XGX", " B ", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.FIRE.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_ice, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.ICE.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_nature, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.EARTH.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_thunder, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.LIGHTNING.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_darkness, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.NECROMANCY.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_light, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.HEALING.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+            shapedRecipe(TalesItems.grimoire_novice_sorcery, "XGX", "GBG", "XGX",
+                    'X', new ItemStack(WizardryItems.magic_crystal, 1, Element.SORCERY.ordinal()), 'B', Items.ENCHANTED_BOOK, 'G', Items.GOLD_NUGGET);
+        }
     }
 
     public static void shapedRecipe(Item result, @Nonnull Object... recipe){

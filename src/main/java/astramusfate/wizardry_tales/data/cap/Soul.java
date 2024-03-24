@@ -33,7 +33,8 @@ public class Soul implements ISoul {
  private Map<Spell, Integer> learnedSpells = new HashMap<>();
 
  @Override
- public void addMana(double add) { MP=Math.min(Math.max(MP + add, 0), maxMP);
+ public void addMana(double add) {
+     MP=Math.min(Math.max(MP + add, 0), maxMP);
  }
  @Override
  public void addMana(EntityPlayer player, double add) { MP=Math.min(Math.max(MP + add, 0), maxMP); syncMana(player, MP);

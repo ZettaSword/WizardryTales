@@ -97,7 +97,7 @@ public class EventsHandler extends EventsBase {
         if (Tales.addon.summons_follow && event.getEntity() instanceof EntityLiving){
             EntityLiving entity = (EntityLiving) event.getEntity();
             if (entity instanceof ISummonedCreature) {
-                entity.tasks.addTask(6, new EntityAIFollowCasterNoTp((ISummonedCreature) entity,entity, 1.0F, 3, 20));
+                entity.tasks.addTask(6, new EntityAIFollowCasterNoTp((ISummonedCreature) entity,entity, 1.5F, 2, 8));
             }
         }
     }
@@ -133,7 +133,8 @@ public class EventsHandler extends EventsBase {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void castCostReplacement(SpellCastEvent.Pre event){
         event.getModifiers().set(Sage.CHANT_COST, event.getModifiers().get(Sage.COST), true);
-        if (Tales.mp.noMoreManaUse && Tales.mp.manaPool && event.getCaster() instanceof EntityPlayerMP){
+        if (Tales.mp.noMoreManaUse &&  Tales.mp.manaPool &&  WizardryTales.hasPlayerMana
+                && event.getCaster() instanceof EntityPlayerMP){
             event.getModifiers().set(Sage.COST, 0.0F, true);
         }
     }
@@ -160,6 +161,17 @@ public class EventsHandler extends EventsBase {
         }
     }
 
+    @SubscribeEvent()
+    public static void compatMana(TickEvent.PlayerTickEvent event){
+        if(event.phase == TickEvent.Phase.START && Solver.doEvery(event.player, 5) && event.player instanceof EntityPlayerMP){
+            ISoul soul = event.player.getCapability(SoulProvider.SOUL_CAP, null);
+            if (soul == null || !WizardryTales.canCompat("player_mana")) return;
+            if(event.player.ticksExisted > 5) {
+                // TODO: Wait till WPM will start working.
+            }
+        }
+    }
+
     private static final List<SpellCastEvent.Source> sourceList = Lists.newArrayList(SpellCastEvent.Source.WAND,
             SpellCastEvent.Source.SCROLL, SpellCastEvent.Source.OTHER);
 
@@ -176,7 +188,7 @@ public class EventsHandler extends EventsBase {
                 }
                 if (soul == null) return;
 
-                if (isValid(spell) && !player.isCreative() && Tales.mp.manaPool) {
+                if (isValid(spell) && !player.isCreative() &&  Tales.mp.manaPool && WizardryTales.hasPlayerMana) {
                     double mana = soul.getMP();
 
                     // If there is not enough mana...
@@ -195,7 +207,7 @@ public class EventsHandler extends EventsBase {
             EntityPlayer player = (EntityPlayer) event.getCaster();
             ISoul soul = Mana.getSoul(player);
             Spell spell = event.getSpell();
-            if(soul != null && isValid(spell) && !player.isCreative() && Tales.mp.manaPool && player instanceof EntityPlayerMP) {
+            if(soul != null && isValid(spell) && !player.isCreative() &&  Tales.mp.manaPool && WizardryTales.hasPlayerMana && player instanceof EntityPlayerMP) {
                 double mana = soul.getMP();
 
                 // If there is not enough mana...
@@ -215,7 +227,7 @@ public class EventsHandler extends EventsBase {
             EntityPlayer player = (EntityPlayer) event.getCaster();
             ISoul soul = Mana.getSoul(player);
             Spell spell = event.getSpell();
-            if (soul != null && spell != Spells.none && spell.getCost() > 0  && Tales.mp.manaPool  && player instanceof EntityPlayerMP) {
+            if (soul != null && spell != Spells.none && spell.getCost() > 0  &&  Tales.mp.manaPool && WizardryTales.hasPlayerMana  && player instanceof EntityPlayerMP) {
                 WizardData data = WizardData.get(player);
                 if (data != null && data.hasSpellBeenDiscovered(spell)){
                     // Progress of learning the spell by this player
@@ -324,7 +336,7 @@ public class EventsHandler extends EventsBase {
                     return;
                 }
             }*/
-            if (soul != null && isValid(spell) && !player.isCreative() && Tales.mp.manaPool) {
+            if (soul != null && isValid(spell) && !player.isCreative() &&  Tales.mp.manaPool && WizardryTales.hasPlayerMana) {
                 double mana = soul.getMP();
                 if(mana < getCost(spell)) {
                     cancel(event);
@@ -338,7 +350,7 @@ public class EventsHandler extends EventsBase {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void gainManaPool(SpellCastEvent.Post event){
-        if(event.getCaster() instanceof EntityPlayerMP && !event.isCanceled() && sourceList.contains(event.getSource())  && Tales.mp.manaPool) {
+        if(event.getCaster() instanceof EntityPlayerMP && !event.isCanceled() && sourceList.contains(event.getSource())  &&  Tales.mp.manaPool && WizardryTales.hasPlayerMana) {
             EntityPlayer player = (EntityPlayer) event.getCaster();
             ISoul soul = Mana.getSoul(player);
             Spell spell = event.getSpell();
@@ -354,7 +366,7 @@ public class EventsHandler extends EventsBase {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void gainManaPoolContinuous(SpellCastEvent.Finish event){
         if(event.getCaster() instanceof EntityPlayerMP && !event.isCanceled() && sourceList.contains(event.getSource())
-                && event.getSpell().isContinuous && Tales.mp.manaPool) {
+                && event.getSpell().isContinuous &&  Tales.mp.manaPool && WizardryTales.hasPlayerMana) {
             EntityPlayer player = (EntityPlayer) event.getCaster();
             ISoul soul = Mana.getSoul(player);
             Spell spell = event.getSpell();

@@ -9,7 +9,7 @@ buildscript {
             url = 'https://files.minecraftforge.net/maven'
         }
         jcenter()
-        //maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
     dependencies {
@@ -25,7 +25,7 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: CurseMavenPlugin
 
-version = '2.2.4'
+version = '2.2.5'
 group = 'astramusfate.wizardry_tales' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'WizardryTales'
 
@@ -74,7 +74,11 @@ dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
 
     compile "vazkii.patchouli:Patchouli:${patchouli_version}"
+    compile fg.deobf("vazkii.botania:Botania:r1.10-364.4:api")
+    compile fg.deobf("vazkii.botania:Botania:r1.10-364.4")
     implementation fg.deobf("curse.maven:artemislib-${artemislib_projectid}:${artemislib_fileid}")
+    implementation fg.deobf("curse.maven:PlayerMana-${player_mana_projectid}:${player_mana_fileid}")
+
     //compile "curse.maven:ElectroblobsWizardry-${wizardry_projectid}:${wizardry_fileid}"
 }
 

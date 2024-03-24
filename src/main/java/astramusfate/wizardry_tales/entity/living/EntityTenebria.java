@@ -15,6 +15,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
@@ -134,10 +135,12 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
         if (getHealth() <= 9990) {
             if (!spawnOnDeath) {
                 if (!world.isRemote) {
-                    BlockPos blockpos = (new BlockPos(EntityTenebria.this)).add(1, 2, 1);
-                    EntityBat entitySpawn = new EntityBat(EntityTenebria.this.world);
-                    entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
-                    this.world.spawnEntity(entitySpawn);
+                    for(int i = 0; i < 10; i++) {
+                        BlockPos blockpos = (new BlockPos(EntityTenebria.this)).add(1, 2, 1);
+                        EntityBat entitySpawn = new EntityBat(EntityTenebria.this.world);
+                        entitySpawn.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+                        this.world.spawnEntity(entitySpawn);
+                    }
                 }
                 if (world.isRemote){
                     for(int i = 0; i < 20; i++){
@@ -178,5 +181,17 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
     @Override
     public boolean getCanSpawnHere(){
         return false;
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound p_70014_1_) {
+        super.writeEntityToNBT(p_70014_1_);
+        p_70014_1_.setBoolean("spawn_on_death", spawnOnDeath);
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound p_70020_1_) {
+        super.readEntityFromNBT(p_70020_1_);
+        this.spawnOnDeath = p_70020_1_.getBoolean("spawn_on_death");
     }
 }

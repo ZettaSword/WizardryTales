@@ -5,6 +5,8 @@ import astramusfate.wizardry_tales.items.*;
 import astramusfate.wizardry_tales.items.artefacts.ChantingCloak;
 import astramusfate.wizardry_tales.items.artefacts.ChantingRing;
 import astramusfate.wizardry_tales.items.artefacts.IceHalberd;
+import electroblob.wizardry.constants.Element;
+import electroblob.wizardry.constants.Tier;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.ItemBlockMultiTextured;
 import electroblob.wizardry.item.ItemManaFlask;
@@ -118,6 +120,174 @@ public final class TalesItems {
 	@GameRegistry.ObjectHolder("status_page")
 	public static final Item status_page = placeholder();
 
+	/** Casting Items **/
+
+	/** Staffs **/
+	@GameRegistry.ObjectHolder("staff_novice_magic")
+	public static final Item staff_novice_magic = placeholder();
+	@GameRegistry.ObjectHolder("staff_apprentice_magic")
+	public static final Item staff_apprentice_magic = placeholder();
+	@GameRegistry.ObjectHolder("staff_advanced_magic")
+	public static final Item staff_advanced_magic = placeholder();
+	@GameRegistry.ObjectHolder("staff_master_magic")
+	public static final Item staff_master_magic = placeholder();
+
+	@GameRegistry.ObjectHolder("staff_novice_light")
+	public static final Item staff_novice_light = placeholder();
+	@GameRegistry.ObjectHolder("staff_apprentice_light")
+	public static final Item staff_apprentice_light = placeholder();
+	@GameRegistry.ObjectHolder("staff_advanced_light")
+	public static final Item staff_advanced_light = placeholder();
+	@GameRegistry.ObjectHolder("staff_master_light")
+	public static final Item staff_master_light = placeholder();
+
+	/** Grimoires **/
+	@GameRegistry.ObjectHolder("grimoire_novice")
+	public static final Item grimoire_novice = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice")
+	public static final Item grimoire_apprentice = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced")
+	public static final Item grimoire_advanced = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master")
+	public static final Item grimoire_master = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_fire")
+	public static final Item grimoire_novice_fire = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_fire")
+	public static final Item grimoire_apprentice_fire = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_fire")
+	public static final Item grimoire_advanced_fire = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_fire")
+	public static final Item grimoire_master_fire = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_ice")
+	public static final Item grimoire_novice_ice = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_ice")
+	public static final Item grimoire_apprentice_ice = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_ice")
+	public static final Item grimoire_advanced_ice = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_ice")
+	public static final Item grimoire_master_ice = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_nature")
+	public static final Item grimoire_novice_nature = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_nature")
+	public static final Item grimoire_apprentice_nature = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_nature")
+	public static final Item grimoire_advanced_nature = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_nature")
+	public static final Item grimoire_master_nature = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_thunder")
+	public static final Item grimoire_novice_thunder = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_thunder")
+	public static final Item grimoire_apprentice_thunder = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_thunder")
+	public static final Item grimoire_advanced_thunder = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_thunder")
+	public static final Item grimoire_master_thunder = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_darkness")
+	public static final Item grimoire_novice_darkness = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_darkness")
+	public static final Item grimoire_apprentice_darkness = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_darkness")
+	public static final Item grimoire_advanced_darkness = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_darkness")
+	public static final Item grimoire_master_darkness = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_light")
+	public static final Item grimoire_novice_light = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_light")
+	public static final Item grimoire_apprentice_light = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_light")
+	public static final Item grimoire_advanced_light = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_light")
+	public static final Item grimoire_master_light = placeholder();
+
+	@GameRegistry.ObjectHolder("grimoire_novice_sorcery")
+	public static final Item grimoire_novice_sorcery = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_apprentice_sorcery")
+	public static final Item grimoire_apprentice_sorcery = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_advanced_sorcery")
+	public static final Item grimoire_advanced_sorcery = placeholder();
+	@GameRegistry.ObjectHolder("grimoire_master_sorcery")
+	public static final Item grimoire_master_sorcery = placeholder();
+
+	/** Magic Wands **/
+	@GameRegistry.ObjectHolder("m_wand_novice")
+	public static final Item wand_novice = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice")
+	public static final Item wand_apprentice = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced")
+	public static final Item wand_advanced = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master")
+	public static final Item wand_master = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_fire")
+	public static final Item wand_novice_fire = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_fire")
+	public static final Item wand_apprentice_fire = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_fire")
+	public static final Item wand_advanced_fire = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_fire")
+	public static final Item wand_master_fire = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_ice")
+	public static final Item wand_novice_ice = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_ice")
+	public static final Item wand_apprentice_ice = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_ice")
+	public static final Item wand_advanced_ice = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_ice")
+	public static final Item wand_master_ice = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_nature")
+	public static final Item wand_novice_nature = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_nature")
+	public static final Item wand_apprentice_nature = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_nature")
+	public static final Item wand_advanced_nature = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_nature")
+	public static final Item wand_master_nature = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_thunder")
+	public static final Item wand_novice_thunder = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_thunder")
+	public static final Item wand_apprentice_thunder = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_thunder")
+	public static final Item wand_advanced_thunder = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_thunder")
+	public static final Item wand_master_thunder = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_darkness")
+	public static final Item wand_novice_darkness = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_darkness")
+	public static final Item wand_apprentice_darkness = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_darkness")
+	public static final Item wand_advanced_darkness = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_darkness")
+	public static final Item wand_master_darkness = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_light")
+	public static final Item wand_novice_light = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_light")
+	public static final Item wand_apprentice_light = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_light")
+	public static final Item wand_advanced_light = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_light")
+	public static final Item wand_master_light = placeholder();
+
+	@GameRegistry.ObjectHolder("m_wand_novice_sorcery")
+	public static final Item wand_novice_sorcery = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_apprentice_sorcery")
+	public static final Item wand_apprentice_sorcery = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_advanced_sorcery")
+	public static final Item wand_advanced_sorcery = placeholder();
+	@GameRegistry.ObjectHolder("m_wand_master_sorcery")
+	public static final Item wand_master_sorcery = placeholder();
+
+
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 
@@ -158,6 +328,8 @@ public final class TalesItems {
 		reg.register(new ItemTenebriaCookie());
 		registerItem(reg, "status_page", new ItemTales(1));
 
+		registerSpellcastingItems(reg);
+
 		//registerItem(registry, "arcana_book", new ItemArcanaBook());
 	}
 
@@ -195,6 +367,200 @@ public final class TalesItems {
 		registryModel(infinite_summon);
 		registryModel(tenebria_cookie);
 		registryModel(status_page);
+
+		registerSpellcastingItemsModels();
+	}
+
+	public static void registerSpellcastingItems(IForgeRegistry<Item> reg){
+		//Artefacts
+
+		//reg.register(new MagicArtefact("three_casting", EnumRarity.RARE, Type.AMULET));
+
+		reg.register(new ItemGrimoire("grimoire_novice", Tier.NOVICE, Element.MAGIC));
+		reg.register(new ItemGrimoire("grimoire_apprentice", Tier.APPRENTICE, Element.MAGIC));
+		reg.register(new ItemGrimoire("grimoire_advanced", Tier.ADVANCED, Element.MAGIC));
+		reg.register(new ItemGrimoire("grimoire_master", Tier.MASTER, Element.MAGIC));
+
+		reg.register(new ItemGrimoire("grimoire_novice_fire", Tier.NOVICE, Element.FIRE));
+		reg.register(new ItemGrimoire("grimoire_apprentice_fire", Tier.APPRENTICE, Element.FIRE));
+		reg.register(new ItemGrimoire("grimoire_advanced_fire", Tier.ADVANCED, Element.FIRE));
+		reg.register(new ItemGrimoire("grimoire_master_fire", Tier.MASTER, Element.FIRE));
+
+		reg.register(new ItemGrimoire("grimoire_novice_ice", Tier.NOVICE, Element.ICE));
+		reg.register(new ItemGrimoire("grimoire_apprentice_ice", Tier.APPRENTICE, Element.ICE));
+		reg.register(new ItemGrimoire("grimoire_advanced_ice", Tier.ADVANCED, Element.ICE));
+		reg.register(new ItemGrimoire("grimoire_master_ice", Tier.MASTER, Element.ICE));
+
+		reg.register(new ItemGrimoire("grimoire_novice_nature", Tier.NOVICE, Element.EARTH));
+		reg.register(new ItemGrimoire("grimoire_apprentice_nature", Tier.APPRENTICE, Element.EARTH));
+		reg.register(new ItemGrimoire("grimoire_advanced_nature", Tier.ADVANCED, Element.EARTH));
+		reg.register(new ItemGrimoire("grimoire_master_nature", Tier.MASTER, Element.EARTH));
+
+		reg.register(new ItemGrimoire("grimoire_novice_thunder", Tier.NOVICE, Element.LIGHTNING));
+		reg.register(new ItemGrimoire("grimoire_apprentice_thunder", Tier.APPRENTICE, Element.LIGHTNING));
+		reg.register(new ItemGrimoire("grimoire_advanced_thunder", Tier.ADVANCED, Element.LIGHTNING));
+		reg.register(new ItemGrimoire("grimoire_master_thunder", Tier.MASTER, Element.LIGHTNING));
+
+		reg.register(new ItemGrimoire("grimoire_novice_darkness", Tier.NOVICE, Element.NECROMANCY));
+		reg.register(new ItemGrimoire("grimoire_apprentice_darkness", Tier.APPRENTICE, Element.NECROMANCY));
+		reg.register(new ItemGrimoire("grimoire_advanced_darkness", Tier.ADVANCED, Element.NECROMANCY));
+		reg.register(new ItemGrimoire("grimoire_master_darkness", Tier.MASTER, Element.NECROMANCY));
+
+		reg.register(new ItemGrimoire("grimoire_novice_light", Tier.NOVICE, Element.HEALING));
+		reg.register(new ItemGrimoire("grimoire_apprentice_light", Tier.APPRENTICE, Element.HEALING));
+		reg.register(new ItemGrimoire("grimoire_advanced_light", Tier.ADVANCED, Element.HEALING));
+		reg.register(new ItemGrimoire("grimoire_master_light", Tier.MASTER, Element.HEALING));
+
+		reg.register(new ItemGrimoire("grimoire_novice_sorcery", Tier.NOVICE, Element.SORCERY));
+		reg.register(new ItemGrimoire("grimoire_apprentice_sorcery", Tier.APPRENTICE, Element.SORCERY));
+		reg.register(new ItemGrimoire("grimoire_advanced_sorcery", Tier.ADVANCED, Element.SORCERY));
+		reg.register(new ItemGrimoire("grimoire_master_sorcery", Tier.MASTER, Element.SORCERY));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.MAGIC, "m_wand_novice"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.MAGIC, "m_wand_apprentice"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.MAGIC, "m_wand_advanced"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.MAGIC, "m_wand_master"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.FIRE, "m_wand_novice_fire"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.FIRE, "m_wand_apprentice_fire"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.FIRE, "m_wand_advanced_fire"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.FIRE, "m_wand_master_fire"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.ICE, "m_wand_novice_ice"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.ICE, "m_wand_apprentice_ice"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.ICE, "m_wand_advanced_ice"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.ICE, "m_wand_master_ice"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.EARTH, "m_wand_novice_nature"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.EARTH, "m_wand_apprentice_nature"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.EARTH, "m_wand_advanced_nature"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.EARTH, "m_wand_master_nature"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.LIGHTNING, "m_wand_novice_thunder"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.LIGHTNING, "m_wand_apprentice_thunder"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.LIGHTNING, "m_wand_advanced_thunder"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.LIGHTNING, "m_wand_master_thunder"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.NECROMANCY, "m_wand_novice_darkness"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.NECROMANCY, "m_wand_apprentice_darkness"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.NECROMANCY, "m_wand_advanced_darkness"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.NECROMANCY, "m_wand_master_darkness"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.HEALING, "m_wand_novice_light"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.HEALING, "m_wand_apprentice_light"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.HEALING, "m_wand_advanced_light"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.HEALING, "m_wand_master_light"));
+
+		reg.register(new SimpleCastingDevice(Tier.NOVICE, Element.SORCERY, "m_wand_novice_sorcery"));
+		reg.register(new SimpleCastingDevice(Tier.APPRENTICE, Element.SORCERY, "m_wand_apprentice_sorcery"));
+		reg.register(new SimpleCastingDevice(Tier.ADVANCED, Element.SORCERY, "m_wand_advanced_sorcery"));
+		reg.register(new SimpleCastingDevice(Tier.MASTER, Element.SORCERY, "m_wand_master_sorcery"));
+
+		reg.register(new ItemStaff(Tier.NOVICE, Element.MAGIC, "staff_novice_magic"));
+		reg.register(new ItemStaff(Tier.APPRENTICE, Element.MAGIC,"staff_apprentice_magic"));
+		reg.register(new ItemStaff(Tier.ADVANCED, Element.MAGIC,"staff_advanced_magic"));
+		reg.register(new ItemStaff(Tier.MASTER, Element.MAGIC,"staff_master_magic"));
+
+		reg.register(new ItemStaff(Tier.NOVICE, Element.HEALING, "staff_novice_light"));
+		reg.register(new ItemStaff(Tier.APPRENTICE, Element.HEALING,"staff_apprentice_light"));
+		reg.register(new ItemStaff(Tier.ADVANCED, Element.HEALING,"staff_advanced_light"));
+		reg.register(new ItemStaff(Tier.MASTER, Element.HEALING,"staff_master_light"));
+	}
+
+	public static void registerSpellcastingItemsModels(){
+		// Grimoires
+		registryModel(grimoire_novice);
+		//grimoire_novice.setTileEntityItemStackRenderer(new ItemGrimoireRender());
+		registryModel(grimoire_apprentice);
+		registryModel(grimoire_advanced);
+		registryModel(grimoire_master);
+
+		registryModel(grimoire_novice_fire);
+		registryModel(grimoire_apprentice_fire);
+		registryModel(grimoire_advanced_fire);
+		registryModel(grimoire_master_fire);
+
+		registryModel(grimoire_novice_ice);
+		registryModel(grimoire_apprentice_ice);
+		registryModel(grimoire_advanced_ice);
+		registryModel(grimoire_master_ice);
+
+		registryModel(grimoire_novice_nature);
+		registryModel(grimoire_apprentice_nature);
+		registryModel(grimoire_advanced_nature);
+		registryModel(grimoire_master_nature);
+
+		registryModel(grimoire_novice_thunder);
+		registryModel(grimoire_apprentice_thunder);
+		registryModel(grimoire_advanced_thunder);
+		registryModel(grimoire_master_thunder);
+
+		registryModel(grimoire_novice_darkness);
+		registryModel(grimoire_apprentice_darkness);
+		registryModel(grimoire_advanced_darkness);
+		registryModel(grimoire_master_darkness);
+
+		registryModel(grimoire_novice_light);
+		registryModel(grimoire_apprentice_light);
+		registryModel(grimoire_advanced_light);
+		registryModel(grimoire_master_light);
+
+		registryModel(grimoire_novice_sorcery);
+		registryModel(grimoire_apprentice_sorcery);
+		registryModel(grimoire_advanced_sorcery);
+		registryModel(grimoire_master_sorcery);
+
+		// Wands
+		registryModel(wand_novice);
+		registryModel(wand_apprentice);
+		registryModel(wand_advanced);
+		registryModel(wand_master);
+
+		registryModel(wand_novice_fire);
+		registryModel(wand_apprentice_fire);
+		registryModel(wand_advanced_fire);
+		registryModel(wand_master_fire);
+
+		registryModel(wand_novice_ice);
+		registryModel(wand_apprentice_ice);
+		registryModel(wand_advanced_ice);
+		registryModel(wand_master_ice);
+
+		registryModel(wand_novice_nature);
+		registryModel(wand_apprentice_nature);
+		registryModel(wand_advanced_nature);
+		registryModel(wand_master_nature);
+
+		registryModel(wand_novice_thunder);
+		registryModel(wand_apprentice_thunder);
+		registryModel(wand_advanced_thunder);
+		registryModel(wand_master_thunder);
+
+		registryModel(wand_novice_darkness);
+		registryModel(wand_apprentice_darkness);
+		registryModel(wand_advanced_darkness);
+		registryModel(wand_master_darkness);
+
+		registryModel(wand_novice_light);
+		registryModel(wand_apprentice_light);
+		registryModel(wand_advanced_light);
+		registryModel(wand_master_light);
+
+		registryModel(wand_novice_sorcery);
+		registryModel(wand_apprentice_sorcery);
+		registryModel(wand_advanced_sorcery);
+		registryModel(wand_master_sorcery);
+
+		// Staffs
+		registryModel(staff_novice_magic);
+		registryModel(staff_apprentice_magic);
+		registryModel(staff_advanced_magic);
+		registryModel(staff_master_magic);
+
+		registryModel(staff_novice_light);
+		registryModel(staff_apprentice_light);
+		registryModel(staff_advanced_light);
+		registryModel(staff_master_light);
 	}
 
 	// below registry methods are courtesy of EB

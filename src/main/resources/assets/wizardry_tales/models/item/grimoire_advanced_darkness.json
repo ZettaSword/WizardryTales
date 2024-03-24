@@ -1,0 +1,17 @@
+{
+	"credit": "Made with Blockbench",
+	"overrides": [
+		{
+			"predicate": {
+				"open": 0
+			},
+			"model": "wizardry_tales:item/base/grimoire_closed_4"
+		},
+		{
+			"predicate": {
+				"open": 1
+			},
+			"model": "wizardry_tales:item/base/grimoire_open_4"
+		}
+	]
+}

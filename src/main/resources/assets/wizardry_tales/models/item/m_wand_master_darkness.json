@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "wizardry_tales:items/wands/wand_darkness"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "this_gets_ignored": 1
+      },
+      "model": "ebwizardry:item/override_generators/wand"
+    }
+  ]
+}

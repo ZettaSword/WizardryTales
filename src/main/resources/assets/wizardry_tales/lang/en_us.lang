@@ -251,3 +251,91 @@ spell.wizardry_tales:teleportation_curse.desc=Causes the target to be randomly t
 spell.wizardry_tales:mana_bomb=Mana Bomb
 spell.wizardry_tales:mana_bomb.desc=Throws a Mana Bomb that releases gas on impact, causing random elemental reactions in the target.
 
+# Spellcasting Items
+
+item.m_wand_novice.name=Magic Wand
+item.m_wand_apprentice.name=Apprentice Wand
+item.m_wand_advanced.name=Advanced Wand
+item.m_wand_master.name=Master Wand
+
+item.m_wand_novice_fire.name=Wand of Embers
+item.m_wand_novice_ice.name=Wand of Frost
+item.m_wand_novice_thunder.name=Wand of Sparks
+item.m_wand_novice_darkness.name=Wand of Shadows
+item.m_wand_novice_nature.name=Wand of the Forest
+item.m_wand_novice_sorcery.name=Wand of Mystery
+item.m_wand_novice_light.name=Wand of Healing
+
+item.m_wand_apprentice_fire.name=Apprentice Pyromancer Wand
+item.m_wand_apprentice_ice.name=Apprentice Ice Mage Wand
+item.m_wand_apprentice_thunder.name=Apprentice Storm Mage Wand
+item.m_wand_apprentice_darkness.name=Apprentice Necromancer Wand
+item.m_wand_apprentice_nature.name=Apprentice Nature Mage Wand
+item.m_wand_apprentice_sorcery.name=Apprentice Sorcerer Wand
+item.m_wand_apprentice_light.name=Apprentice Healer Wand
+
+item.m_wand_advanced_fire.name=Wand of the Pyromancer
+item.m_wand_advanced_ice.name=Wand of the Ice Mage
+item.m_wand_advanced_thunder.name=Wand of the Storm Mage
+item.m_wand_advanced_darkness.name=Wand of the Necromancer
+item.m_wand_advanced_nature.name=Wand of the Nature Mage
+item.m_wand_advanced_sorcery.name=Wand of the Sorcerer
+item.m_wand_advanced_light.name=Wand of the Healer
+
+item.m_wand_master_fire.name=Master Pyromancer Wand
+item.m_wand_master_ice.name=Master Ice Mage Wand
+item.m_wand_master_thunder.name=Master Storm Mage Wand
+item.m_wand_master_darkness.name=Master Necromancer Wand
+item.m_wand_master_nature.name=Master Nature Mage Wand
+item.m_wand_master_sorcery.name=Master Sorcerer Wand
+item.m_wand_master_light.name=Master Healer Wand
+
+item.staff_novice_magic.name=Magic Staff
+item.staff_apprentice_magic.name=Apprentice Staff
+item.staff_advanced_magic.name=Advanced Staff
+item.staff_master_magic.name=Master Staff
+
+item.staff_novice_light.name=Staff of Healing
+item.staff_apprentice_light.name=Apprentice Healer Staff
+item.staff_advanced_light.name=Staff of the Healer
+item.staff_master_light.name=Master Healer Staff
+
+item.wizardry_tales:grimoire_novice.name=Novice Grimoire
+item.wizardry_tales:grimoire_apprentice.name=Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced.name=Mage Grimoire
+item.wizardry_tales:grimoire_master.name=Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_fire.name=Salamander's Novice Grimoire
+item.wizardry_tales:grimoire_apprentice_fire.name=Salamander's Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced_fire.name=Salamander's Mage Grimoire
+item.wizardry_tales:grimoire_master_fire.name=Salamander's Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_ice.name=Alevit's Novice Grimoire
+item.wizardry_tales:grimoire_apprentice_ice.name=Alevit's Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced_ice.name=Alevit's Mage Grimoire
+item.wizardry_tales:grimoire_master_ice.name=Alevit's Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_nature.name=Selena's Novice Grimoire
+item.wizardry_tales:grimoire_apprentice_nature.name=Selena's Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced_nature.name=Selena's Mage Grimoire
+item.wizardry_tales:grimoire_master_nature.name=Selena's Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_thunder.name=Spectra's Novice Grimoire
+item.wizardry_tales:grimoire_apprentice_thunder.name=Spectra's Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced_thunder.name=Spectra's Mage Grimoire
+item.wizardry_tales:grimoire_master_thunder.name=Spectra's Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_darkness.name=Grim's Novice Grimoire
+item.wizardry_tales:grimoire_apprentice_darkness.name=Grim's Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced_darkness.name=Grim's Mage Grimoire
+item.wizardry_tales:grimoire_master_darkness.name=Grim's Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_light.name=Aterna's Novice Grimoire
+item.wizardry_tales:grimoire_apprentice_light.name=Aterna's Apprentice Grimoire
+item.wizardry_tales:grimoire_advanced_light.name=Aterna's Mage Grimoire
+item.wizardry_tales:grimoire_master_light.name=Aterna's Archmage Grimoire
+
+item.wizardry_tales:grimoire_novice_sorcery.name=Flavius Utility Grimoire
+item.wizardry_tales:grimoire_apprentice_sorcery.name=Flavius Apprentice Utils Grimoire
+item.wizardry_tales:grimoire_advanced_sorcery.name=Flavius Mage Utils Grimoire
+item.wizardry_tales:grimoire_master_sorcery.name=Flavius Archmage Utils Grimoire

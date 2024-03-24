@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "wizardry_tales:items/grimoires/api/pages",
+		"1": "wizardry_tales:items/grimoires/grimoire",
+		"2": "wizardry_tales:items/grimoires/api/gold",
+		"particle": "wizardry_tales:items/grimoires/api/pages"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"open": 0
+			},
+			"model": "wizardry_tales:item/base/grimoire_closed"
+		},
+		{
+			"predicate": {
+				"open": 1
+			},
+			"model": "wizardry_tales:item/base/grimoire_open"
+		}
+	]
+}

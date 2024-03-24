@@ -1,7 +1,9 @@
 package astramusfate.wizardry_tales.data;
 
+import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.Aterna;
 import astramusfate.wizardry_tales.api.classes.IChestManaCollector;
+import astramusfate.wizardry_tales.api.wizardry.ManaExplorer;
 import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.SoulProvider;
 import astramusfate.wizardry_tales.data.chanting.SpellParam;
@@ -35,20 +37,24 @@ public class ChantWorker extends EventsBase implements Lexicon {
 
     public static boolean useMana(Entity focal, double cost, boolean addProgress){
         if (cost < 0) cost *= -1;
-        if (!Tales.mp.manaPool) return true;
-        cost*= Tales.mp.chant_multiplier;
-        if (focal instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) focal;
-            return collectMana(player, cost, addProgress);
-        } else {
-            if (focal instanceof EntityMagic) {
-                EntityMagic magic = (EntityMagic) focal;
-                if (magic.getCaster() instanceof EntityPlayer) {
-                    if (chestUseMana(magic, cost)) return true;
-                    EntityPlayer player = (EntityPlayer) magic.getCaster();
-                    return collectMana(player, cost, addProgress);
+        if (!WizardryTales.hasPlayerMana){
+            if (!Tales.mp.manaPool) return true;
+            cost*= Tales.mp.chant_multiplier;
+            if (focal instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) focal;
+                return collectMana(player, cost, addProgress);
+            } else {
+                if (focal instanceof EntityMagic) {
+                    EntityMagic magic = (EntityMagic) focal;
+                    if (magic.getCaster() instanceof EntityPlayer) {
+                        if (chestUseMana(magic, cost)) return true;
+                        EntityPlayer player = (EntityPlayer) magic.getCaster();
+                        return collectMana(player, cost, addProgress);
+                    }
                 }
             }
+        }else{
+            return ManaExplorer.useMana(focal, cost, addProgress);
         }
 
         return false;

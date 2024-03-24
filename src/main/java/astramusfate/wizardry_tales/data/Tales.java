@@ -407,6 +407,16 @@ public class Tales {
         @Config.Comment("If enabled - Then all summons will try to follow caster if possible.")
         @Config.Name("Summon follows Caster")
         public boolean summons_follow=true;
+
+        @Config.RequiresMcRestart
+        @Config.Comment("They looks different, and you can craft them easier, and, that's all! They're same as usual, but not require gold to create!")
+        @Config.Name("New Magical Wands")
+        public boolean magical_wands=true;
+
+        @Config.RequiresMcRestart
+        @Config.Comment("Magical Grimoires!")
+        @Config.Name("New Magical Grimoires")
+        public boolean magical_grimoires=true;
     }
 
     @Config.Comment("Change their frequency, or allowed dimensions")
@@ -595,6 +605,11 @@ public class Tales {
         @Config.Comment("Compat with Artemis lib, to allow changing player size with races/etc. (if false, there be no races such as Goblins for example)")
         @Config.Name("Artemis Lib")
         public boolean artemis_lib = true;
+
+        @Config.RequiresMcRestart
+        @Config.Comment("Compat with botania, adds some recipes to get various materials.")
+        @Config.Name("Botania")
+        public boolean botania = true;
     }
 
     @Config.Comment("Take in mind some features locked if you have no ArtemisLib installed!")

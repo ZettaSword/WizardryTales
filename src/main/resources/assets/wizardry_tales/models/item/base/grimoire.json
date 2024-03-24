@@ -1,0 +1,16 @@
+{
+  "overrides": [
+    {
+      "predicate": {
+        "open": 0
+      },
+      "model": "wizardry_tales:item/base/grimoire_closed"
+    },
+    {
+      "predicate": {
+        "open": 1
+      },
+      "model": "wizardry_tales:item/base/grimoire_open"
+    }
+  ]
+}

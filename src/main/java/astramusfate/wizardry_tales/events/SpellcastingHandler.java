@@ -458,6 +458,7 @@ public class SpellcastingHandler extends EventsBase implements Lexicon {
     public static void onEntityShowcase(RenderGameOverlayEvent.Post event){
         if (event.getType() != RenderGameOverlayEvent.ElementType.FOOD) return;
         if (!Tales.mp.manaPool || !Tales.mp.manaPoolBar) return;
+        if (WizardryTales.hasPlayerMana) return;
 
         EntityPlayerSP player = Minecraft.getMinecraft().player;
 
