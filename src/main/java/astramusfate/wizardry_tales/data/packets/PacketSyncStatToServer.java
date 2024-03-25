@@ -41,7 +41,7 @@ public class PacketSyncStatToServer implements IMessage
                 player.getServerWorld().addScheduledTask(() -> {
                   ISoul soul = Mana.getSoul(player);
                   if (soul != null){
-                      soul.setStat(player, StatIds.status, message.stat);
+                      soul.setStat(player, message.id, message.stat);
                   }
                 });
             }

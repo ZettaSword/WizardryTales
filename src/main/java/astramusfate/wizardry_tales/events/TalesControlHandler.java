@@ -260,7 +260,7 @@ public class TalesControlHandler {
 
 	private static void openStatus(int status){
 		// Packet building
-		IMessage msg = new PacketSyncStatToServer(StatIds.status, status);
+		IMessage msg = new PacketSyncStatToServer(-1, status);
 		PacketMagic.net.sendToServer(msg);
 	}
 

@@ -57,7 +57,7 @@ public class CapabilityHandler
             soul.setStat(current, StatIds.agi_id, oldSoul.getStat(StatIds.agi_id));
             soul.setStat(current, StatIds.int_id, oldSoul.getStat(StatIds.int_id));
             soul.setStat(current, StatIds.first_enter, oldSoul.getStat(StatIds.first_enter));
-            soul.setStat(current, StatIds.status, oldSoul.getStat(StatIds.status));
+            soul.setStat(current, StatIds.god, oldSoul.getStat(StatIds.god));
         }
         soul.setCooldown(current, oldSoul.getCooldown());
         soul.setMode(current, oldSoul.getMode());
@@ -76,7 +76,7 @@ public class CapabilityHandler
         tags.setInteger("agi", soul.getStat(StatIds.agi_id));
         tags.setInteger("int", soul.getStat(StatIds.int_id));
         tags.setInteger("first_enter", soul.getStat(StatIds.first_enter));
-        tags.setInteger("status", soul.getStat(StatIds.status));
+        tags.setInteger("god", soul.getStat(StatIds.god));
 
         WizardData data = WizardData.get(current);
         if (data != null) data.discoverSpell(TalesSpells.chanting);
@@ -105,7 +105,7 @@ public class CapabilityHandler
                 soul.setStat(player, StatIds.agi_id, tags.getInteger("agi"));
                 soul.setStat(player, StatIds.int_id, tags.getInteger("int"));
                 soul.setStat(player, StatIds.first_enter, tags.getInteger("first_enter"));
-                soul.setStat(player, StatIds.status, tags.getInteger("status"));
+                soul.setStat(player, StatIds.god, tags.getInteger("god"));
             }
 
             if (Tales.addon.debug && player.world != null && !player.world.isRemote) {
@@ -135,7 +135,7 @@ public class CapabilityHandler
             tags.setInteger("agi", soul.getStat(StatIds.agi_id));
             tags.setInteger("int", soul.getStat(StatIds.int_id));
             tags.setInteger("first_enter", soul.getStat(StatIds.first_enter));
-            tags.setInteger("status", soul.getStat(StatIds.status));
+            tags.setInteger("god", soul.getStat(StatIds.god));
         }
     }
 }

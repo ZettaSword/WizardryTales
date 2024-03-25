@@ -28,11 +28,11 @@ import software.bernie.geckolib3.GeckoLib;
 @Mod(modid = WizardryTales.MODID, name = WizardryTales.NAME, version = WizardryTales.VERSION, dependencies =
         "required-after:ebwizardry@[4.3.11,);required-after:forge@[14.23.5.2847,);required-after:baubles@[1.5.2,);" +
                 "required-after:geckolib3@[3.0.3,);required-after:patchouli@[1.0-23.6,);required-after:potioncore@[1.9,);" +
-                "after:botania@[r1.10-364,);before:vampirism@[1.3.7,)")
+                "after:botania@[r1.10-364,);after:player_mana@[1.0.0,);before:vampirism@[1.3.7,)")
 public class WizardryTales {
     public static final String MODID = "wizardry_tales";
     public static final String NAME = "Wizardry Tales";
-    public static final String VERSION = "2.2.5";
+    public static final String VERSION = "2.2.6";
 
     @SidedProxy(clientSide = "astramusfate.wizardry_tales.proxy.ClientProxy",
             serverSide = "astramusfate.wizardry_tales.proxy.CommonProxy")

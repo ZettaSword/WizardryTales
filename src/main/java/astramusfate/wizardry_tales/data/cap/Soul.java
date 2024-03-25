@@ -30,6 +30,10 @@ public class Soul implements ISoul {
  private int intelligence = 0;
  private int first_enter = 0;
  private int status = 0;
+
+ /** This variable shows which God or Goddess player follows. **/
+ private int god = 0;
+
  private Map<Spell, Integer> learnedSpells = new HashMap<>();
 
  @Override
@@ -120,9 +124,9 @@ public class Soul implements ISoul {
              first_enter = Math.max(first_enter + amount, 0);
              syncStat(player, id, first_enter);
              break;
-         case StatIds.status:
-             status = Math.max(status + amount, 0);
-             syncStat(player, id, status);
+         case StatIds.god:
+             god = Math.max(god + amount, -1);
+             syncStat(player, id, god);
              break;
      }
  }
@@ -150,6 +154,10 @@ public class Soul implements ISoul {
              first_enter = amount;
              syncStat(player, id, first_enter);
              break;
+         case StatIds.god:
+             god = amount;
+             syncStat(player, id, god);
+             break;
      }
  }
 
@@ -166,6 +174,7 @@ public class Soul implements ISoul {
     case StatIds.agi_id: return this.agility;
     case StatIds.int_id: return this.intelligence;
     case StatIds.first_enter: return this.first_enter;
+    case StatIds.god: return this.god;
    }
   return -1;
  }

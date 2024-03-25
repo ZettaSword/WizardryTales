@@ -25,7 +25,7 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: CurseMavenPlugin
 
-version = '2.2.5'
+version = '2.2.6'
 group = 'astramusfate.wizardry_tales' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'WizardryTales'
 
