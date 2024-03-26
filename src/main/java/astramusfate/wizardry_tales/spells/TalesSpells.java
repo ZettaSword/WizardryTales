@@ -54,6 +54,8 @@ public class TalesSpells {
     //2.2.1
     public static final Spell chanting = placeholder();
 
+    //2.2.6
+    public static final Spell allocate = placeholder();
 
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Spell> event) {
@@ -95,6 +97,9 @@ public class TalesSpells {
 
         //2.2.1
         reg.register(new Chanting());
+
+        //2.2.6
+        reg.register(new Allocate());
     }
 
     public static Spell getSpell(String modid, String spell_id){

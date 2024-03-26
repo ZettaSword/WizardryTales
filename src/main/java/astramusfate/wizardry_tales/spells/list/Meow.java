@@ -40,6 +40,7 @@ public class Meow extends Spell {
 
                 NBTTagCompound entityNBT = creep.getEntityData();
                 entityNBT.setUniqueId(NBT_KEY, caster.getUniqueID());
+                creep.setAttackTarget(null);
 
                 Alchemy.applyPotionHide(creep,
                         (int) (getProperty(DURATION).floatValue() * modifiers.get(WizardryItems.duration_upgrade)),

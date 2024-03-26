@@ -1,0 +1,24 @@
+{
+  "enabled": {
+    "book": true,
+    "scroll": true,
+    "wands": true,
+    "npcs": true,
+    "dispensers": true,
+    "commands": true,
+    "treasure": true,
+    "trades": true,
+    "looting": true
+  },
+  "tier": "advanced",
+  "element": "necromancy",
+  "type": "utility",
+  "cost": 50,
+  "chargeup": 60,
+  "cooldown": 320,
+  "base_properties": {
+    "effect_radius": 14,
+    "minimum_teleport_distance": 8,
+    "maximum_teleport_distance": 32
+  }
+}

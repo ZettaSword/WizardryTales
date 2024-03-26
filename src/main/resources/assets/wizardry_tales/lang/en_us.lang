@@ -251,6 +251,10 @@ spell.wizardry_tales:teleportation_curse.desc=Causes the target to be randomly t
 spell.wizardry_tales:mana_bomb=Mana Bomb
 spell.wizardry_tales:mana_bomb.desc=Throws a Mana Bomb that releases gas on impact, causing random elemental reactions in the target.
 
+spell.wizardry_tales:allocate=Allocate
+spell.wizardry_tales:allocate.desc=Allocation spell teleports all enemies around randomly. Can be useful or not useful, depending on your luck.
+
+
 # Spellcasting Items
 
 item.m_wand_novice.name=Magic Wand

@@ -161,17 +161,6 @@ public class EventsHandler extends EventsBase {
         }
     }
 
-    @SubscribeEvent()
-    public static void compatMana(TickEvent.PlayerTickEvent event){
-        if(event.phase == TickEvent.Phase.START && Solver.doEvery(event.player, 5) && event.player instanceof EntityPlayerMP){
-            ISoul soul = event.player.getCapability(SoulProvider.SOUL_CAP, null);
-            if (soul == null || !WizardryTales.canCompat("player_mana")) return;
-            if(event.player.ticksExisted > 5) {
-                // TODO: Wait till WPM will start working.
-            }
-        }
-    }
-
     private static final List<SpellCastEvent.Source> sourceList = Lists.newArrayList(SpellCastEvent.Source.WAND,
             SpellCastEvent.Source.SCROLL, SpellCastEvent.Source.OTHER);
 
