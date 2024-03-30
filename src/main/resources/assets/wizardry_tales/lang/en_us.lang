@@ -254,6 +254,9 @@ spell.wizardry_tales:mana_bomb.desc=Throws a Mana Bomb that releases gas on impa
 spell.wizardry_tales:allocate=Allocate
 spell.wizardry_tales:allocate.desc=Allocation spell teleports all enemies around randomly. Can be useful or not useful, depending on your luck.
 
+spell.wizardry_tales:befriend=Befriend
+spell.wizardry_tales:befriend.desc=Allows to make friend of any creature, as long as creature HP isn't higher by 2x or more than yours.
+
 
 # Spellcasting Items
 

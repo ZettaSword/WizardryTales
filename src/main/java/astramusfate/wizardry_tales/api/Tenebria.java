@@ -1,10 +1,15 @@
 package astramusfate.wizardry_tales.api;
 
+import electroblob.wizardry.util.EntityUtils;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 /** Special class to shorthand Attributes access and Entity manipulations **/
 public class Tenebria {
@@ -36,5 +41,28 @@ public class Tenebria {
 
     public static void moveTowards(Entity target, double x, double z){
         moveTowards(target, new Vec3d(x,0,z));
+    }
+
+    /** This method gets entity id from some creature. Applicable for some cases, like my Befriend spell. **/
+    @Nullable
+    public static EntityLivingBase getUniqueIdOwner(EntityLivingBase creature){
+        EntityLivingBase entitylivingbase = null;
+        if (creature.getEntityData().hasKey("friend")){
+            entitylivingbase = (EntityLivingBase) EntityUtils.getEntityByUUID(creature.world,
+                    creature.getEntityData().getUniqueId("friend"));
+
+        }
+        return entitylivingbase;
+    }
+
+    /** This method gets entity id from some creature. Applicable for some cases, like my Befriend spell. **/
+    @Nullable
+    public static EntityLivingBase getUniqueIdOwner(EntityLivingBase creature, String name){
+        EntityLivingBase entitylivingbase = null;
+        if (creature.getEntityData().hasUniqueId(name)) {
+            entitylivingbase = (EntityLivingBase) EntityUtils.getEntityByUUID(creature.world,
+                    creature.getEntityData().getUniqueId(name));
+        }
+        return entitylivingbase;
     }
 }

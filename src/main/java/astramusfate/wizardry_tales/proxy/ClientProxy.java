@@ -14,7 +14,6 @@ import astramusfate.wizardry_tales.registry.TalesBlocks;
 import astramusfate.wizardry_tales.registry.TalesEntities;
 import electroblob.wizardry.client.gui.handbook.GuiWizardHandbook;
 import electroblob.wizardry.client.particle.*;
-import electroblob.wizardry.util.ParticleBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -48,7 +47,6 @@ public class ClientProxy extends CommonProxy {
         TalesBlocks.initRenders();
 
     }
-
     @Override
     public void handleSoulMana(PacketSoulMana message) {
         EntityPlayerSP player = Minecraft.getMinecraft().player;
