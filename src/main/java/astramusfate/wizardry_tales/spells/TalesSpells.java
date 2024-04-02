@@ -56,7 +56,6 @@ public class TalesSpells {
 
     //2.2.6
     public static final Spell allocate = placeholder();
-    public static final Spell befriend = placeholder();
 
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Spell> event) {
@@ -101,7 +100,6 @@ public class TalesSpells {
 
         //2.2.6
         reg.register(new Allocate());
-        reg.register(new Befriend());
     }
 
     public static Spell getSpell(String modid, String spell_id){

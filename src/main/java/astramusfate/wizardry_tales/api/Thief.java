@@ -139,7 +139,7 @@ public class Thief {
         return false;
     }
 
-    /** Is there THIS item in there in one of hands??? **/
+    /** Is there THIS item in there, in one of hands??? **/
     public static boolean checkHands(EntityPlayer player, Item item){
         return player.getHeldItem(EnumHand.MAIN_HAND).getItem() == item || player.getHeldItem(EnumHand.OFF_HAND).getItem() == item;
     }
@@ -250,5 +250,94 @@ public class Thief {
                     && item.getItem() instanceof IManaStoringItem);
         }
         return null;
+    }
+
+    /** Method doesn't include ItemStack items count, but only counts if there are those items at all. **/
+    public static boolean hasItems(EntityPlayer player, List<Item> items){
+        if(player.isCreative()) return true;
+        int count = 0;
+        for (Item item : items) {
+            boolean has = false;
+
+            if (checkHands(player, item)){
+                count++;
+                continue;
+            }
+
+            for (ItemStack stack : player.inventory.mainInventory) {
+                if (stack.getItem() == item) {
+                    count++;
+                    has = true;
+                    break;
+                }
+            }
+            if (has) continue;
+
+            for (ItemStack stack : player.inventory.armorInventory) {
+                if (stack.getItem() == item) {
+                    count++;
+                    has = true;
+                    break;
+                }
+            }
+
+            if (has) continue;
+
+            for (ItemStack stack : player.inventory.offHandInventory) {
+                if (stack.getItem() == item) {
+                    count++;
+                    break;
+                }
+            }
+        }
+
+        return count == items.size();
+    }
+
+    /** Method consumes / shrinks defined items, if there are. Returns boolean if all items specified were consumed. **/
+    public static boolean consumeItems(EntityPlayer player, List<Item> items){
+        if(player.isCreative()) return true;
+        int count = 0;
+        for (Item item : items) {
+            boolean has = false;
+            ItemStack hands = getInHands(player, item);
+            if (hands != null){
+                hands.shrink(1);
+                count++;
+                continue;
+            }
+
+            for (ItemStack stack : player.inventory.mainInventory) {
+                if (stack.getItem() == item) {
+                    stack.shrink(1);
+                    count++;
+                    has = true;
+                    break;
+                }
+            }
+
+            if (has) continue;
+
+            for (ItemStack stack : player.inventory.armorInventory) {
+                if (stack.getItem() == item) {
+                    stack.shrink(1);
+                    count++;
+                    has = true;
+                    break;
+                }
+            }
+
+            if (has) continue;
+
+            for (ItemStack stack : player.inventory.offHandInventory) {
+                if (stack.getItem() == item) {
+                    stack.shrink(1);
+                    count++;
+                    break;
+                }
+            }
+        }
+
+        return count == items.size();
     }
 }

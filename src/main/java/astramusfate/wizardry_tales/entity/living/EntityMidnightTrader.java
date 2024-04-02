@@ -6,6 +6,7 @@ import astramusfate.wizardry_tales.api.Solver;
 import astramusfate.wizardry_tales.api.Trader;
 import astramusfate.wizardry_tales.api.classes.IRandomTrading;
 import astramusfate.wizardry_tales.api.classes.IRendaCreature;
+import astramusfate.wizardry_tales.items.rituals.ItemRitual;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.constants.Tier;
@@ -130,6 +131,7 @@ public class EntityMidnightTrader extends EntityCreature implements INpc, IMerch
 
     private Element getElement(){return Element.NECROMANCY;}
 
+    @SuppressWarnings("Deprecation")
     private ItemStack getRandomItemOfTier(Tier tier){
 
         int randomiser;
@@ -563,7 +565,10 @@ public class EntityMidnightTrader extends EntityCreature implements INpc, IMerch
         MerchantRecipeList list;
         list = new MerchantRecipeList();
         ItemStack stack;
-        stack = Trader.getItemToSell(v -> v instanceof ItemArtefact && v.getForgeRarity(stack(v)) != EnumRarity.EPIC);
+        if(Solver.chance(90))
+            stack = Trader.getItemToSell(v -> v instanceof ItemArtefact && v.getForgeRarity(stack(v)) != EnumRarity.EPIC);
+        else
+            stack = Trader.getItemToSell(v -> v instanceof ItemRitual && ((ItemRitual)v).canBeTraded());
 
         int rarity = stack.getItem().getForgeRarity(stack) == EnumRarity.EPIC ? 4
                 : stack.getItem().getForgeRarity(stack) == EnumRarity.RARE ? 3

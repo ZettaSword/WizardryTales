@@ -6,12 +6,14 @@ import astramusfate.wizardry_tales.entity.EntityManaBomb;
 import astramusfate.wizardry_tales.entity.construct.EntityMagicCircle;
 import astramusfate.wizardry_tales.entity.construct.EntityPoisonousGas;
 import astramusfate.wizardry_tales.entity.construct.EntityRedGas;
+import astramusfate.wizardry_tales.entity.construct.rituals.EntityRitualMidnightTrading;
 import astramusfate.wizardry_tales.entity.living.*;
 import astramusfate.wizardry_tales.entity.projectile.EntityChantingArrow;
 import astramusfate.wizardry_tales.renderers.*;
 import astramusfate.wizardry_tales.entity.construct.sigils.EntityMagicCircleVertical;
 import astramusfate.wizardry_tales.entity.construct.sigils.chanting.*;
 import astramusfate.wizardry_tales.entity.summon.EntityEmber;
+import astramusfate.wizardry_tales.renderers.rituals.RenderCircleRitual;
 import electroblob.wizardry.client.renderer.entity.RenderProjectile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
@@ -116,7 +118,7 @@ public class TalesEntities {
                         .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.spellWitchBiomeWhitelist)).contains(b.getRegistryName()))
                         .collect(Collectors.toSet())).build());
 
-        //registerRituals(reg);
+        registerRituals(reg);
 
         //reg.register(createEntry(EntityMagicCircle.class, "magic_circle", TrackingType.CONSTRUCT).build());
 
@@ -134,6 +136,10 @@ public class TalesEntities {
         reg.register(createEntry(EntityCustomSigil.class, "circle_sigil", TrackingType.CONSTRUCT).build());
         reg.register(createEntry(EntityCircleArray.class, "circle_array", TrackingType.CONSTRUCT).build());
         //reg.register(createEntry(EntityMagicCircle.class, "vertical_circle", TrackingType.CONSTRUCT).build());
+    }
+
+    private static void registerRituals(IForgeRegistry<EntityEntry> reg){
+        reg.register(createEntry(EntityRitualMidnightTrading.class, "ritual_midnight_trading", TrackingType.CONSTRUCT).build());
     }
 
     @SideOnly(Side.CLIENT)
@@ -164,6 +170,7 @@ public class TalesEntities {
         RenderingRegistry.registerEntityRenderingHandler(EntityThunderWolf.class, RenderThunderWolf::new);
 
         registerCirclesRenderers();
+        registerRitualsRenderers();
     }
 
     public static <T extends Entity> void registerNothing(Class<T> entityClass){
@@ -195,6 +202,12 @@ public class TalesEntities {
                 0.5f));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityCircleArray.class, manager -> new RenderCircle(manager,
+                0.5f));
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void registerRitualsRenderers(){
+        RenderingRegistry.registerEntityRenderingHandler(EntityRitualMidnightTrading.class, manager -> new RenderCircleRitual(manager,
                 0.5f));
     }
 

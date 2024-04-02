@@ -50,7 +50,6 @@ public class Tenebria {
         if (creature.getEntityData().hasKey("friend")){
             entitylivingbase = (EntityLivingBase) EntityUtils.getEntityByUUID(creature.world,
                     creature.getEntityData().getUniqueId("friend"));
-
         }
         return entitylivingbase;
     }

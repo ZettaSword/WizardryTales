@@ -254,10 +254,6 @@ spell.wizardry_tales:mana_bomb.desc=Throws a Mana Bomb that releases gas on impa
 spell.wizardry_tales:allocate=Allocate
 spell.wizardry_tales:allocate.desc=Allocation spell teleports all enemies around randomly. Can be useful or not useful, depending on your luck.
 
-spell.wizardry_tales:befriend=Befriend
-spell.wizardry_tales:befriend.desc=Allows to make friend of any creature, as long as creature HP isn't higher by 2x or more than yours.
-
-
 # Spellcasting Items
 
 item.m_wand_novice.name=Magic Wand
@@ -346,3 +342,12 @@ item.wizardry_tales:grimoire_novice_sorcery.name=Flavius Utility Grimoire
 item.wizardry_tales:grimoire_apprentice_sorcery.name=Flavius Apprentice Utils Grimoire
 item.wizardry_tales:grimoire_advanced_sorcery.name=Flavius Mage Utils Grimoire
 item.wizardry_tales:grimoire_master_sorcery.name=Flavius Archmage Utils Grimoire
+
+# Rituals
+itemGroup.tales_rituals=Tales Rituals
+
+item.wizardry_tales:ritual_ring_of_fire.name=Ring of Fire Ritual
+item.wizardry_tales:ritual_ring_of_fire.desc=To activate ritual, you need one Mana Dust, one Coal, one Iron Ingot.
+
+item.wizardry_tales:ritual_midnight_trading.name=Ritual of Midnight Trading
+item.wizardry_tales:ritual_midnight_trading.desc=To activate ritual, you need one Magic Crystal and one Emerald. You also need to perform this ritual while nighttime.

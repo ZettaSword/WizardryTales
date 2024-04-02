@@ -5,11 +5,12 @@ import astramusfate.wizardry_tales.items.*;
 import astramusfate.wizardry_tales.items.artefacts.ChantingCloak;
 import astramusfate.wizardry_tales.items.artefacts.ChantingRing;
 import astramusfate.wizardry_tales.items.artefacts.IceHalberd;
+import astramusfate.wizardry_tales.items.rituals.RitualMidnightTrading;
+import astramusfate.wizardry_tales.items.rituals.RitualRingOfFire;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.constants.Tier;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.ItemBlockMultiTextured;
-import electroblob.wizardry.item.ItemManaFlask;
 import electroblob.wizardry.registry.WizardryTabs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -287,6 +288,12 @@ public final class TalesItems {
 	@GameRegistry.ObjectHolder("m_wand_master_sorcery")
 	public static final Item wand_master_sorcery = placeholder();
 
+	// Rituals
+	@GameRegistry.ObjectHolder("ritual_ring_of_fire")
+	public static final Item ritual_ring_of_fire = placeholder();
+
+	@GameRegistry.ObjectHolder("ritual_midnight_trading")
+	public static final Item ritual_midnight_trading = placeholder();
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
@@ -329,6 +336,8 @@ public final class TalesItems {
 		registerItem(reg, "status_page", new ItemTales(1));
 
 		registerSpellcastingItems(reg);
+		//2.2.6
+		registerRituals(reg);
 
 		//registerItem(registry, "arcana_book", new ItemArcanaBook());
 	}
@@ -369,6 +378,7 @@ public final class TalesItems {
 		registryModel(status_page);
 
 		registerSpellcastingItemsModels();
+		registerRitualsModels();
 	}
 
 	public static void registerSpellcastingItems(IForgeRegistry<Item> reg){
@@ -465,6 +475,7 @@ public final class TalesItems {
 		reg.register(new ItemStaff(Tier.APPRENTICE, Element.HEALING,"staff_apprentice_light"));
 		reg.register(new ItemStaff(Tier.ADVANCED, Element.HEALING,"staff_advanced_light"));
 		reg.register(new ItemStaff(Tier.MASTER, Element.HEALING,"staff_master_light"));
+
 	}
 
 	public static void registerSpellcastingItemsModels(){
@@ -563,6 +574,18 @@ public final class TalesItems {
 		registryModel(staff_master_light);
 	}
 
+	// Rituals!
+	public static void registerRituals(IForgeRegistry<Item> reg){
+		reg.register(new RitualRingOfFire("ring_of_fire"));
+		reg.register(new RitualMidnightTrading("midnight_trading"));
+	}
+
+	private static void registerRitualsModels() {
+		registryModel(ritual_ring_of_fire);
+		registryModel(ritual_midnight_trading);
+	}
+
+//---------------------------------------------------------------------------
 	// below registry methods are courtesy of EB
 	public static void registerItem(IForgeRegistry<Item> registry, String name, Item item) {
 		registerItem(registry, name, item, false);

@@ -135,7 +135,7 @@ public class StatEvents extends EventsBase {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onSpellcastTrigger(SpellCastEvent event){
+    public static void onSpellcastTrigger(SpellCastEvent.Post event){
         if (event.getCaster() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getCaster();
             ISoul soul = Mana.getSoul(player);

@@ -14,6 +14,7 @@ import astramusfate.wizardry_tales.data.chanting.SpellParams;
 import astramusfate.wizardry_tales.entity.construct.EntityMagic;
 import astramusfate.wizardry_tales.entity.construct.EntityMagicCircle;
 import astramusfate.wizardry_tales.entity.construct.EntityMagicScaled;
+import astramusfate.wizardry_tales.entity.construct.EntityRitual;
 import astramusfate.wizardry_tales.entity.construct.sigils.EntityMagicCircleVertical;
 import astramusfate.wizardry_tales.entity.construct.sigils.chanting.EntityCircleAreaOnceCast;
 import astramusfate.wizardry_tales.entity.construct.sigils.chanting.EntityCircleArray;
@@ -745,6 +746,9 @@ public class SpellCreation extends SpellCreationHelper {
                 }
                 if (Arrays.asList(Tales.chanting.constructBlacklist).contains(next))
                     entity = null;
+                if (entity instanceof EntityRitual)
+                    entity = null;
+
 
             } catch (Exception ignore) {
             }

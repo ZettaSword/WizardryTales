@@ -83,7 +83,7 @@ public class EntityMagic extends Entity implements IEntityOwnable, IEntityAdditi
         super.onUpdate();
 
         if(this.ticksExisted > lifetime && lifetime > 0){
-            this.setDead();
+            this.despawn();
         }
     }
 
