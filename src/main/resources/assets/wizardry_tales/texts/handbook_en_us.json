@@ -81,6 +81,43 @@
 				"Agility is stat, that gives you better sprinting capabilities. Trained by running. Reflects capabilities of your body to sustain itself when you run.",
 				"Intelligence is stat, that allows to deal more magical damage. Trained by spell-casting. Reflects how your body behaves with Mana when using it."
 			]
+		},
+		"incantations": {
+			"title": "Incantations",
+			"include_in_contents": "main_contents",
+			"contents": {
+				"id": "incantations",
+				"hyperlinks": true,
+				"page_numbers": true,
+				"separator": "."
+			},
+			"triggers": [
+				"ebwizardry:on_subsection_unlock"
+			]
+		},
+		"how_to_create_spell": {
+			"title": "How to create own Spell",
+			"include_in_contents": "incantations",
+			"text": [
+				"Incantations was first way of using magic, prior to Wands and Grimoires era.",
+				"Incantations is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments.",
+				"To start creating a spell, write to the chat: Mana. After that, add the elements you need to the spell. An example of a spell to freeze an enemy: Mana, shape entity apply frost.",
+				"If you want to create own spells, you must remember that if the spell's mana usage is higher than what you have in your Mana Pool, the spell will not work as you want. If you don't have one - you'll not be able to create them.",
+				"You can add ',', '!', '?' or '.' in your spell, and it will not interrupt the casting. Example is:'Mana, shape entity ignite!'. As you see here ',' and '!' are both used, and it still works!",
+				"Spell used to apply speed, and to move without sounds: Mana, duration 60 apply speed, duration 30 apply muffle."
+			]
+		},
+		"spellcasting_shapes": {
+			"title": "Spellcasting Shapes",
+			"include_in_contents": "incantations",
+			"text": [
+				"There",
+				"Incantations is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments.",
+				"To start creating a spell, write to the chat: Mana. After that, add the elements you need to the spell. An example of a spell to freeze an enemy: Mana, shape entity apply frost.",
+				"You can define parameters such as Duration and Potency to change how potent effect will be and how long it would be like this: Mana, shape entity, potency 2 duration 10, apply frost.",
+				"Spell used to apply speed, and to move without sounds: Mana, duration 60 apply speed, duration 30 apply muffle.",
+				"Duration is defined in seconds. "
+			]
 		}
 	}
 }

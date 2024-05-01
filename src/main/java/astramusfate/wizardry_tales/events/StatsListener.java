@@ -95,6 +95,8 @@ public class StatsListener extends EventsBase {
             float level = getLevel(living.getMaxHealth());
             checkAttributes(attack, "Attack Stat", Solver.limit(level/10F, 10), Solver.MULTIPLY);
             checkAttributes(health, "Health Stat", Solver.limit(level/10F, 100), Solver.MULTIPLY);
+            living.setHealth(living.getHealth()-1);
+            living.setHealth(living.getHealth());
             int lvl = Math.round(level);
             if (lvl < 1) lvl = 1;
             living.getEntityData().setInteger("lvl", lvl);
@@ -116,6 +118,9 @@ public class StatsListener extends EventsBase {
         IAttributeInstance speed = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED);
 
         // Constitution
+        checkAttributes(player, health, "constitution",
+                Math.min((soul.getStat(StatIds.con_id)/Tales.stats.con_cost), Tales.stats.con_max), Solver.MULTIPLY);
+
         checkAttributes(knockback, "constitution",
                 Math.min((float) soul.getStat(StatIds.con_id) /Tales.stats.con_cost,
                         0.5F * ((float) StatIds.con_id /Tales.stats.con_cost)/Tales.stats.con_max), Solver.MULTIPLY);
@@ -142,6 +147,31 @@ public class StatsListener extends EventsBase {
     public static AttributeModifier newMod(String name, double amount, int operation){
         return new AttributeModifier(id, name, amount, operation);
     }
+
+    /** Specifically to force update on client. Eh. **/
+    public static void checkAttributes(EntityPlayer player, IAttributeInstance check, String name,  double value, int operation){
+        AttributeModifier mod = newMod(name, value, operation);
+        if(!check.hasModifier(mod)){
+            check.applyModifier(mod);
+            if (check.getAttribute() == SharedMonsterAttributes.MAX_HEALTH){
+                player.setHealth(player.getHealth() -1);
+                player.setHealth(player.getHealth());
+            }
+        } else{
+            AttributeModifier par = check.getModifier(id);
+            if(par != null){
+                if(par.getAmount() != value){
+                    check.removeModifier(id);
+                    check.applyModifier(mod);
+                    if (check.getAttribute() == SharedMonsterAttributes.MAX_HEALTH){
+                        player.setHealth(player.getHealth() -1);
+                        player.setHealth(player.getHealth());
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void checkAttributes(IAttributeInstance check, String name,  double value, int operation){
         AttributeModifier mod = newMod(name, value, operation).setSaved(true);

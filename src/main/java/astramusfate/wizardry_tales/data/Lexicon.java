@@ -28,12 +28,13 @@ public interface Lexicon {
     String shape_construct = "construct";
     String shape_inscribe = "inscribe scribe";
     String shape_adjust = "adjust change";
+    String shape_nearest = "near nearest close closest";
 
     String shape_collector = "collector";
     String shape_array = "array";
 
     /** Do not forget that each condition should be added to SpellCreationHelper#conditions **/
-    String condition_sneak = "sneak";
+    String condition_sneak = "sneak sneaking";
     String condition_night = "night";
     String condition_day = "day";
     /** When DAMAGED by someone **/

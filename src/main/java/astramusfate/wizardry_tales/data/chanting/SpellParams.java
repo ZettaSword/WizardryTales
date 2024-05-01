@@ -107,12 +107,18 @@ public class SpellParams implements Lexicon {
     public RayTraceResult ray = null;
 
     public Entity focal;
+    public List<Entity> targets;
     public Entity target;
+    public Entity last_summon;
     public boolean isServer;
     public String original;
     public SpellModifiers spellModifiers;
 
     public Predicate<Entity> filter = Objects::nonNull;
+    public Predicate<Entity> condition = Objects::nonNull;
+    /** Used for Place as example! **/
+    public Vec3d vector = new Vec3d(0,0,0);
+    public boolean vecBuilding;
 
     public void calcParam(String word, Object value){
         for (SpellParam param : autoCalc){

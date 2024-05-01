@@ -2,7 +2,7 @@ package astramusfate.wizardry_tales.proxy;
 
 
 import astramusfate.wizardry_tales.WizardryTales;
-import astramusfate.wizardry_tales.api.wizardry.ParticlesCreator;
+import astramusfate.wizardry_tales.api.wizardry.ParticleCreator;
 import astramusfate.wizardry_tales.data.Tales;
 import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.SoulProvider;
@@ -159,7 +159,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerParticles(){
         // I'll be a good programmer and use the API method rather than the one above. Lead by example, as they say...
-        ParticleWizardry.registerParticle(ParticlesCreator.Type.RING, ParticleRing::new);
+        ParticleWizardry.registerParticle(ParticleCreator.Type.RING, ParticleRing::new);
     }
 
     @Override

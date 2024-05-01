@@ -67,13 +67,14 @@ public class RaceListener extends EventsBase {
 
         switch (race) {
             case "elf":
+                checkAttributes(player, health, "race health", 10, Solver.ADD);
                 checkAttributes(speed, "race speed", 0.1, Solver.MULTIPLY);
                 checkAttributes(attack, "race attack", -0.3, Solver.MULTIPLY);
 
                 checkAttributes(height, "race height", 0.1, Solver.MULTIPLY);
                 break;
             case "dwarf":
-                checkAttributes(health, "race health", -2, Solver.ADD);
+                checkAttributes(player, health, "race health", -2, Solver.ADD);
                 checkAttributes(speed, "race speed", -0.1, Solver.MULTIPLY);
                 checkAttributes(attack, "race attack", 0.25, Solver.MULTIPLY);
 
@@ -127,6 +128,30 @@ public class RaceListener extends EventsBase {
 
     public static AttributeModifier newMod(String name, double amount, int operation){
         return new AttributeModifier(id, name, amount, operation);
+    }
+
+    /** Specifically to force update on client. Eh. **/
+    public static void checkAttributes(EntityPlayer player, IAttributeInstance check, String name,  double value, int operation){
+        AttributeModifier mod = newMod(name, value, operation);
+        if(!check.hasModifier(mod)){
+            check.applyModifier(mod);
+            if (check.getAttribute() == SharedMonsterAttributes.MAX_HEALTH){
+                player.setHealth(player.getHealth() -1);
+                player.setHealth(player.getHealth());
+            }
+        } else{
+            AttributeModifier par = check.getModifier(id);
+            if(par != null){
+                if(par.getAmount() != value){
+                    check.removeModifier(id);
+                    check.applyModifier(mod);
+                    if (check.getAttribute() == SharedMonsterAttributes.MAX_HEALTH){
+                        player.setHealth(player.getHealth() -1);
+                        player.setHealth(player.getHealth());
+                    }
+                }
+            }
+        }
     }
 
     public static void checkAttributes(IAttributeInstance check, String name,  double value, int operation){

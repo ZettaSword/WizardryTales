@@ -24,6 +24,18 @@ public class Tales {
         @Config.Comment("If it is true - then we see mana pool as bar")
         @Config.Name("0: Bar")
         public boolean manaPoolBar = true;
+
+        @Config.Comment("If it is true - then we see mana pool as a number")
+        @Config.Name("0: Mana Amount")
+        public boolean manaPoolNumber = true;
+
+        @Config.Comment("Offset for Mana bar/numbers")
+        @Config.Name("0: Mana X offset")
+        public int manaPool_x = 0;
+
+        @Config.Comment("Offset for Mana bar/numbers")
+        @Config.Name("0: Mana Y offset")
+        public int manaPool_y = 0;
         @Config.Comment("If it is true - then mana from wands when you cast spell - will not be used")
         @Config.Name("Is items mana not used anymore?")
         public boolean noMoreManaUse = true;

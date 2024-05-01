@@ -22,6 +22,12 @@ import java.util.function.Predicate;
 /** Module for working with Inventory **/
 public class Thief {
 
+    public static void giveItem(EntityPlayer player, ItemStack stack){
+        if (!player.addItemStackToInventory(stack)){
+            player.entityDropItem(stack, 0.0F);
+        }
+    }
+
     /** Check is Player have needed item in the inventory(checks armor and hands too) **/
     public static boolean hasItem(EntityPlayer player, Item item){
         if(player.isCreative()) return true;
@@ -74,6 +80,7 @@ public class Thief {
         return null;
     }
 
+
     /** Check is Player have needed item in the inventory(checks armor and hands too) **/
     public static ItemStack getItem(EntityPlayer player, Predicate<ItemStack> item, ItemStack creative){
         if(item.test(player.getHeldItemMainhand())) return player.getHeldItemMainhand();
@@ -105,6 +112,35 @@ public class Thief {
     /** Check is Player have needed item in the inventory(checks armor and hands too) **/
     public static ItemStack getItem(EntityPlayer player, Predicate<ItemStack> item){
        return getItem(player, item, null);
+    }
+
+    /** Check is Player have needed item in the armour! **/
+    public static ItemStack getItemFromArmour(EntityPlayer player, Predicate<ItemStack> item, ItemStack creative){
+        for(ItemStack stack : player.inventory.armorInventory){
+            if(item.test(stack)){
+                return stack;
+            }
+        }
+
+        if(player.isCreative()) return creative;
+        return null;
+    }
+
+    /** Check is Player have needed item in the armour! **/
+    public static ItemStack getItemFromArmour(EntityPlayer player, Predicate<ItemStack> item){
+        return getItemFromArmour(player, item, null);
+    }
+
+    /** Check is Player have needed item in the armour! **/
+    public static List<ItemStack> getItemsFromArmour(EntityPlayer player, Predicate<ItemStack> item){
+        List<ItemStack> list = Lists.newArrayList();
+        for(ItemStack stack : player.inventory.armorInventory){
+            if(item.test(stack)){
+                list.add(stack);
+            }
+        }
+
+        return list;
     }
 
     /** If player/entity has no items in hand! **/

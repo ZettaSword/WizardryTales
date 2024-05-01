@@ -20,6 +20,8 @@ import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.item.ISpellCastingItem;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.spell.Spell;
+import electroblob.wizardry.util.EntityUtils;
+import electroblob.wizardry.util.InventoryUtils;
 import electroblob.wizardry.util.WandHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -39,6 +41,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -48,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static astramusfate.wizardry_tales.events.EventsHandler.getCost;
 import static astramusfate.wizardry_tales.events.EventsHandler.isValid;
@@ -383,8 +387,9 @@ public class SpellcastingHandler extends EventsBase implements Lexicon {
 
     public static List<ItemStack> getChantedItems(EntityPlayer player){
         List<ItemStack> stacks = Lists.newArrayList();
-        ItemStack hands = Thief.getInHands(player,(s -> !(s.getItem() instanceof IInscribed) || (s.getItem() instanceof IInscribed && ((IInscribed)s.getItem()).applyConditions())));
-        if (hands != null) stacks.add(hands);
+        List<ItemStack> list = InventoryUtils.getPrioritisedHotbarAndOffhand(player);
+        list = list.stream().filter(s -> !(s.getItem() instanceof IInscribed) || (s.getItem() instanceof IInscribed && ((IInscribed)s.getItem()).applyConditions())).collect(Collectors.toList());
+        if (!list.isEmpty()) stacks.addAll(list);
 
         List<ItemStack> artefacts = getEquippedArtefacts(player, BaubleType.RING, BaubleType.AMULET,
                 BaubleType.CHARM, BaubleType.BELT, BaubleType.BODY, BaubleType.HEAD, BaubleType.TRINKET);
@@ -393,6 +398,12 @@ public class SpellcastingHandler extends EventsBase implements Lexicon {
                 stacks.add(artefact);
             }
         }
+
+
+        List<ItemStack> armour = Thief.getItemsFromArmour(player,
+                s -> !(s.getItem() instanceof IInscribed) ||
+                        (s.getItem() instanceof IInscribed && ((IInscribed)s.getItem()).applyConditions()));
+        if (!armour.isEmpty()) stacks.addAll(armour);
         return stacks;
     }
 
@@ -454,46 +465,50 @@ public class SpellcastingHandler extends EventsBase implements Lexicon {
             new ResourceLocation(WizardryTales.MODID + ":textures/gui/bar_mana.png");
 
     @SideOnly(Side.CLIENT)
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onEntityShowcase(RenderGameOverlayEvent.Post event){
-        if (event.getType() != RenderGameOverlayEvent.ElementType.FOOD) return;
-        if (!Tales.mp.manaPool || !Tales.mp.manaPoolBar) return;
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) return;
+        if (!Tales.mp.manaPool) return;
         if (WizardryTales.hasPlayerMana) return;
 
         EntityPlayerSP player = Minecraft.getMinecraft().player;
 
-        if (Minecraft.getMinecraft().playerController.shouldDrawHUD()) {
+        if (Minecraft.getMinecraft().playerController.shouldDrawHUD() && player != null) {
             //event.setCanceled(true);
             ISoul soul = Mana.getSoul(player);
             if(soul == null) return;
             GlStateManager.enableBlend();
             Minecraft.getMinecraft().getTextureManager().bindTexture(bar_mana);
-            int left = event.getResolution().getScaledWidth() / 2 + 91;
-            int y = event.getResolution().getScaledHeight() - GuiIngameForge.right_height;
-            GuiIngameForge.right_height += 10;
+            int left = (event.getResolution().getScaledWidth() / 2 + 91) + Tales.mp.manaPool_x;
+            int height = GuiIngameForge.right_height + 10;
+            int y = (event.getResolution().getScaledHeight() - height) - Tales.mp.manaPool_y;
             double mana = soul.getMP();
             double maxMana = soul.getMaxMP();
             double manaValue = Math.floor(mana/maxMana * 20.0D);
 
-            for (int i = 0; i < 10; ++i) {
-                int idx = i * 2 + 1;
-                int x = left - i * 8 - 9;
+            if (Tales.mp.manaPoolBar) {
+                for (int i = 0; i < 10; ++i) {
+                    int idx = i * 2 + 1;
+                    int x = left - i * 8 - 9;
 
-                // Draw Background
-                DrawingUtils.drawTexturedRect(x, y, 0, 0, 9, 9,
-                        27, 9);
+                    // Draw Background
+                    DrawingUtils.drawTexturedRect(x, y, 0, 0, 9, 9,
+                            27, 9);
 
                     if (idx < manaValue) // 9 - full, 18 - half-full, 0 - zero
                         DrawingUtils.drawTexturedRect(x, y, 9, 0,
                                 9, 9, 27, 9);
-                    else if(idx == manaValue){
+                    else if (idx == manaValue) {
                         DrawingUtils.drawTexturedRect(x, y, 18, 0,
                                 9, 9, 27, 9);
                     }
+                }
             }
 
             int x = left - 8 - 9;
-            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(((int)Math.floor(mana))+ "", x + 20, y, 0x907FB8);
+            if (Tales.mp.manaPoolNumber)
+                Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(((int)Math.floor(mana))+ "",
+                        x + 20, y, 0x907FB8);
 
             Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);
             GlStateManager.disableBlend();

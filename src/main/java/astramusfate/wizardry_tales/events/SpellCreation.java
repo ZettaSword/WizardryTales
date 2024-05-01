@@ -4,6 +4,7 @@ import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.*;
 import astramusfate.wizardry_tales.api.classes.IInscribed;
 import astramusfate.wizardry_tales.api.wizardry.ArcaneColor;
+import astramusfate.wizardry_tales.api.wizardry.ParticleCreator;
 import astramusfate.wizardry_tales.api.wizardry.Race;
 import astramusfate.wizardry_tales.chanting.Chanting;
 import astramusfate.wizardry_tales.chanting.SpellPart;
@@ -22,7 +23,6 @@ import astramusfate.wizardry_tales.entity.construct.sigils.chanting.EntityCustom
 import astramusfate.wizardry_tales.registry.TalesEffects;
 import astramusfate.wizardry_tales.registry.TalesItems;
 import com.google.common.collect.Lists;
-import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.construct.EntityForcefield;
@@ -45,14 +45,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.MobEffects;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
@@ -70,7 +70,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.LanguageMap;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -120,7 +119,7 @@ public class SpellCreation extends SpellCreationHelper {
         createSpell(spell, player, player, false, event.getOriginalMessage());
     }
 
-    public static void createSpell(List<String> words, Entity focal, Entity target, boolean isServer){
+    public static void createSpell(List<String> words, Entity focal, @Nullable Entity target, boolean isServer){
         createSpell(words, focal, target, isServer, null);
     }
 
@@ -135,10 +134,10 @@ public class SpellCreation extends SpellCreationHelper {
         SpellParams mods = new SpellParams();
         // Setting up parameters
         mods.world = world;
-        mods.target = target;
         mods.focal = focal;
         mods.isServer = isServer;
         mods.original = original;
+        mods.target = target;
 
         EntityLivingBase caster = getCaster(focal);
 
@@ -148,52 +147,54 @@ public class SpellCreation extends SpellCreationHelper {
 
         String previous = "";
         try {
-            for (int i = 0; i < spell.length; i++) {
-                String next = getWord(spell, i, 1), next2 = getWord(spell, i, 2),
-                        next3 = getWord(spell, i, 3), next4 = getWord(spell, i, 4), word = spell[i];
+                for (int i = 0; i < spell.length; i++) {
+                    String next = getWord(spell, i, 1), next2 = getWord(spell, i, 2),
+                            next3 = getWord(spell, i, 3), next4 = getWord(spell, i, 4), word = spell[i];
 
-                HashMap<String, String> keys = new HashMap<>();
-                keys.put("word", word);
-                keys.put("next", next);
-                keys.put("next2", next2);
-                keys.put("next3", next3);
-                keys.put("next4", next4);
-                keys.put("previous", previous);
-                mods.keys=keys;
+                    HashMap<String, String> keys = new HashMap<>();
+                    keys.put("word", word);
+                    keys.put("next", next);
+                    keys.put("next2", next2);
+                    keys.put("next3", next3);
+                    keys.put("next4", next4);
+                    keys.put("previous", previous);
+                    mods.keys = keys;
 
-                // ? Raycast Entity && Raycast Block
-                raycast(world, caster, mods.shape.val(), mods);
+                    // ? Raycast Entity && Raycast Block
+                    raycast(world, caster, mods.shape.val(), mods);
 
-                if (mods.stopCast) break;
+                    if (mods.stopCast) break;
 
-                // ? Position changes, etc.
-                calcMods(caster, mods);
+                    // ? Position changes, etc.
+                    calcMods(caster, mods);
 
-                if (mods.pos == null){
-                    if (!mods.isRay)
-                        mods.pos = focal.getPositionVector();
-                    else return;
+                    if (mods.pos == null) {
+                        if (!mods.isRay)
+                            mods.pos = focal.getPositionVector();
+                        else return;
+                    }
+                    mods.pos.add(mods.change);
+
+                    //if (mods.pos == null) mods.pos = focal.getPositionVector();
+
+                    // ? If we apply cool shapes like Sigil, we could return!
+
+                    // We remove this for a reason, to make Shapes be better.
+                    try {
+                        if (next.isEmpty()) mods.set.remove(word);
+                        mods.set.remove(previous);
+                    } catch (Exception ignore) {
+                    }
+
+                    shaping(caster, mods);
+                    if (!mods.condition.test(target)) break;
+                    if (mods.stopCast) break;
+
+                    // Spell-casting
+                    applyActions(caster, mods);
+
+                    previous = word;
                 }
-                mods.pos.add(mods.change);
-
-                //if (mods.pos == null) mods.pos = focal.getPositionVector();
-
-                // ? If we apply cool shapes like Sigil, we could return!
-
-                // We remove this for a reason, to make Shapes be better.
-                try {
-                    if (next.isEmpty()) mods.set.remove(word);
-                    mods.set.remove(previous);
-                }catch (Exception ignore){}
-
-                shaping(caster, mods);
-                if (mods.stopCast) break;
-
-                // Spell-casting
-                applyActions(caster, mods);
-
-                previous = word;
-            }
         }catch (Exception exception){
             WizardryTales.log.error("---- [Wizardry Tales] - problem occurred when Chanting! ----");
             exception.printStackTrace();
@@ -207,6 +208,16 @@ public class SpellCreation extends SpellCreationHelper {
         }
 
         attachCastingVisual(world, caster, mods);
+    }
+    
+    public static int stopCasting(String[] spell, int spellIndex){
+        for (int i = spellIndex; i < spell.length; i++) {
+            String next = getWord(spell, i, 1), word = spell[i];
+            if (findIn(word, "new") && findIn(next, "spell")){
+                if (i+2 < spell.length) return i+2;
+            }
+        }
+        return -1;
     }
 
     public static void shaping(@Nullable EntityLivingBase caster, SpellParams m){
@@ -355,6 +366,22 @@ public class SpellCreation extends SpellCreationHelper {
                 Wizard.castParticles(world, Element.MAGIC, caster.getPositionVector(), 18);
             }
         }
+
+        // ? Finds nearest entity.
+        if (findIn(shape, shape_nearest)){
+            double radius = m.range.num();
+            List<Entity> targets = EntityUtils.getEntitiesWithinRadius(radius, m.focal.posX, m.focal.posY, m.focal.posZ, world, Entity.class);
+            if (targets.isEmpty()) return;
+            // Sort by distance from the origin for consistency in ordering for spells with a limit
+            targets.sort(Comparator.comparingDouble(e -> e.getDistanceSq(m.focal.posX, m.focal.posY, m.focal.posZ)));
+            if (caster != null){
+                targets.removeIf(e -> (AllyDesignationSystem.isAllied(caster, (EntityLivingBase) e) && !m.canAlly));
+                targets.removeIf(e -> e == caster);
+            }
+            m.target = targets.get(0);
+            m.isRay = true;
+            m.castingTargeting = TARGET_ENTITIES;
+        }
     }
 
     public static void raycast(World world, @Nullable EntityLivingBase caster, String shape, SpellParams m){
@@ -401,6 +428,7 @@ public class SpellCreation extends SpellCreationHelper {
             }
             m.isRay=true;
             m.castingTargeting = TARGET_BLOCKS;
+            return;
         }
     }
 
@@ -429,7 +457,8 @@ public class SpellCreation extends SpellCreationHelper {
             if (findIn(next, "caster") && caster != null) mods.target=caster;
             if (findIn(next, "focal") && mods.focal != null) mods.target=mods.focal;
             if (findIn(next, "block blocks")) mods.castingTargeting=TARGET_BLOCKS;
-            if (findIn(next, "entity entities")) mods.castingTargeting=TARGET_BLOCKS;
+            if (findIn(next, "entity entities")) mods.castingTargeting=TARGET_ENTITIES;
+            if (findIn(next, "minion") && mods.last_summon != null) mods.target=mods.last_summon;
         }
 
         if (findIn(word, "owner")){
@@ -442,7 +471,7 @@ public class SpellCreation extends SpellCreationHelper {
             if (findIn(previous, "remove disallow")) mods.canAlly = false;
         }
 
-        if (findIn(word, "filter")){
+        if (findIn(word, "filter") && !findIn(previous, "no")){
             if (findIn(next, "mobs")) mods.filter = e -> e instanceof IMob;
             else if (findIn(next, "construct constructs magic")) mods.filter = e -> e instanceof EntityMagicConstruct || e instanceof EntityMagic;
             else if (findIn(next, "player players human humans")) mods.filter = e -> e instanceof EntityPlayer || e instanceof EntityWizard || e instanceof EntityEvilWizard;
@@ -453,6 +482,57 @@ public class SpellCreation extends SpellCreationHelper {
             else if (findIn(next, "ally allies")){ mods.filter = e -> e == caster || (e instanceof EntityLivingBase
                     && AllyDesignationSystem.isAllied(caster, ((EntityLivingBase) e)));
                 mods.canAlly=true;}
+        }
+
+        if (findIn(word, "no") && findIn(next, "filter")){
+            mods.condition = Objects::nonNull;
+        }
+
+
+        // This plays role in does spell continues after this word.
+        if (findIn(word, "if") && !findIn(previous, "no")){
+            int value = -1;
+            try{value = Integer.parseInt(next2);} catch (Exception ignore){}
+            if (findIn(next, "mob mobs")) mods.condition = e -> e instanceof IMob;
+            else if (findIn(next, "construct constructs magic")) mods.condition = e -> e instanceof EntityMagicConstruct || e instanceof EntityMagic;
+            else if (findIn(next, "player players human humans")) mods.condition = e -> e instanceof EntityPlayer || e instanceof EntityWizard || e instanceof EntityEvilWizard;
+            else if (findIn(next, "undead undeads")) mods.condition = e -> e instanceof EntityLivingBase && ((EntityLivingBase) e).isEntityUndead();
+            else if (findIn(next, "creature creatures")) mods.condition = e -> e instanceof EntityCreature;
+            else if (findIn(next, "living livings")) mods.condition = e -> e instanceof EntityLivingBase;
+            else if (findIn(next, "entity entities")) mods.condition = e -> !(e instanceof EntityLivingBase);
+            else if (findIn(next, "ally allies")){ mods.condition = e -> e == caster || (e instanceof EntityLivingBase
+                    && AllyDesignationSystem.isAllied(caster, ((EntityLivingBase) e)));
+                mods.canAlly=true;}
+            else if (findIn(next, "health") && value > 0){
+                mods.condition = e -> e instanceof EntityLivingBase && ((EntityLivingBase) e).getHealth() <= Integer.parseInt(next2);
+            }
+            else if (findIn(next, condition_sneak)) mods.condition = Entity::isSneaking;
+            else if (findIn(next, condition_day)) mods.condition = entity -> entity.getEntityWorld().isDaytime();
+            else if (findIn(next, condition_night)) mods.condition = entity -> !entity.getEntityWorld().isDaytime();
+            else if (findIn(next, condition_light_level) && value >= 0) {
+                int finalValue = value;
+                mods.condition = entity -> entity.getBrightness() <= Math.max(finalValue, 0.0F)/100F;
+            }
+        }
+
+        if (findIn(word, "no") && findIn(next, "if")){
+            mods.condition = Objects::nonNull;
+        }
+
+        if (findIn(word, "vector")){
+            float x;
+            float y;
+            float z;
+            if(!findIn(next, ignore)) {
+                x = getInteger(next, 0);
+                y = getInteger(next2, 0);
+                z = getInteger(next3, 0);
+            }else{
+                x = getInteger(next2, 0);
+                y = getInteger(next3, 0);
+                z = getInteger(next4, 0);
+            }
+            mods.vector = new Vec3d(x,y,z);
         }
 
         if (findIn(word, "element")){
@@ -466,7 +546,7 @@ public class SpellCreation extends SpellCreationHelper {
             else if (findIn(next, "sorcery time")) mods.element = Element.SORCERY;
         }
 
-        if (findIn(word, "effects fx")){
+        if (findIn(word, "effects fx particles")){
             if (findInSmart(previous + " "+ next, "off disable remove")){
                 mods.hasEffects=false;
             }
@@ -647,23 +727,31 @@ public class SpellCreation extends SpellCreationHelper {
         if (findIn(word, "summon") && !world.isRemote) {
             //if (next.split(":").length <= 1) next = "ebwizardry:" + next;
 
+            Entity summon = null;
             EntityLiving entity = null;
             try {
-                entity = (EntityLiving) Objects.requireNonNull(ForgeRegistries.ENTITIES.getValue(Tales.toResourceLocation(next)))
-                        .newInstance(world);
-                if (entity == null){
+                EntityEntry entry = ForgeRegistries.ENTITIES.getValue(Tales.toResourceLocation(next));
+                if (entry != null) summon = entry.newInstance(world);
+                if (summon == null){
                     for (ResourceLocation location : ForgeRegistries.ENTITIES.getKeys()){
                         EntityEntry p = ForgeRegistries.ENTITIES.getValue(location);
                         if (p != null && p.newInstance(world) instanceof EntityLiving
                         && findIn(next, Objects.requireNonNull(p.getRegistryName()).getResourcePath().replace(":", " "))){
-                            entity = (EntityLiving) p.newInstance(world);
+                            summon = p.newInstance(world);
                         }
                     }
                 }
                 if (Arrays.asList(Tales.chanting.minionBlacklist).contains(next))
-                    entity = null;
+                    summon = null;
 
-            } catch (Exception ignore) {
+                if (summon instanceof EntityLiving){
+                    entity = (EntityLiving) summon;
+                }
+
+            } catch (Exception exception) {
+                WizardryTales.log.error("---- [Wizardry Tales] - While summoning! ----");
+                exception.printStackTrace();
+                WizardryTales.log.error("---- [Wizardry Tales] - While summoning! ----");
             }
 
             if (entity instanceof EntityTameable || entity instanceof AbstractHorse){
@@ -692,9 +780,8 @@ public class SpellCreation extends SpellCreationHelper {
 
                         // We do this on the end for a reason - Entity can not have Attack Damage as example!
                         entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(m.potency.num());
-                    } catch (Exception ignore){};
+                    } catch (Exception ignore){}
                     Tenebria.create(world, entity);
-
                     world.playSound(focal.posX, focal.posY, focal.posZ, WizardrySounds.ENTITY_ZOMBIE_SPAWNER_SPAWN,
                             SoundCategory.PLAYERS, 0.7f, 1.0f, true);
                     return;
@@ -719,9 +806,10 @@ public class SpellCreation extends SpellCreationHelper {
                         entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(m.potency.num());
                     } catch (Exception ignore){};
                     Tenebria.create(world, entity);
-
+                    m.last_summon=entity;
                     world.playSound(focal.posX, focal.posY, focal.posZ, WizardrySounds.ENTITY_ZOMBIE_SPAWNER_SPAWN,
                             SoundCategory.PLAYERS, 0.7f, 1.0f, true);
+                    ParticleCreator.createSmoke(world, entity);
                     return;
                 }
             }
@@ -733,8 +821,8 @@ public class SpellCreation extends SpellCreationHelper {
 
             Entity entity = null;
             try {
-                entity = Objects.requireNonNull(ForgeRegistries.ENTITIES.getValue(Tales.toResourceLocation(next)))
-                        .newInstance(world);
+                EntityEntry entry = ForgeRegistries.ENTITIES.getValue(Tales.toResourceLocation(next));
+                if (entry != null) entity = entry.newInstance(world);
                 if (entity == null){
                     for (ResourceLocation location : ForgeRegistries.ENTITIES.getKeys()){
                         EntityEntry p = ForgeRegistries.ENTITIES.getValue(location);
@@ -750,7 +838,10 @@ public class SpellCreation extends SpellCreationHelper {
                     entity = null;
 
 
-            } catch (Exception ignore) {
+            } catch (Exception exception) {
+                WizardryTales.log.error("---- [Wizardry Tales] - While summoning! ----");
+                exception.printStackTrace();
+                WizardryTales.log.error("---- [Wizardry Tales] - While summoning! ----");
             }
 
             if (entity != null) {
@@ -784,8 +875,10 @@ public class SpellCreation extends SpellCreationHelper {
 
                 if (useMana(focal, type > 0 ? lifetime * m.size.num() * (potency) : lifetime * (potency), true)) {
                     Tenebria.create(world, entity);
+                    m.last_summon=entity;
                     world.playSound(focal.posX, focal.posY, focal.posZ, WizardrySounds.ENTITY_ZOMBIE_SPAWNER_SPAWN,
                             SoundCategory.PLAYERS, 0.7f, 1.0f, true);
+                    ParticleCreator.createSmoke(world, entity);
                 }
             }
         }
@@ -847,29 +940,65 @@ public class SpellCreation extends SpellCreationHelper {
                 ParticleBuilder.create(ParticleBuilder.Type.FLASH).pos(spellBlock.getX() + 0.5, spellBlock.getY() + 0.5, spellBlock.getZ() + 0.5).scale(3)
                         .clr(0.75f, 1, 0.85f).spawn(world);
             }
+            double summary1 = Math.abs(m.vector.x) + Math.abs(m.vector.y) + Math.abs(m.vector.z);
+            double summary2 = Math.abs(spellBlock.getX()) + Math.abs(spellBlock.getY()) + Math.abs(spellBlock.getZ());
+            if (summary1 - summary2 == 0){
+                if (BlockUtils.canBlockBeReplaced(world, spellBlock) && useMana(focal, 10)) {
+                    if (!world.isRemote) {
+                        boolean isCreative = caster instanceof EntityPlayer && ((EntityPlayer) caster).isCreative();
+                        Block block = WizardryBlocks.spectral_block;
+                        if (caster instanceof EntityPlayer){
+                            ItemStack stack = Thief.getInHands((EntityPlayer)caster, i -> i.getItem() instanceof ItemBlock);
+                            if (stack != null){
+                                block = Block.getBlockFromItem(stack.getItem());
+                                if (!isCreative) stack.shrink(1);
+                            }
+                        }
+                        world.setBlockState(spellBlock, block.getBlockState().getBaseState());
 
-            if (BlockUtils.canBlockBeReplaced(world, spellBlock) && useMana(focal, 10)) {
-
-                if (!world.isRemote) {
-                    Block block = WizardryBlocks.spectral_block;
-                    if (caster instanceof EntityPlayer){
-                        ItemStack stack = Thief.getInHands((EntityPlayer)caster, i -> i.getItem() instanceof ItemBlock);
-                        if (stack != null){
-                            block = Block.getBlockFromItem(stack.getItem());
-                            stack.shrink(1);
+                        if (world.getTileEntity(spellBlock) instanceof TileEntityTimer) {
+                            float durate = dynamicDuration < 0 && isCreative ? -1.0F : dynamicDuration;
+                            ((TileEntityTimer) Objects.requireNonNull(world.getTileEntity(spellBlock)))
+                                    .setLifetime(Solver.asTicks(durate));
                         }
                     }
-                    world.setBlockState(spellBlock, block.getDefaultState());
 
-                    if (world.getTileEntity(spellBlock) instanceof TileEntityTimer) {
-                        boolean isCreative = caster instanceof EntityPlayer && ((EntityPlayer) caster).isCreative();
-                        float durate = dynamicDuration < 0 && isCreative ? -1.0F : dynamicDuration;
-                        ((TileEntityTimer) Objects.requireNonNull(world.getTileEntity(spellBlock)))
-                                .setLifetime(Solver.asTicks(durate));
+                    return;
+                }
+            }else {
+                boolean flag = false;
+                BlockPos destination = new BlockPos(spellBlock);
+                destination = destination.add(m.vector.x, m.vector.y, m.vector.z);
+                for (int x = 0; flag;) {
+                    for (int y = 0; flag;) {
+                        for (int z = 0; flag;) {
+                            BlockPos position = new BlockPos(spellBlock);
+                            position.add(x,y,z);
+                            x+=m.vector.x > 0 ? 1 : -1; y+=m.vector.y > 0 ? 1 : -1; z+=m.vector.z > 0 ? 1 : -1;
+                            flag = position.getDistance(destination.getX(), destination.getY(), destination.getZ()) > 0;
+                            boolean isCreative = caster instanceof EntityPlayer && ((EntityPlayer) caster).isCreative();
+                            if (BlockUtils.canBlockBeReplaced(world, spellBlock) && useMana(focal, 10)) {
+                                if (!world.isRemote) {
+                                    Block block = WizardryBlocks.spectral_block;
+                                    if (caster instanceof EntityPlayer) {
+                                        ItemStack stack = Thief.getInHands((EntityPlayer) caster, i -> i.getItem() instanceof ItemBlock);
+                                        if (stack != null) {
+                                            block = Block.getBlockFromItem(stack.getItem());
+                                            if(!isCreative) stack.shrink(1);
+                                        }
+                                    }
+                                    world.setBlockState(spellBlock, block.getBlockState().getBaseState());
+
+                                    if (world.getTileEntity(spellBlock) instanceof TileEntityTimer) {
+                                        float durate = dynamicDuration < 0 && isCreative ? -1.0F : dynamicDuration;
+                                        ((TileEntityTimer) Objects.requireNonNull(world.getTileEntity(spellBlock)))
+                                                .setLifetime(Solver.asTicks(durate));
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-
-                return;
             }
         }
 
@@ -995,7 +1124,7 @@ public class SpellCreation extends SpellCreationHelper {
                 distance = Math.abs(x) + Math.abs(y) + Math.abs(z);
             }
 
-            if(useMana(focal, distance * distance, true) && !world.isRemote) {
+            if(useMana(focal, (distance * distance) * 0.5, true) && !world.isRemote) {
                 target.motionX=x * 0.1f;
                 target.motionY=y * 0.1f;
                 target.motionZ=z * 0.1f;
@@ -1005,6 +1134,8 @@ public class SpellCreation extends SpellCreationHelper {
 
             if(world.isRemote){ Wizard.castParticles(world, Element.SORCERY, target.getPositionVector());}
         }
+
+
 
         // ! Only Living ones:
         if (!(target instanceof EntityLivingBase)) return;
@@ -1112,9 +1243,16 @@ public class SpellCreation extends SpellCreationHelper {
             }
         }
 
-        // * Rename item!
-        if (findIn(word, "rename")){
-
+        // * Create wood item!
+        if (findIn(word, "create") && living instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer) living;
+            if (findIn(next, "pickaxe") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_PICKAXE));
+            else if (findIn(next, "hoe") && useMana(focal,15, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_HOE));
+            else if (findIn(next, "axe") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_AXE));
+            else if (findIn(next, "shovel") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_SHOVEL));
+            else if (findIn(next, "sword") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_SWORD));
+            else if (findIn(next, "wood log") && useMana(focal,30, true)) Thief.addItem(player, Thief.stack(Item.getItemFromBlock(Blocks.LOG)));
+            m.element = Element.EARTH;
         }
     }
 

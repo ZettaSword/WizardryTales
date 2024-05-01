@@ -20,6 +20,7 @@ public class ItemTenebriaCookie extends ItemFood {
         super(2, 0.1F, false);
         this.setUnlocalizedName("cookie");
         this.setRegistryName(WizardryTales.MODID, "tenebria_cookie");
+        this.setCreativeTab(null);
     }
 
     @Override
@@ -33,8 +34,9 @@ public class ItemTenebriaCookie extends ItemFood {
             Aterna.dialogue(player, TextFormatting.DARK_PURPLE,"Tenebria", TextFormatting.DARK_PURPLE + ":D");
             EntityTenebria tenebria = new EntityTenebria(world);
             // Try and find a nearby floor space
-            BlockPos pos = BlockUtils.findNearbyFloorSpace(player, 10, 10*2);
-            if (pos == null) pos = player.getPosition();
+            BlockPos pos = player.getPosition();
+            //BlockPos pos = BlockUtils.findNearbyFloorSpace(player, 5, 5*2);
+            //if (pos == null) pos = player.getPosition();
             tenebria.setPosition(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F);
             world.spawnEntity(tenebria);
         }

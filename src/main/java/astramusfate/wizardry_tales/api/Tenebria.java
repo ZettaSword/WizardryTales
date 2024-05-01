@@ -26,7 +26,7 @@ public class Tenebria {
     public static final IAttribute LUCK = SharedMonsterAttributes.LUCK;
 
     public static void create(World world, Entity entity){
-        if (!world.isRemote) world.spawnEntity(entity);
+        if(!world.isRemote) world.spawnEntity(entity);
     }
 
     public static void moveTowards(Entity target, Vec3d position, int divided){

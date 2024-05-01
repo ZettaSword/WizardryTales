@@ -2,6 +2,7 @@ package astramusfate.wizardry_tales.entity.living;
 
 import astramusfate.wizardry_tales.api.Alchemy;
 import astramusfate.wizardry_tales.api.Solver;
+import astramusfate.wizardry_tales.api.wizardry.ArcaneColor;
 import astramusfate.wizardry_tales.data.Tales;
 import astramusfate.wizardry_tales.entity.construct.EntityRedGas;
 import electroblob.wizardry.util.EntityUtils;
@@ -132,7 +133,7 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
         super.onLivingUpdate();
         if(this.hurtTime > 0) this.hurtTime--;
 
-        if (getHealth() <= 9990) {
+        if (this.ticksExisted > Solver.asTicks(60)) {
             if (!spawnOnDeath) {
                 if (!world.isRemote) {
                     for(int i = 0; i < 10; i++) {
@@ -144,11 +145,11 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
                 }
                 if (world.isRemote){
                     for(int i = 0; i < 20; i++){
-                        ParticleBuilder.create(ParticleBuilder.Type.DUST)
+                        ParticleBuilder.create(ParticleBuilder.Type.CLOUD)
                                 .pos(this.posX + (this.rand.nextDouble() - 0.5) * this.width, this.posY
                                         + this.rand.nextDouble() * this.height, this.posZ + (this.rand.nextDouble() - 0.5) * this.width)
                                 .time(40)
-                                .clr(0.2f, 1.0f, 0.8f)
+                                .clr(ArcaneColor.DARKNESS.getRGB())
                                 .shaded(true)
                                 .spawn(world);
                     }
@@ -169,9 +170,9 @@ public class EntityTenebria extends EntityMob implements IAnimatable, IAnimation
     public boolean attackEntityAsMob(@Nonnull Entity entityIn) {
         if(EntityUtils.isLiving(entityIn)) {
             boolean isLowHealth = ((EntityLivingBase) entityIn).getHealth()
-                    <= ((EntityLivingBase) entityIn).getMaxHealth() * 0.2f;
+                    <= ((EntityLivingBase) entityIn).getMaxHealth() * 0.5f;
             if (isLowHealth) {
-                Alchemy.applyPotion(((EntityLivingBase) entityIn), Solver.duration(3), 0, MobEffects.NAUSEA);
+                Alchemy.applyPotion(((EntityLivingBase) entityIn), Solver.duration(15), 0, MobEffects.NAUSEA);
                 return false;
             }
         }
