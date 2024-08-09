@@ -663,11 +663,11 @@ public final class TalesItems {
 
 	@SideOnly(Side.CLIENT)
 	private static void registryModel(Item item) {
-		final ResourceLocation regName = item.getRegistryName();// Не забываем, что getRegistryName может вернуть Null!
+		final ResourceLocation regName = item.getRegistryName();
 		assert regName != null;
 		final ModelResourceLocation mrl = new ModelResourceLocation(regName, "inventory");
-		ModelBakery.registerItemVariants(item, mrl);// Регистрация вариантов предмета. Это нужно если мы хотим использовать подтипы предметов/блоков(см. статью подтипы)
-		ModelLoader.setCustomModelResourceLocation(item, 0, mrl);// Устанавливаем вариант модели для нашего предмета. Без регистрации варианта модели, сама модель не будет установлена для предмета/блока(см. статью подтипы)
+		ModelBakery.registerItemVariants(item, mrl);
+		ModelLoader.setCustomModelResourceLocation(item, 0, mrl);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -677,8 +677,8 @@ public final class TalesItems {
 		final ResourceLocation regName = item.getRegistryName();
 		assert regName != null;
 		final ModelResourceLocation mrl = new ModelResourceLocation(regName, "inventory");
-		ModelBakery.registerItemVariants(item, mrl);// Регистрация вариантов предмета. Это нужно если мы хотим использовать подтипы предметов/блоков(см. статью подтипы)
-		ModelLoader.setCustomModelResourceLocation(item, 0, mrl);// Устанавливаем вариант модели для нашего предмета. Без регистрации варианта модели, сама модель не будет установлена для предмета/блока(см. статью подтипы)
+		ModelBakery.registerItemVariants(item, mrl);
+		ModelLoader.setCustomModelResourceLocation(item, 0, mrl);
 	}
 
 	/** Registers the given ItemBlock for the given block, with the same registry name as that block. This

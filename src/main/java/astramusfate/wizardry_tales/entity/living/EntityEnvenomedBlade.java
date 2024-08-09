@@ -3,6 +3,7 @@ package astramusfate.wizardry_tales.entity.living;
 import astramusfate.wizardry_tales.api.Solver;
 import astramusfate.wizardry_tales.api.classes.ISmartAnimatable;
 import astramusfate.wizardry_tales.data.Tales;
+import astramusfate.wizardry_tales.registry.TalesLoot;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -86,7 +87,7 @@ public class EntityEnvenomedBlade extends AbstractSkeleton implements ISmartAnim
     @Nullable
     protected ResourceLocation getLootTable()
     {
-        return LootTableList.ENTITIES_SKELETON;
+        return TalesLoot.ENVENOMED_BLADE;
     }
 
     protected SoundEvent getAmbientSound()

@@ -22,6 +22,7 @@ public class TalesLoot {
 
     private static LootTable RARE_ARTEFACTS;
     private static LootTable EPIC_ARTEFACTS;
+    public static ResourceLocation ENVENOMED_BLADE;
 
     private TalesLoot(){}
 
@@ -38,6 +39,8 @@ public class TalesLoot {
         LootTableList.register(new ResourceLocation(WizardryTales.MODID, "chests/high_values_double"));
 
         LootTableList.register(new ResourceLocation(WizardryTales.MODID, "chests/dungeon_additions"));
+
+        ENVENOMED_BLADE = LootTableList.register(new ResourceLocation(WizardryTales.MODID, "entities/envenomed_blade"));
 
         // additional
         LootTableList.register(new ResourceLocation(WizardryTales.MODID, "grant_book_on_first_join"));
