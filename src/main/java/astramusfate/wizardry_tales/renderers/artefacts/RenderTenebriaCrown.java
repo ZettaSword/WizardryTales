@@ -24,6 +24,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.text.DecimalFormat;
@@ -35,6 +37,7 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = WizardryTales.MODID)
 public class RenderTenebriaCrown {
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onDraw(RenderWorldLastEvent event){
         Minecraft mc = Minecraft.getMinecraft();
