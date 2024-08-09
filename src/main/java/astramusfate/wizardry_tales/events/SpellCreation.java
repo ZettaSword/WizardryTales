@@ -102,13 +102,13 @@ public class SpellCreation extends SpellCreationHelper {
         List<String> spell = getSpell(msg);
 
         if(!containsAny(spell, Arrays.asList(keyword.toLowerCase(Locale.ROOT).split(" ")))) return;
-
         createSpell(spell, player, player, true, event.getMessage());
         Style style = event.getComponent().getStyle().setColor(TextFormatting.GOLD);
         event.setComponent(event.getComponent().setStyle(style));
 
         if (contains(spell, "hide hidden")){
-            event.setComponent(new TextComponentString(""));
+            player.sendMessage(event.getComponent().setStyle(style));
+            event.setCanceled(true);
         }
     }
 
@@ -118,13 +118,8 @@ public class SpellCreation extends SpellCreationHelper {
         String msg = getMsg(event.getOriginalMessage());
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         List<String> spell = getSpell(msg);
-
         if(!containsAny(spell, Arrays.asList(keyword.toLowerCase(Locale.ROOT).split(" ")))) return;
-
         createSpell(spell, player, player, false, event.getOriginalMessage());
-        if (contains(spell, "hide hidden")){
-            event.setMessage("");
-        }
     }
 
     public static void createSpell(List<String> words, Entity focal, @Nullable Entity target, boolean isServer){

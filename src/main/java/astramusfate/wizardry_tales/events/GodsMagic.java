@@ -114,7 +114,8 @@ public class GodsMagic extends SpellCreationHelper {
         event.setComponent(event.getComponent().setStyle(style));
 
         if (contains(spell, "hide hidden")){
-            event.setComponent(new TextComponentString(""));
+            player.sendMessage(event.getComponent().setStyle(style));
+            event.setCanceled(true);
         }
     }
 
