@@ -80,6 +80,14 @@ public class RaceListener extends EventsBase {
 
                 checkAttributes(height, "race height", -0.2, Solver.MULTIPLY);
                 break;
+
+            case "undead":
+                checkAttributes(player, health, "race health", 10, Solver.ADD);
+                checkAttributes(attack, "race attack", -0.25, Solver.MULTIPLY);
+                checkAttributes(armor, "race armour", -0.1, Solver.MULTIPLY);
+                checkAttributes(knockback, "race knockback", 0.1, Solver.MULTIPLY);
+
+                break;
             case "slime":
                 checkAttributes(health, "race health", -4, Solver.ADD, transition);
 

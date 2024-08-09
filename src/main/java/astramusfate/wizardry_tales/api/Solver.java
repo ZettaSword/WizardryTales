@@ -2,7 +2,6 @@ package astramusfate.wizardry_tales.api;
 
 import electroblob.wizardry.util.RayTracer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -107,7 +106,10 @@ public class Solver {
         return randInt(1, 100) <= chance;
     }
 
-    /** Used to find biggest Integer among all of them
+    /** Returns random particle lifetime **/
+    public static int particle(){return 20 + Solver.randInt(0, 20);}
+
+    /** Used to find the biggest Integer among all of them
      * **/
     public static int biggestInt(int[] integers){
         int biggest = 0;

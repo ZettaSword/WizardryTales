@@ -2,8 +2,9 @@ package astramusfate.wizardry_tales.registry;
 
 import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.Alchemy;
-import astramusfate.wizardry_tales.api.Tenebria;
 import astramusfate.wizardry_tales.api.Solver;
+import astramusfate.wizardry_tales.api.Tenebria;
+import astramusfate.wizardry_tales.api.wizardry.Race;
 import astramusfate.wizardry_tales.potion.*;
 import astramusfate.wizardry_tales.spells.TalesSpells;
 import astramusfate.wizardry_tales.spells.list.BurningDisease;
@@ -11,9 +12,6 @@ import astramusfate.wizardry_tales.spells.list.Entangle;
 import astramusfate.wizardry_tales.spells.list.TeleportationCurse;
 import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.item.ISpellCastingItem;
-import electroblob.wizardry.item.ItemArtefact;
-import electroblob.wizardry.item.ItemWand;
-import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.registry.WizardryPotions;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.EntityUtils;
@@ -21,6 +19,7 @@ import electroblob.wizardry.util.MagicDamage;
 import electroblob.wizardry.util.ParticleBuilder;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -70,6 +69,12 @@ public class TalesEffects {
 
     public static final Potion magic_exhaust = placeholder();
 
+    //2.2.7
+    public static final Potion repel = placeholder();
+    public static final Potion phasing = placeholder();
+    public static final Potion charm = placeholder();
+
+
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Potion> event) {
         IForgeRegistry<Potion> registry = event.getRegistry();
@@ -81,7 +86,6 @@ public class TalesEffects {
         registerPotion(registry, "mantis_agility", new MantisAgilityEffect());
         registerPotion(registry, "teleportation_curse", new TeleportationCurseEffect());
         registerPotion(registry, "mage_hand", new MageHandEffect());
-
 
         registerPotion(registry, "magic_exhaust", new TalesPresetEffect("magic_exhaust", "magic_exhaust", 0xD65B00){
             @Override
@@ -100,16 +104,18 @@ public class TalesEffects {
                 this.registerPotionAttributeModifier(SharedMonsterAttributes.ATTACK_SPEED, id.toString(), -0.2, Solver.MULTIPLY);
             }
         });
+
+        //2.2.7
+        registerPotion(registry, "repel", new RepelEffect());
+        registerPotion(registry, "phasing", new PhasingEffect());
+        registerPotion(registry, "charm", new CharmEffect());
+
     }
 
     public static void registerPotion(IForgeRegistry<Potion> registry, String name, Potion potion) {
         potion.setRegistryName(WizardryTales.MODID, name);
         potion.setPotionName("potion." + Objects.requireNonNull(potion.getRegistryName()).toString());
         registry.register(potion);
-    }
-
-    public static boolean isCursedUndeadly(EntityLivingBase target){
-        return target.isPotionActive(WizardryPotions.curse_of_undeath);
     }
 
     public static boolean is(PotionEffect potion, Potion effect){
@@ -123,6 +129,16 @@ public class TalesEffects {
             break;
         }
         return bool;
+    }
+
+    public static boolean isUndead(EntityLivingBase target){
+        return Race.isUndead(target);
+    }
+
+    public static boolean isUndeadInclMobs(EntityLivingBase target){
+        return target.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD ||
+                target.isPotionActive(WizardryPotions.curse_of_undeath)
+                || Race.isUndead(target);
     }
     /*
     @SubscribeEvent

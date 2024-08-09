@@ -5,7 +5,10 @@ import astramusfate.wizardry_tales.items.*;
 import astramusfate.wizardry_tales.items.artefacts.ChantingCloak;
 import astramusfate.wizardry_tales.items.artefacts.ChantingRing;
 import astramusfate.wizardry_tales.items.artefacts.IceHalberd;
+import astramusfate.wizardry_tales.items.artefacts.TenebriaCrown;
 import astramusfate.wizardry_tales.items.rituals.RitualMidnightTrading;
+import astramusfate.wizardry_tales.items.rituals.RitualOfForestLife;
+import astramusfate.wizardry_tales.items.rituals.RitualRemnantFire;
 import astramusfate.wizardry_tales.items.rituals.RitualRingOfFire;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.constants.Tier;
@@ -91,6 +94,9 @@ public final class TalesItems {
 
 	@GameRegistry.ObjectHolder("chanting_ring")
 	public static final Item chanting_ring = placeholder();
+
+	@GameRegistry.ObjectHolder("tenebria_crown")
+	public static final Item tenebria_crown = placeholder();
 
 	// Items
 	@GameRegistry.ObjectHolder("mana_bomb")
@@ -295,6 +301,12 @@ public final class TalesItems {
 	@GameRegistry.ObjectHolder("ritual_midnight_trading")
 	public static final Item ritual_midnight_trading = placeholder();
 
+	@GameRegistry.ObjectHolder("ritual_remnant_fire")
+	public static final Item ritual_remnant_fire = placeholder();
+
+	@GameRegistry.ObjectHolder("ritual_of_forest_life")
+	public static final Item ritual_of_forest_life = placeholder();
+
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 
@@ -326,6 +338,7 @@ public final class TalesItems {
 		reg.register(new TalesArtefact("dull_ring", EnumRarity.COMMON, ItemArtefact.Type.RING));
 		reg.register(new ChantingCloak("chanting_cloak"));
 		reg.register(new ChantingRing("chanting_ring", EnumRarity.COMMON, ItemArtefact.Type.RING));
+		reg.register(new TenebriaCrown());
 
 		reg.register(new IceHalberd());
 		registerItem(reg, "mana_bomb", new ItemManaBomb());
@@ -337,6 +350,7 @@ public final class TalesItems {
 
 		registerSpellcastingItems(reg);
 		//2.2.6
+		//2.2.7
 		registerRituals(reg);
 
 		//registerItem(registry, "arcana_book", new ItemArcanaBook());
@@ -357,6 +371,7 @@ public final class TalesItems {
 		registryModel(casting_ring);
 		registryModel(chanting_cloak);
 		registryModel(chanting_ring);
+		registryModel(tenebria_crown);
 
 		registryModel(amulet_petal_blooming);
 
@@ -576,13 +591,19 @@ public final class TalesItems {
 
 	// Rituals!
 	public static void registerRituals(IForgeRegistry<Item> reg){
+		//2.2.6
 		reg.register(new RitualRingOfFire("ring_of_fire"));
 		reg.register(new RitualMidnightTrading("midnight_trading"));
+		//2.2.7
+		reg.register(new RitualRemnantFire("remnant_fire"));
+		reg.register(new RitualOfForestLife("of_forest_life"));
 	}
 
 	private static void registerRitualsModels() {
 		registryModel(ritual_ring_of_fire);
 		registryModel(ritual_midnight_trading);
+		registryModel(ritual_remnant_fire);
+		registryModel(ritual_of_forest_life);
 	}
 
 //---------------------------------------------------------------------------

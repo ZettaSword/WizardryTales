@@ -139,6 +139,9 @@ public class ClientProxy extends CommonProxy {
         TalesLayerTiledOverlay.initialiseLayers(LayerLeafDisguise::new);
         TalesLayerTiledOverlay.initialiseLayers(LayerBurningDisease::new);
         TalesLayerTiledOverlay.initialiseLayers(LayerStormArmor::new);
+        TalesLayerTiledOverlay.initialiseLayers(LayerTenebriaCrown::new);
+        TalesLayerTiledOverlay.initialiseLayers(LayerElfEars::new);
+        TalesLayerTiledOverlay.initialiseLayers(LayerDwarfBeard::new);
     }
 
     @Override

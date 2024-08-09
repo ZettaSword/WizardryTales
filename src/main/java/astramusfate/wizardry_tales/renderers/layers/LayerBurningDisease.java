@@ -32,6 +32,6 @@ public class LayerBurningDisease extends TalesLayerTiledOverlay<EntityLivingBase
 
     @Override
     public boolean shouldCombineTextures() {
-        return false;
+        return true;
     }
 }

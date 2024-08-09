@@ -31,11 +31,11 @@ public class Tales {
 
         @Config.Comment("Offset for Mana bar/numbers")
         @Config.Name("0: Mana X offset")
-        public int manaPool_x = 0;
+        public int manaPool_x = 100;
 
         @Config.Comment("Offset for Mana bar/numbers")
         @Config.Name("0: Mana Y offset")
-        public int manaPool_y = 0;
+        public int manaPool_y = -35;
         @Config.Comment("If it is true - then mana from wands when you cast spell - will not be used")
         @Config.Name("Is items mana not used anymore?")
         public boolean noMoreManaUse = true;
@@ -251,17 +251,32 @@ public class Tales {
         @Config.Name("Earth Wolf Spawnrate")
         public int earthWolfSpawnRate = 10;
 
+        @Config.Comment("Biomes where Elemental wolfs can spawn")
+        @Config.Name("Allowed to spawn Biomes for Earth wolfs")
+        public String[] earthWolfsBiomeWhitelist = new String[]{"forest", "forest_hills","birch_forest_hills","taiga_hills", "roofed_forest", "mutated_roofed_forest","mutated_birch_forest", "mutated_forest", "birch_forest"};
+
         @Config.RequiresMcRestart
         @Config.RangeInt(min = 0, max = 100)
         @Config.SlidingOption()
         @Config.Comment("Higher numbers mean more them will spawn. 5 is equivalent to witches, 100 is equivalent to zombies, skeletons and creepers. Set to 0 to disable spawning entirely.")
-        @Config.Name("Earth Wolf Spawnrate")
+        @Config.Name("Thunder Wolf Spawnrate")
         public int thunderWolfSpawnRate = 10;
 
         @Config.Comment("Biomes where Elemental wolfs can spawn")
-        @Config.Name("Allowed to spawn Biomes for Elemental wolfs")
-        public String[] elementalWolfsBiomeWhitelist = new String[]{"forest", "forest_hills","birch_forest_hills","taiga_hills", "roofed_forest", "mutated_roofed_forest","mutated_birch_forest", "mutated_forest", "birch_forest"};
+        @Config.Name("Allowed to spawn Biomes for Thunder wolfs")
+        public String[] thunderWolfsBiomeWhitelist = new String[]{"forest", "forest_hills","birch_forest_hills","taiga_hills", "roofed_forest", "mutated_roofed_forest","mutated_birch_forest", "mutated_forest", "birch_forest"};
 
+
+        @Config.RequiresMcRestart
+        @Config.RangeInt(min = 0, max = 100)
+        @Config.SlidingOption()
+        @Config.Comment("Higher numbers mean more them will spawn. 5 is equivalent to witches, 100 is equivalent to zombies, skeletons and creepers. Set to 0 to disable spawning entirely.")
+        @Config.Name("Vampire Spawnrate")
+        public int vampireSpawnRate = 5;
+
+        @Config.Comment("Biomes where Vampires can spawn")
+        @Config.Name("Allowed to spawn Biomes for Vampires")
+        public String[] vampireBiomeWhitelist = new String[]{"plains","forest", "forest_hills","birch_forest_hills","taiga_hills", "roofed_forest", "mutated_roofed_forest","mutated_birch_forest", "mutated_forest", "birch_forest", "vampirism:vampireforest"};
 
     }
 
@@ -277,7 +292,11 @@ public class Tales {
         @Config.Comment("You can use 'apply' action to apply to yourself or others potion effects")
         @Config.Name("Apply effect Blacklist")
         public String[] applyBlacklist = new String[]{"minecraft:instant_damage", "minecraft:instant_health", "minecraft:wither",
-                "wizardry_tales:magic_exhaust", "potioncore:flight"};
+                "wizardry_tales:magic_exhaust", "potioncore:flight","potioncore:launch", "minecraft:luck"};
+
+        @Config.Comment({"You can use 'apply' action to apply to yourself or others potion effects","First is potion, second is minimal mana it requires to apply."})
+        @Config.Name("Apply effect specific cost")
+        public String[] applySpecificCost = new String[]{"wizardry_tales:phasing 30"};
 
         @Config.Comment("You can say 'summon' + minion id, to summon the minion you want")
         @Config.Name("Action: Minion Blacklist")
@@ -290,6 +309,15 @@ public class Tales {
         @Config.Comment("You can say 'replicate' + spell id, to replicate spell you discovered and have learned.")
         @Config.Name("Action: Replication Blacklist")
         public String[] replicationBlacklist = new String[]{"modid:example_spell"};
+
+        @Config.Comment({"You can use `Create` to conjure permanent copy of specific items or blocks.","First is item, second is it's cost in mana."})
+        @Config.Name("Create cost list")
+        public String[] createCostList = new String[]{"minecraft:wooden_pickaxe 20","minecraft:stone_pickaxe 25","minecraft:iron_pickaxe 30","minecraft:diamond_pickaxe 35",
+                "minecraft:wooden_hoe 15","minecraft:stone_hoe 20","minecraft:iron_hoe 25","minecraft:diamond_hoe 30",
+                "minecraft:wooden_axe 20","minecraft:stone_axe 25","minecraft:iron_axe 30","minecraft:diamond_axe 35",
+                "minecraft:wooden_shovel 15","minecraft:stone_shovel 20","minecraft:iron_shovel 25","minecraft:diamond_shovel 30",
+                "minecraft:wooden_sword 20","minecraft:stone_sword 25","minecraft:iron_sword 30","minecraft:diamond_sword 35",
+                "minecraft:log 30"};
     }
 
     @Config.Comment("Stats and their configs! Like Strength stat, Agility, and more.")
@@ -342,6 +370,33 @@ public class Tales {
         public int int_max = 20;
     }
 
+    @Config.Comment("Balance for Tales spells")
+    @Config.Name("Spells")
+    public static Spells spells = new Spells();
+
+    public static class Spells {
+        @Config.Comment("If enabled - Tales has spells, if disabled - Tales has no spells. Simple!")
+        @Config.Name("Spells")
+        public boolean spells=true;
+
+        @Config.Comment("If true, then Alohomora spell will be able to open arcane locked chests.")
+        @Config.Name("Should Alohomora open Arcane Locked chests?")
+        public boolean alohomora_arcane_locks=true;
+
+        @Config.Comment("If true, then Steal spell usage on Wizards will cause them be angry.")
+        @Config.Name("Should Steal spell anger wizards?")
+        public boolean steal_anger_wizards=true;
+
+        @Config.Comment("List of entities that can be enraged by usage of Steal spell")
+        @Config.Name("Enraged by Steal spell entities")
+        public String[] steal_anger_list = new String[]{"modid:mod_entity"};
+
+        @Config.Comment("List of entities that can't be charmed with Charm spell.")
+        @Config.Name("Can't be affected by Charm spell")
+        public String[] charm_blacklist = new String[]{"modid:mod_entity"};
+
+    }
+
     @Config.Comment("Tweaks and Additions Tales does")
     @Config.Name("Additions")
     public static Additions addon = new Additions();
@@ -372,10 +427,6 @@ public class Tales {
         @Config.Name("Testers Perk")
         public boolean testers_perk=true;
 
-        @Config.Comment("If enabled - Tales has spells, if disabled - Tales has no spells. Simple!")
-        @Config.Name("Spells")
-        public boolean spells=true;
-
         @Config.Comment("If enabled - You need to learn how to cast spells first to use them properly!")
         @Config.Name("Spells Learning")
         public boolean learning=false;
@@ -404,6 +455,11 @@ public class Tales {
         @Config.Name("Undead Mobs Passive to Undead cursed Players?")
         public boolean curses_passive=true;
 
+        @Config.RequiresMcRestart
+        @Config.Comment("Now with Curse of Undead you become Zombie!!!")
+        @Config.Name("Curse of Undead Visual change")
+        public boolean curse_undead_visual=true;
+
         @Config.Comment("Do Curses can migrate from one body of player to another?(This means player will still have curse after death, same with Blessings)")
         @Config.Name("Curses will migrate")
         public boolean curse_migration=true;
@@ -414,11 +470,15 @@ public class Tales {
 
         @Config.Comment("If enabled - Then all monsters will have leveling system which can make game harder. Is made specifically for player stats system.")
         @Config.Name("Monsters Leveling")
-        public boolean monsters_leveling=true;
+        public boolean monsters_leveling=false;
 
         @Config.Comment("If enabled - Then all summons will try to follow caster if possible.")
         @Config.Name("Summon follows Caster")
         public boolean summons_follow=true;
+
+        @Config.Comment("If enabled - Then all mind controlled entities will try to follow caster if possible.")
+        @Config.Name("Mind Controlled follows Caster")
+        public boolean mind_control_follow=true;
 
         @Config.RequiresMcRestart
         @Config.Comment("They looks different, and you can craft them easier, and, that's all! They're same as usual, but not require gold to create!")
@@ -429,6 +489,11 @@ public class Tales {
         @Config.Comment("Magical Grimoires!")
         @Config.Name("New Magical Grimoires")
         public boolean magical_grimoires=true;
+
+        @Config.Comment("Tenebria crown allows seeing entity health and id.")
+        @Config.Name("Denied to see through Tenebria crown")
+        public String[] tenebriaCrownBlacklist = new String[]{"modid:mod_entity", "realrender:dummy"};
+
     }
 
     @Config.Comment("Change their frequency, or allowed dimensions")
@@ -622,6 +687,13 @@ public class Tales {
         @Config.Comment("Compat with botania, adds some recipes to get various materials.")
         @Config.Name("Botania")
         public boolean botania = true;
+
+        @Config.RequiresMcRestart
+        @Config.Comment({"Compat with Vampirism, adds healing effect for Necromancy attack spells.",
+                "Also with this enabled, Vampires are better at casting Ice and Necromancy spells. (Potency, charge-up, cooldown)" +
+                        "But, usage of other Elements spells costs a lot more for them."})
+        @Config.Name("Vampirism")
+        public boolean vampirism = true;
     }
 
     @Config.Comment("Take in mind some features locked if you have no ArtemisLib installed!")
@@ -639,34 +711,22 @@ public class Tales {
         public boolean races_given_choice=true;
     }
 
-    @Config.Comment("")
-    @Config.Name("Remove after release")
+    @Config.Comment("Just added for debug purposes.")
+    @Config.Name("Debug section")
     public static Debug debug = new Debug();
 
     public static class Debug{
         @Config.Comment("")
         @Config.Name("x")
-        public int x =91;
+        public int x =0;
 
         @Config.Comment("")
         @Config.Name("y")
         public int y =0;
 
         @Config.Comment("")
-        @Config.Name("x2")
-        public int x2 =20;
-
-        @Config.Comment("")
-        @Config.Name("y2")
-        public int y2 =0;
-
-        @Config.Comment("")
-        @Config.Name("x3")
-        public int x3 =20;
-
-        @Config.Comment("")
-        @Config.Name("y3")
-        public int y3 =10;
+        @Config.Name("z")
+        public int z =0;
     }
 
     /** Converts the given strings to an array of {@link ResourceLocation}s */

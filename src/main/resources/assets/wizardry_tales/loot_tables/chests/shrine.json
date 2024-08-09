@@ -33,6 +33,11 @@
                     "type": "loot_table",
                     "name": "ebwizardry:subsets/epic_artefacts",
                     "weight": 1
+                },
+                {
+                    "type": "loot_table",
+                    "name": "wizardry_tales:chests/dungeon_additions",
+                    "weight": 1
                 }
             ]
         }

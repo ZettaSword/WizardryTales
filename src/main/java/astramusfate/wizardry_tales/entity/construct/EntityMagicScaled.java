@@ -36,27 +36,26 @@ public class EntityMagicScaled extends EntityMagic {
     }
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound nbt){
-        super.readEntityFromNBT(nbt);
-        setSizeMultiplier(nbt.getFloat("sizeMultiplier"));
-    }
-
-    @Override
     protected void writeEntityToNBT(@Nonnull NBTTagCompound nbt){
         super.writeEntityToNBT(nbt);
         nbt.setFloat("sizeMultiplier", sizeMultiplier);
 
     }
-
     @Override
-    public void readSpawnData(ByteBuf data){
-        super.readSpawnData(data);
-        setSizeMultiplier(data.readFloat()); // Set the width correctly on the client side
+    protected void readEntityFromNBT(NBTTagCompound nbt){
+        super.readEntityFromNBT(nbt);
+        setSizeMultiplier(nbt.getFloat("sizeMultiplier"));
     }
+
 
     @Override
     public void writeSpawnData(ByteBuf data){
         super.writeSpawnData(data);
         data.writeFloat(sizeMultiplier);
+    }
+    @Override
+    public void readSpawnData(ByteBuf data){
+        super.readSpawnData(data);
+        setSizeMultiplier(data.readFloat()); // Set the width correctly on the client side
     }
 }

@@ -20,5 +20,11 @@
   "spell.mantis_agility": {"category": "spells", "sounds": ["ebwizardry:buff"]},
   "spell.teleportation_curse": {"category": "spells", "sounds": ["mob/endermen/portal", "mob/endermen/portal2"]},
   "spell.mana_bomb": {"category": "spells", "sounds": ["random/bow"]},
-  "spell.allocate": {"category": "spells", "sounds": ["mob/endermen/portal", "mob/endermen/portal2"]}
+  "spell.allocate": {"category": "spells", "sounds": ["mob/endermen/portal", "mob/endermen/portal2"]},
+  "spell.permanent_mind_control": {"category": "spells", "sounds": ["mob/guardian/elder_death"]},
+  "spell.steal": {"category": "spells", "sounds": ["ebwizardry:conjure"]},
+  "spell.melt": {"category": "spells", "sounds": ["fire/ignite"]},
+  "spell.melting_point": {"category": "spells", "sounds": ["ebwizardry:firestorm"]},
+  "spell.void_path": {"category": "spells", "sounds": ["ebwizardry:conjure"]},
+  "spell.charm": {"category": "spells", "sounds": ["ebwizardry:effect1", "ebwizardry:effect2"]}
 }

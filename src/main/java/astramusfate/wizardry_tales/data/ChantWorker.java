@@ -119,6 +119,51 @@ public class ChantWorker extends EventsBase implements Lexicon {
         return useMana(focal, cost);
     }
 
+    public static boolean useAllMana(Entity focal, double min, boolean addProgress){
+        if (min < 0) min *= -1;
+        if (!WizardryTales.hasPlayerMana){
+            if (!Tales.mp.manaPool) return true;
+            min*= Tales.mp.chant_multiplier;
+            if (focal instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) focal;
+                return collectAllMana(player, min, addProgress);
+            } else {
+                if (focal instanceof EntityMagic) {
+                    EntityMagic magic = (EntityMagic) focal;
+                    if (magic.getCaster() instanceof EntityPlayer) {
+                        if (chestUseMana(magic, min)) return true;
+                        EntityPlayer player = (EntityPlayer) magic.getCaster();
+                        return collectAllMana(player, min, addProgress);
+                    }
+                }
+            }
+        }else{
+            return ManaExplorer.useMana(focal, min, addProgress);
+        }
+
+        return false;
+    }
+
+    public static boolean collectAllMana(EntityPlayer player, double min, boolean progress){
+        if (!Tales.mp.manaPool) return true;
+        ISoul soul = player.getCapability(SoulProvider.SOUL_CAP, null);
+        if (soul == null) return false;
+        if (player.isCreative()) return true;
+
+        if (soul.getMP() >= min) {
+            soul.addMana(player, -1 * soul.getMP());
+            if (progress){
+                double maxMana = soul.getMaxMP();
+                double value = (maxMana + Math.max(Tales.mp.progression * (Tales.mp.progression_multiplier *
+                        (soul.getMP() / maxMana)), Tales.mp.progression));
+                soul.setMaxMP(player, Math.min(value, Tales.mp.max));
+            }
+            return true;
+        }
+
+        if (!player.world.isRemote) Aterna.translate(player, true, "mana.not_enough");
+        return false;
+    }
     public static boolean collectMana(EntityPlayer player, double cost, boolean progress){
         if (!Tales.mp.manaPool) return true;
         ISoul soul = player.getCapability(SoulProvider.SOUL_CAP, null);
@@ -160,12 +205,11 @@ public class ChantWorker extends EventsBase implements Lexicon {
     }
 
     public static boolean contains(List<String> words, String matches){
-        String[] to_match = matches.split(" ");
-        List<Boolean> contained = new ArrayList<>(Collections.emptyList());
+        String[] to_match = matches.toLowerCase().split(" ");
         for(String match : to_match){
-            contained.add(words.contains(match));
+            if (words.contains(match)) return true;
         }
-        return contained.stream().allMatch(bool -> bool);
+        return false;
     }
 
     public static boolean containsAll(List<String> words, List<String> matching){
@@ -179,10 +223,19 @@ public class ChantWorker extends EventsBase implements Lexicon {
         return contained.stream().allMatch(bool -> bool);
     }
 
+    public static String getAny(List<String> words, List<String> matching){
+        for (String matches : matching) {
+            String[] to_match = matches.toLowerCase().split(" ");
+            for (String match : to_match) {
+                if (words.contains(match)) return match;
+            }
+        }
+        return "";
+    }
     public static boolean containsAny(List<String> words, List<String> matching){
         List<Boolean> contained = new ArrayList<>(Collections.emptyList());
         for (String matches : matching) {
-            String[] to_match = matches.split(" ");
+            String[] to_match = matches.toLowerCase().split(" ");
             for (String match : to_match) {
                 contained.add(words.contains(match));
             }
@@ -337,9 +390,6 @@ public class ChantWorker extends EventsBase implements Lexicon {
      */
     // The caster argument is only really useful for spawning targeted particles continuously
     public static void spawnParticleRay(World world,EnumParticleTypes type, Vec3d origin, Vec3d direction, double distance){
-
-        Vec3d velocity = direction.scale(0);
-
         for(double d = 0.85D; d <= distance; d += 0.85D){
             double x = origin.x + d*direction.x + 0.1D * (world.rand.nextDouble()*2 - 1);
             double y = origin.y + d*direction.y + 0.1D * (world.rand.nextDouble()*2 - 1);

@@ -36,28 +36,30 @@ public class RitualMidnightTrading extends ItemRitual {
     @Override
     boolean castRitual(@Nonnull World world, EntityPlayer player, @Nonnull ItemStack stack) {
         BlockPos spellBlock = player.getPosition();
-        EntityRitualMidnightTrading entity = new EntityRitualMidnightTrading(world);
-        entity.lifetime = Solver.asTicks(10);
-        entity.setCaster(player);
-        entity.setSizeMultiplier(2);
+        if (!world.isDaytime()) {
+            EntityRitualMidnightTrading entity = new EntityRitualMidnightTrading(world);
+            entity.lifetime = Solver.asTicks(10);
+            entity.setCaster(player);
+            entity.setSizeMultiplier(2);
 
-        entity.setPositionAndRotation(spellBlock.getX() + 0.5, spellBlock.getY(),
-                spellBlock.getZ() + 0.5, player.rotationYaw, player.rotationPitch);
+            entity.setPositionAndRotation(spellBlock.getX() + 0.5, spellBlock.getY(),
+                    spellBlock.getZ() + 0.5, player.rotationYaw, player.rotationPitch);
 
-        if (world.isRemote){
-            ParticleBuilder.create(ParticleBuilder.Type.BEAM)
-                    .pos(spellBlock.getX() + 0.5, world.getActualHeight(),
-                            spellBlock.getZ() + 0.5).target(spellBlock.getX() + 0.5, spellBlock.getY(),
-                            spellBlock.getZ() + 0.5).scale(9)
-                    .clr(ArcaneColor.chooseOld(this.element).getRGB()).time(20).spawn(world);
-        }
+            if (world.isRemote) {
+                ParticleBuilder.create(ParticleBuilder.Type.BEAM)
+                        .pos(spellBlock.getX() + 0.5, world.getActualHeight(),
+                                spellBlock.getZ() + 0.5).target(spellBlock.getX() + 0.5, spellBlock.getY(),
+                                spellBlock.getZ() + 0.5).scale(9)
+                        .clr(ArcaneColor.chooseOld(this.element).getRGB()).time(20).spawn(world);
+            }
 
-        Tenebria.create(world, entity);
+            Tenebria.create(world, entity);
 
-        world.playSound(player.posX, player.posY, player.posZ, WizardrySounds.ENTITY_ZOMBIE_SPAWNER_SPAWN,
-                SoundCategory.PLAYERS, 0.7f, 1.0f, true);
+            world.playSound(player.posX, player.posY, player.posZ, WizardrySounds.ENTITY_ZOMBIE_SPAWNER_SPAWN,
+                    SoundCategory.PLAYERS, 0.7f, 1.0f, true);
 
-        return true;
+            return true;
+        }else return false;
     }
 
     @Override

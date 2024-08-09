@@ -7,6 +7,7 @@ import astramusfate.wizardry_tales.api.wizardry.ArcaneColor;
 import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.Mana;
 import astramusfate.wizardry_tales.registry.TalesTabs;
+import com.google.common.collect.Lists;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.util.ParticleBuilder;
 import electroblob.wizardry.util.ParticleBuilder.Type;
@@ -157,5 +158,13 @@ public abstract class ItemRitual extends Item {
 	@Override
 	public IRarity getForgeRarity(@Nonnull ItemStack stack) {
 		return getItemRarity();
+	}
+
+	public List<Item> createStack(Item item, int count){
+		List<Item> items = Lists.newArrayList();
+		for (int i = 0; i < count; i++){
+			items.add(item);
+		}
+		return items;
 	}
 }

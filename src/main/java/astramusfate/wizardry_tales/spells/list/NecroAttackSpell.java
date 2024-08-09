@@ -35,9 +35,11 @@ public class NecroAttackSpell extends SpellRay {
                 if(!world.isRemote && caster instanceof EntityPlayer) ((EntityPlayer)caster).sendStatusMessage(
                         new TextComponentTranslation("spell.resist", target.getName(), this.getNameForTranslationFormatted()), true);
             }else{
+                float dmg = Math.min(this.getProperty(DAMAGE).floatValue() * modifiers.get(Sage.POTENCY),
+                        this.getProperty(DAMAGE).floatValue() * 2.0f);
                 //target.attackEntityFrom(MagicDamage.causeDirectMagicDamage(caster, MagicDamage.DamageType.WITHER), this.getProperty(DAMAGE).floatValue());
-                Sage.causeDamage(MagicDamage.DamageType.WITHER, caster, target, Math.min(this.getProperty(DAMAGE).floatValue() * modifiers.get(Sage.POTENCY),
-                        this.getProperty(DAMAGE).floatValue() * 2.0f));
+                Sage.causeDamage(MagicDamage.DamageType.WITHER, caster, target, dmg);
+
             }
             return true;
         }

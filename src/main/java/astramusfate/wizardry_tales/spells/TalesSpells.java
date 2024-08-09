@@ -56,12 +56,18 @@ public class TalesSpells {
 
     //2.2.6
     public static final Spell allocate = placeholder();
+    public static final Spell permanent_mind_control = placeholder();
+    public static final Spell alohomora = placeholder();
+    public static final Spell melt = placeholder();
+    public static final Spell melting_point = placeholder();
+    public static final Spell repel_water = placeholder();
+    public static final Spell charm = placeholder();
 
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Spell> event) {
         IForgeRegistry<Spell> reg = event.getRegistry();
         //Wind Spells
-        if(!Tales.addon.spells) return;
+        if(!Tales.spells.spells) return;
         reg.register(new WindCut());
         reg.register(new WindSlash());
 
@@ -100,6 +106,18 @@ public class TalesSpells {
 
         //2.2.6
         reg.register(new Allocate());
+
+        //2.2.7
+        reg.register(new PermanentMindControl());
+        reg.register(new Steal());
+        reg.register(new Alohomora());
+        reg.register(new Melt());
+        reg.register(new MeltingPoint());
+
+        reg.register(new RepelWater());
+        reg.register(new Phasing());
+        reg.register(new VoidPath());
+        reg.register(new Charm());
     }
 
     public static Spell getSpell(String modid, String spell_id){

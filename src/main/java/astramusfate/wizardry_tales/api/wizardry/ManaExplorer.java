@@ -41,6 +41,43 @@ public class ManaExplorer {
         return false;
     }
 
+    public static boolean useAllMana(Entity focal, double min, boolean addProgress){
+        min*= Tales.mp.spell_multiplier;
+        if (focal instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) focal;
+            return collectMana(player, min, addProgress);
+        } else {
+            if (focal instanceof EntityMagic) {
+                EntityMagic magic = (EntityMagic) focal;
+                if (magic.getCaster() instanceof EntityPlayer) {
+                    if (chestUseMana(magic, min)) return true;
+                    EntityPlayer player = (EntityPlayer) magic.getCaster();
+                    return collectMana(player, min, addProgress);
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean collectAllMana(EntityPlayer player, double min, boolean progress){
+        ISoul soul = player.getCapability(SoulProvider.SOUL_CAP, null);
+        if (soul == null) return false;
+        if (player.isCreative()) return true;
+
+        if (soul.getMP() >= min) {
+            soul.addMana(player, -1 * soul.getMP());
+            if (progress){
+                double maxMana = soul.getMaxMP();
+                double value = (maxMana + Math.max(Tales.mp.progression * (astramusfate.wizardry_tales.data.Tales.mp.progression_multiplier *
+                        (soul.getMP() / maxMana)), Tales.mp.progression));
+                soul.setMaxMP(player, Math.min(value, Tales.mp.max));
+            }
+            return true;
+        }
+
+        if (!player.world.isRemote) Aterna.translate(player, true, "mana.not_enough");
+
+        return false;
+    }
     public static boolean collectMana(EntityPlayer player, double cost, boolean progress){
        ISoul soul = player.getCapability(SoulProvider.SOUL_CAP, null);
         if (soul == null) return false;
@@ -60,10 +97,6 @@ public class ManaExplorer {
         if (!player.world.isRemote) Aterna.translate(player, true, "mana.not_enough");
 
         return false;
-    }
-
-    public static boolean collectMana(EntityPlayer player, double cost){
-        return collectMana(player, cost, false);
     }
 
     /** Requires to have Caster. **/

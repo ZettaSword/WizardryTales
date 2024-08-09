@@ -4,15 +4,18 @@ import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.Alchemy;
 import astramusfate.wizardry_tales.api.Sage;
 import astramusfate.wizardry_tales.api.Wizard;
+import astramusfate.wizardry_tales.api.wizardry.TalesVampirism;
+import astramusfate.wizardry_tales.entity.living.EntityVampire;
 import astramusfate.wizardry_tales.registry.TalesItems;
-import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.spell.SpellRay;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -32,6 +35,14 @@ public class VileBlood extends SpellRay {
             EntityLivingBase base = (EntityLivingBase) target;
             Alchemy.applyPotion(base, (int)(getProperty(DURATION).intValue() * modifiers.get(Sage.POTENCY)),
                     getProperty(EFFECT_STRENGTH).intValue(), MobEffects.SLOWNESS);
+            if (TalesVampirism.isVampireSafe(caster) && caster instanceof  EntityPlayer){
+                if (base.attackEntityFrom(DamageSource.MAGIC, 2)){
+                    TalesVampirism.drinkBlood((EntityPlayer) caster, 2, 0.0F);
+                }
+            }
+            if (caster instanceof EntityVampire){
+                caster.heal(2);
+            }
             if(!world.isRemote) Wizard.conjureCircle(world, "u_vampires", base.getPositionVector());
             return true;
         }

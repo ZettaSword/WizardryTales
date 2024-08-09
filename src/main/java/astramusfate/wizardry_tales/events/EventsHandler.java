@@ -2,17 +2,18 @@ package astramusfate.wizardry_tales.events;
 
 import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.*;
-import astramusfate.wizardry_tales.api.classes.IRendaCreature;
+import astramusfate.wizardry_tales.api.wizardry.Race;
+import astramusfate.wizardry_tales.api.wizardry.TalesVampirism;
 import astramusfate.wizardry_tales.data.EventsBase;
 import astramusfate.wizardry_tales.data.Tales;
 import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.Mana;
 import astramusfate.wizardry_tales.data.cap.SoulProvider;
-import astramusfate.wizardry_tales.entity.ai.*;
+import astramusfate.wizardry_tales.entity.ai.EntityAIFollowCasterNoTp;
+import astramusfate.wizardry_tales.entity.living.EntityVampire;
 import astramusfate.wizardry_tales.registry.TalesEffects;
 import com.google.common.collect.Lists;
 import electroblob.wizardry.block.BlockBookshelf;
-import electroblob.wizardry.client.DrawingUtils;
 import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.living.EntityWizard;
 import electroblob.wizardry.entity.living.ISummonedCreature;
@@ -27,18 +28,11 @@ import electroblob.wizardry.packet.WizardryPacketHandler;
 import electroblob.wizardry.potion.Curse;
 import electroblob.wizardry.registry.*;
 import electroblob.wizardry.spell.Spell;
-import electroblob.wizardry.util.EntityUtils;
-import electroblob.wizardry.util.RayTracer;
-import electroblob.wizardry.util.SpellModifiers;
-import electroblob.wizardry.util.WandHelper;
+import electroblob.wizardry.util.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.EntityAIFollow;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
@@ -51,20 +45,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.village.Village;
 import net.minecraft.world.World;
-import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
@@ -89,6 +81,22 @@ import static astramusfate.wizardry_tales.data.ChantWorker.useMana;
 
 @Mod.EventBusSubscriber(modid = WizardryTales.MODID)
 public class EventsHandler extends EventsBase {
+
+    /** Setting the lowest priority, so we can see something close to final damage. Also Vampirism integration! **/
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onEntityAttack(LivingDamageEvent event){
+        if (event.getSource().getTrueSource() instanceof EntityLivingBase
+                && event.getSource() instanceof IElementalDamage &&
+                ((IElementalDamage)event.getSource()).getType() == MagicDamage.DamageType.WITHER){
+            EntityLivingBase caster = (EntityLivingBase) event.getSource().getTrueSource();
+            if (TalesVampirism.isVampireSafe(caster) && caster instanceof  EntityPlayer){
+                TalesVampirism.drinkBlood((EntityPlayer) caster, Math.round(event.getAmount()), 0.0F);
+            }
+            if (caster instanceof EntityVampire){
+                caster.heal(event.getAmount());
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onEntityJoinGiveTasks(EntityJoinWorldEvent event) {
@@ -182,6 +190,9 @@ public class EventsHandler extends EventsBase {
                     if (mana < getCost(spell)) {
                         cancel(event);
                         Aterna.translate(player, true, "mana.not_enough");
+                        if (!player.getCooldownTracker().hasCooldown(event.getItemStack().getItem())) {
+                            player.getCooldownTracker().setCooldown(event.getItemStack().getItem(), Solver.asTicks(1));
+                        }
                     }
                 }
             }
@@ -620,9 +631,11 @@ public class EventsHandler extends EventsBase {
 
     @SubscribeEvent
     public static void AllyWithUndeadEvent(LivingSetAttackTargetEvent event){
-        if(Tales.addon.curses_passive && event.getTarget() != null) {
+        if(event.getTarget() != null) {
             EntityLivingBase target = event.getTarget();
-            boolean potion = TalesEffects.isCursedUndeadly(target);
+            boolean potion = target.isPotionActive(WizardryPotions.curse_of_undeath);
+            if (potion && !Tales.addon.curses_passive) return;
+            if (Race.is(target, Race.undead)) potion = true;
             if (potion && event.getEntityLiving().isEntityUndead()){
                 if (event.getEntityLiving().getRevengeTarget() != event.getTarget() && event.getEntityLiving() instanceof EntityLiving)
                     ((EntityLiving) event.getEntityLiving()).setAttackTarget(null);

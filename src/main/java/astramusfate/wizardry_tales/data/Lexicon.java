@@ -47,4 +47,20 @@ public interface Lexicon {
     String condition_light_level = "light";
     String condition_spellcast = "spell spellcast cast";
     String condition_manual = "manual";
+
+    String god_fire = "blaze";
+    String god_ice = "arcticus";
+    String god_earth = "selena";
+    String god_lightning = "ashura";
+    String god_healing = "lux";
+    /** Tenebria is Goddess of Necromancy, dealing with souls, reincarnation and such. **/
+    String god_necromancy = "tenebria";
+    String god_sorcery = "chronos";
+    String god_moon = "nox";
+    String god_knowledge = "yuna";
+    String god_communication = "aterna";
+
+
+    // Particles
+    String particle_magic = "magic";
 }

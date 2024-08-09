@@ -68,6 +68,9 @@ item.wizardry_tales:infinite_summon.desc=Allows you to make any summon infinite.
 
 item.wizardry_tales:tenebria_cookie.name=Cookie
 
+item.wizardry_tales:tenebria_crown.name=Tenebria Crown
+item.wizardry_tales:tenebria_crown.desc=There are many crown Goddess of Souls worn. Some of those nowadays give ability to see world differently.
+
 item.wizardry_tales:status_page.name=Status Card
 item.wizardry_tales:status_page.desc=Describes your current status.
 
@@ -119,6 +122,7 @@ entity.wizardry_tales:spell_witch.name=Spellcasting Witch
 entity.wizardry_tales:midnight_trader.name=Midnight Trader
 entity.wizardry_tales:midnight_guard.name=Midnight Guard
 entity.wizardry_tales:tenebria.name=Tenebria
+entity.wizardry_tales:vampire.name=Vampire
 
 # Talking
 entity.talk=<%s>: %s
@@ -176,6 +180,18 @@ potion.wizardry_tales:mage_hand.desc=Allows the caster to interact with everythi
 potion.wizardry_tales:magic_exhaust=Magic Exhaust
 potion.wizardry_tales:magic_exhaust.desc=Your soul has not enough mana, and that's why you feel terrible!
 
+potion.wizardry_tales:repel=Repel Water
+potion.wizardry_tales:repel.desc=Repels surrounding liquids.
+
+potion.wizardry_tales:permanent_mind_control=Mind Control
+potion.wizardry_tales:permanent_mind_control.desc=Modified version of mind control, which consists permanently till target death.
+
+potion.wizardry_tales:phasing=Phasing
+potion.wizardry_tales:phasing.desc=Allows to phase through blocks.
+
+potion.wizardry_tales:charm=Charm
+potion.wizardry_tales:charm.desc=Charmed target from Charm spell follows the caster.
+
 # Spells
 
 spell.wizardry_tales:water_healing=Water Healing
@@ -201,7 +217,7 @@ spell.wizardry_tales:meow.desc=Creates a signal of magical energy that stimulate
 
 spell.wizardry_tales:locating=Locating
 spell.wizardry_tales:locating.comment=The world answers you...
-spell.wizardry_tales:locating.desc=Tries to get your location in the world through mana pulsations.
+spell.wizardry_tales:locating.desc=Tries to get location in the world through mana pulsations.
 
 spell.wizardry_tales:water_arrow=Water Arrow
 spell.wizardry_tales:water_arrow.desc=Creates Magical Water and condenses it to create a Water Arrow.
@@ -253,6 +269,35 @@ spell.wizardry_tales:mana_bomb.desc=Throws a Mana Bomb that releases gas on impa
 
 spell.wizardry_tales:allocate=Allocate
 spell.wizardry_tales:allocate.desc=Allocation spell teleports all enemies around randomly. Can be useful or not useful, depending on your luck.
+
+spell.wizardry_tales:permanent_mind_control=Permanent Mind Control
+spell.wizardry_tales:permanent_mind_control.desc=Takes control of the target's mind permanently, causing it switch sides and fight for the caster instead. Will not work on those who are strong-willed or have too much health.
+
+spell.wizardry_tales:steal=Steal
+spell.wizardry_tales:steal.desc=Can steal or not steal item from entity. All depends on caster luck.
+spell.wizardry_tales:steal.fail=You didn't succeed in stealing anything.
+spell.wizardry_tales:steal.success=You're lucky!
+
+spell.wizardry_tales:alohomora=Alohomora
+spell.wizardry_tales:alohomora.desc=This spell was designed to unlock any lock, if possible.
+
+spell.wizardry_tales:melt=Melt
+spell.wizardry_tales:melt.desc=Melts target, and melts ice blocks.
+
+spell.wizardry_tales:melting_point=Melting Point
+spell.wizardry_tales:melting_point.desc=Instead of burning everything, let everything melt to lava.
+
+spell.wizardry_tales:repel_water=Repel Water
+spell.wizardry_tales:repel_water.desc=Creates invisible air, that follows caster for period of time. Can repel water, and maybe other liquids.
+
+spell.wizardry_tales:phasing=Phasing
+spell.wizardry_tales:phasing.desc=Allows to phase through blocks.
+
+spell.wizardry_tales:void_path=Void Path
+spell.wizardry_tales:void_path.desc=Temporary removes blocks from your way into temporary dimension supported by your mana.
+
+spell.wizardry_tales:charm=Charm
+spell.wizardry_tales:charm.desc=Charms the entity of your choice, making it follow your lead.
 
 # Spellcasting Items
 
@@ -350,4 +395,10 @@ item.wizardry_tales:ritual_ring_of_fire.name=Ring of Fire Ritual
 item.wizardry_tales:ritual_ring_of_fire.desc=To activate ritual, you need one Mana Dust, one Coal, one Iron Ingot.
 
 item.wizardry_tales:ritual_midnight_trading.name=Ritual of Midnight Trading
-item.wizardry_tales:ritual_midnight_trading.desc=To activate ritual, you need one Magic Crystal and one Emerald. You also need to perform this ritual while nighttime.
+item.wizardry_tales:ritual_midnight_trading.desc=To activate ritual, you need one Magic Crystal and one Emerald. Perform this ritual in nighttime.
+
+item.wizardry_tales:ritual_summon_remnant_fire.name=Summon Fire Remnant
+item.wizardry_tales:ritual_summon_remnant_fire.desc=To activate ritual, you need one Magic Dust, one Gunpowder, one Iron Ingot. Summons one aggressive remnant.
+
+item.wizardry_tales:ritual_of_forest_life.name=Ritual of Forest Life
+item.wizardry_tales:ritual_of_forest_life.desc=To activate ritual, you need one Mana Dust, one Apple, and one Sapling. Perform in Forest biomes. Can turn Humans into Elves.

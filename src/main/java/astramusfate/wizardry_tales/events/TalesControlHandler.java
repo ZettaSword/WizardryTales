@@ -5,10 +5,8 @@ import astramusfate.wizardry_tales.api.Aterna;
 import astramusfate.wizardry_tales.api.Thief;
 import astramusfate.wizardry_tales.data.Lexicon;
 import astramusfate.wizardry_tales.data.PacketMagic;
-import astramusfate.wizardry_tales.data.Tales;
 import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.Mana;
-import astramusfate.wizardry_tales.data.cap.StatIds;
 import astramusfate.wizardry_tales.data.packets.PacketAbilityMode;
 import astramusfate.wizardry_tales.data.packets.PacketCastingRing;
 import astramusfate.wizardry_tales.data.packets.PacketIncantate;
@@ -131,7 +129,10 @@ public class TalesControlHandler {
 					if (soul == null || soul.getCooldown() > 0) return;
 
 					ItemStack wand = getWandInUseSmarter(player);
-					if(wand == null) return;
+					if(wand == null){
+						Aterna.messageBar(player, "You need to wear Casting ring and Spellcasting item.");
+						return;
+					}
 					Spell spell = WandHelper.getCurrentSpell(wand);
 					SpellModifiers modifiers = SpellModifiers.fromNBT(wand.getTagCompound() == null ? new NBTTagCompound() : wand.getTagCompound());
 					if (WizardData.get(player) != null && !WizardData.get(player).hasSpellBeenDiscovered(spell)) return;
@@ -139,7 +140,7 @@ public class TalesControlHandler {
 					if (!spellCastRing) {
 						spellCastRing = true;
 						spellCastRing(player.getEntityId(), spell, modifiers);
-						soul.setCooldown(player, Tales.mp.casting_ring_cooldown);
+						//soul.setCooldown(player, Tales.mp.casting_ring_cooldown);
 					}
 				}else{
 					spellCastRing = false;

@@ -14,21 +14,17 @@ import astramusfate.wizardry_tales.registry.TalesItems;
 import electroblob.wizardry.client.DrawingUtils;
 import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.registry.WizardryItems;
-import electroblob.wizardry.util.MagicDamage;
-import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -74,10 +70,10 @@ public class StatEvents extends EventsBase {
         Minecraft.getMinecraft().fontRenderer.drawString("Health Points: " + (int)(player.getHealth()) + "/" + (int)((player.getMaxHealth())), left + 20, y + 50, 0x902C2E);
         Minecraft.getMinecraft().fontRenderer.drawString("Mana Points: " + (int)(Math.floor(soul.getMP())) + "/" + (int)(Math.floor(soul.getMaxMP())), left + 20, y + 70, 0x1D2A60);
 
-        Minecraft.getMinecraft().fontRenderer.drawString(("Strength: " + (int)(1 + (str/Tales.stats.str_cost))), left + 20, y + 90, 0x975D31);
-        Minecraft.getMinecraft().fontRenderer.drawString("Constitution: " + (int)(1 + (con/Tales.stats.con_cost)), left + 20, y + 100, 0x902C2E);
-        Minecraft.getMinecraft().fontRenderer.drawString("Agility: " + (int)(1 + (agi/Tales.stats.agi_cost)), left + 20, y + 110, 0x329050);
-        Minecraft.getMinecraft().fontRenderer.drawString("Intelligence: " + (int)(4 + (intell/Tales.stats.int_cost)), left + 20, y + 120, 0x5C5690);
+        Minecraft.getMinecraft().fontRenderer.drawString(("Strength: " + (int)(1 + (str/(Tales.stats.str_cost/10)))), left + 20, y + 90, 0x975D31);
+        Minecraft.getMinecraft().fontRenderer.drawString("Constitution: " + (int)(1 + (con/(Tales.stats.con_cost/10))), left + 20, y + 100, 0x902C2E);
+        Minecraft.getMinecraft().fontRenderer.drawString("Agility: " + (int)(1 + (agi/(Tales.stats.agi_cost/10))), left + 20, y + 110, 0x329050);
+        Minecraft.getMinecraft().fontRenderer.drawString("Intelligence: " + (int)(4 + (intell/(Tales.stats.int_cost/10))), left + 20, y + 120, 0x5C5690);
         Arcanist.pop();
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);

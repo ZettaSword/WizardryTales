@@ -53,8 +53,8 @@ public class Sage {
     }
 
     /** Deals damage to entity. **/
-    public static void causeDamage(MagicDamage.DamageType type, @Nullable EntityLivingBase caster, Entity living, float damage){
-        living.attackEntityFrom(MagicDamage.causeDirectMagicDamage(caster, type), damage);
+    public static boolean causeDamage(MagicDamage.DamageType type, @Nullable EntityLivingBase caster, Entity living, float damage){
+      return living.attackEntityFrom(MagicDamage.causeDirectMagicDamage(caster, type), damage);
     }
 
     public static MagicDamage.DamageType getTypeByElement(Element element){

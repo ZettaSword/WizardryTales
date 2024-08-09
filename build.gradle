@@ -25,7 +25,7 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: CurseMavenPlugin
 
-version = '2.2.6'
+version = '2.2.7'
 group = 'astramusfate.wizardry_tales' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'WizardryTales'
 
@@ -36,6 +36,7 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -78,6 +79,12 @@ dependencies {
     compile fg.deobf("vazkii.botania:Botania:r1.10-364.4")
     implementation fg.deobf("curse.maven:artemislib-${artemislib_projectid}:${artemislib_fileid}")
     implementation fg.deobf("curse.maven:PlayerMana-${player_mana_projectid}:${player_mana_fileid}")
+    implementation fg.deobf("curse.maven:vampirism-become-a-vampire-${vampirism_projectid}:${vampirism_fileid}")
+
+    implementation fg.deobf("curse.maven:ancient-spellcraft-${ancient_spellcraft_projectid}:${ancient_spellcraft_fileid}")
+    //compile against the Vampirism API
+    //at runtime (in your development environment) use the full Vampirism jar
+    //runtime "de.teamlapen.vampirism:Vampirism:1.12.2-1.6.2"
 
     //compile "curse.maven:ElectroblobsWizardry-${wizardry_projectid}:${wizardry_fileid}"
 }
@@ -96,6 +103,7 @@ jar {
         ])
     }
 }
+
 
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
@@ -139,6 +147,11 @@ repositories {
 
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven { url 'https://maven.blamejared.com' }
+
+    //Maven repo for Vampirism
+    maven {
+        url = "https://maxanier.de/maven2"
+    }
 }
 
 idea {

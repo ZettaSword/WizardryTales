@@ -2,18 +2,15 @@ package astramusfate.wizardry_tales.api;
 
 import astramusfate.wizardry_tales.registry.TalesItems;
 import com.google.common.collect.Lists;
-import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.item.IManaStoringItem;
 import electroblob.wizardry.item.ISpellCastingItem;
 import electroblob.wizardry.item.ItemArtefact;
-import electroblob.wizardry.item.ItemWizardArmour;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
-import vazkii.patchouli.common.item.ItemModBook;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -86,7 +83,7 @@ public class Thief {
         if(item.test(player.getHeldItemMainhand())) return player.getHeldItemMainhand();
         if(item.test(player.getHeldItemOffhand())) return player.getHeldItemOffhand();
 
-        if(player.isCreative() && creative != null) return creative;
+        if(player.capabilities.isCreativeMode && creative != null) return creative;
 
         for(ItemStack stack : player.inventory.mainInventory){
             if(item.test(stack)){

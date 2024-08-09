@@ -77,6 +77,7 @@ public class CapabilityHandler
         tags.setInteger("int", soul.getStat(StatIds.int_id));
         tags.setInteger("first_enter", soul.getStat(StatIds.first_enter));
         tags.setInteger("god", soul.getStat(StatIds.god));
+        tags.setInteger("god", soul.getStat(StatIds.god));
 
         WizardData data = WizardData.get(current);
         if (data != null) data.discoverSpell(TalesSpells.chanting);

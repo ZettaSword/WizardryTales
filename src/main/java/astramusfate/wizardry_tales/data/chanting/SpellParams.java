@@ -5,6 +5,7 @@ import astramusfate.wizardry_tales.data.Lexicon;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import static astramusfate.wizardry_tales.data.ChantWorker.findIn;
 import static astramusfate.wizardry_tales.data.ChantWorker.findInSmart;
 
 /** We have usual parameters, which are usually calculated each word, and unusual, which requires me to setup all special for them **/
@@ -93,6 +93,11 @@ public class SpellParams implements Lexicon {
 
     public HashMap<String, String> keys = new HashMap<>();
 
+    public String prayingTo = "";
+    public int followingGod = 0;
+
+    public List<BlockPos> targetedBlocks;
+
     //OLD
 
     public BlockPos savedPos = null;
@@ -112,6 +117,8 @@ public class SpellParams implements Lexicon {
     public Entity last_summon;
     public boolean isServer;
     public String original;
+
+    public EntityPlayer playerCaster;
     public SpellModifiers spellModifiers;
 
     public Predicate<Entity> filter = Objects::nonNull;

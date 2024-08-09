@@ -95,6 +95,7 @@ public class RenderTesterPerk {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent()
     public static void onRenderPlayerPostEvent(RenderPlayerEvent.Post event){
+        if (!Tales.addon.testers_perk) return;
         EntityPlayer player = event.getEntityPlayer();
 
         if(getPerk(player) != null){

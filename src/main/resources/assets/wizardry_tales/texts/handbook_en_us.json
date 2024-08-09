@@ -10,7 +10,9 @@
 	"images": {
 	},
 	"recipes": {
-
+		"ritual_of_forest_life": {
+			"locations": ["wizardry_tales:ritual_of_forest_life"]
+		}
 	},
 	"sections": {
 		"wizardry_tales": {
@@ -82,11 +84,48 @@
 				"Intelligence is stat, that allows to deal more magical damage. Trained by spell-casting. Reflects how your body behaves with Mana when using it."
 			]
 		},
-		"incantations": {
-			"title": "Incantations",
+		"races": {
+			"title": "Races",
 			"include_in_contents": "main_contents",
 			"contents": {
-				"id": "incantations",
+				"id": "races",
+				"hyperlinks": true,
+				"page_numbers": true,
+				"separator": "."
+			},
+			"triggers": [
+				"ebwizardry:on_subsection_unlock"
+			]
+		},
+		"race_human": {
+			"title": "Race: Human",
+			"include_in_contents": "races",
+			"text": [
+				"Humans usually is race having most freedom of all, but their body is less affected by Elemental energy."
+			]
+		},
+		"race_elf": {
+			"title": "Race: Elf",
+			"include_in_contents": "races",
+			"text": [
+				"Elves usually live in Forests or such, they have more health, speed and height than other races, but are weaker physically.",
+				"They tend to deal less damage in melee combat.",
+				"They become weak in high temperature biomes.",
+				"And, they become faster in Forests.",
+				"While sneaking, they can jump higher.",
+				"Their arrows charge faster, they usually stop charging arrow when it's about 45% ready in bow.",
+				"Elves also deal 40% more damage with Magic.",
+				"Elves don't need to eat anything while in forest, their bodies correspond to the nature of the forests.",
+				"Their magic is more potent and costs less to cast if spell is Lightning or Earth else it costs a lot more!",
+				"For Human to become Elf, they need to find nearby forest, craft Mana Dust, get one Apple, and one Sapling. Craft and use Ritual of Forest Life.",
+				"#recipe ritual_of_forest_life"
+			]
+		},
+		"chanting": {
+			"title": "Chanting",
+			"include_in_contents": "main_contents",
+			"contents": {
+				"id": "chanting",
 				"hyperlinks": true,
 				"page_numbers": true,
 				"separator": "."
@@ -96,11 +135,11 @@
 			]
 		},
 		"how_to_create_spell": {
-			"title": "How to create own Spell",
-			"include_in_contents": "incantations",
+			"title": "Own Spells",
+			"include_in_contents": "chanting",
 			"text": [
-				"Incantations was first way of using magic, prior to Wands and Grimoires era.",
-				"Incantations is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments.",
+				"Chanting was first way of using magic, prior to Wands and Grimoires era.",
+				"Chanting is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments.",
 				"To start creating a spell, write to the chat: Mana. After that, add the elements you need to the spell. An example of a spell to freeze an enemy: Mana, shape entity apply frost.",
 				"If you want to create own spells, you must remember that if the spell's mana usage is higher than what you have in your Mana Pool, the spell will not work as you want. If you don't have one - you'll not be able to create them.",
 				"You can add ',', '!', '?' or '.' in your spell, and it will not interrupt the casting. Example is:'Mana, shape entity ignite!'. As you see here ',' and '!' are both used, and it still works!",
@@ -109,10 +148,10 @@
 		},
 		"spellcasting_shapes": {
 			"title": "Spellcasting Shapes",
-			"include_in_contents": "incantations",
+			"include_in_contents": "chanting",
 			"text": [
 				"There",
-				"Incantations is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments.",
+				"Chanting is really great tool that allows you creating your own Spells, and creating your own Artefacts and Enchantments.",
 				"To start creating a spell, write to the chat: Mana. After that, add the elements you need to the spell. An example of a spell to freeze an enemy: Mana, shape entity apply frost.",
 				"You can define parameters such as Duration and Potency to change how potent effect will be and how long it would be like this: Mana, shape entity, potency 2 duration 10, apply frost.",
 				"Spell used to apply speed, and to move without sounds: Mana, duration 60 apply speed, duration 30 apply muffle.",

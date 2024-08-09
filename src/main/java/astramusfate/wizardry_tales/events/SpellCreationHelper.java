@@ -47,6 +47,7 @@ public class SpellCreationHelper extends ChantWorker implements Lexicon {
         return number;
     }
 
+
     public static Number getFloat(String next, String next2, String next3, float fail){
         Number number;
         try{

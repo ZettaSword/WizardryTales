@@ -24,6 +24,7 @@ public class SoulStorage implements Capability.IStorage<ISoul>
 
        tag.setInteger("first_enter", soul.getStat(StatIds.first_enter));
        tag.setInteger("god", soul.getStat(StatIds.god));
+       tag.setInteger("god", soul.getStat(StatIds.god));
        tag.setInteger("str", soul.getStat(StatIds.str_id));
        tag.setInteger("con", soul.getStat(StatIds.con_id));
        tag.setInteger("agi", soul.getStat(StatIds.agi_id));

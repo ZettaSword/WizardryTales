@@ -124,8 +124,9 @@ public class ItemGrimoire extends ItemWand implements IWorkbenchItem, ISpellCast
                 // This needs to be done after copying the tag compound so the mana capacity for the new wand
                 // takes storage upgrades into account
                 // Note the usage of the new wand item and not 'this' to ensure the correct capacity is used
-                ((IManaStoringItem)newWand.getItem()).setMana(newWand, this.getMana(wand));
-
+                if (!newWand.isEmpty() && newWand.getItem() instanceof IManaStoringItem) {
+                    ((IManaStoringItem) newWand.getItem()).setMana(newWand, this.getMana(wand));
+                }
                 upgrade.shrink(1);
 
                 return newWand;

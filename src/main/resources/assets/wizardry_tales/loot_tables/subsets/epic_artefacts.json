@@ -8,6 +8,11 @@
           "type": "item",
           "name": "wizardry_tales:casting_ring",
           "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "wizardry_tales:tenebria_crown",
+          "weight": 2
         }
       ]
     }

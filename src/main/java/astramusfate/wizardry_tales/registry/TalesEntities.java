@@ -7,6 +7,7 @@ import astramusfate.wizardry_tales.entity.construct.EntityMagicCircle;
 import astramusfate.wizardry_tales.entity.construct.EntityPoisonousGas;
 import astramusfate.wizardry_tales.entity.construct.EntityRedGas;
 import astramusfate.wizardry_tales.entity.construct.rituals.EntityRitualMidnightTrading;
+import astramusfate.wizardry_tales.entity.construct.rituals.EntityRitualRemnantFire;
 import astramusfate.wizardry_tales.entity.living.*;
 import astramusfate.wizardry_tales.entity.projectile.EntityChantingArrow;
 import astramusfate.wizardry_tales.renderers.*;
@@ -83,6 +84,7 @@ public class TalesEntities {
         reg.register(createEntry(EntityChantingArrow.class, 	"chanting_arrow", TrackingType.PROJECTILE).build());
         reg.register(createEntry(EntityManaBomb.class, 	"mana_bomb", TrackingType.PROJECTILE).build());
         reg.register(createEntry(EntityEmber.class, "ember", TrackingType.LIVING).build());
+        reg.register(createEntry(EntityLich.class, "lich", TrackingType.LIVING).build());
 
         registerCircles(reg);
 
@@ -94,13 +96,13 @@ public class TalesEntities {
         reg.register(createEntry(EntityEarthWolf.class, "earth_wolf", TrackingType.LIVING).egg(0x895F21, 0x70AA4D)
                 // For reference: 5, 1, 1 are the parameters for the witch in vanilla
                 .spawn(EnumCreatureType.CREATURE, Tales.entities.earthWolfSpawnRate, 2, 5, ForgeRegistries.BIOMES.getValuesCollection().stream()
-                        .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.elementalWolfsBiomeWhitelist)).contains(b.getRegistryName()))
+                        .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.earthWolfsBiomeWhitelist)).contains(b.getRegistryName()))
                         .collect(Collectors.toSet())).build());
 
         reg.register(createEntry(EntityThunderWolf.class, "thunder_wolf", TrackingType.LIVING).egg(0x050954, 0x00011A)
                 // For reference: 5, 1, 1 are the parameters for the witch in vanilla
                 .spawn(EnumCreatureType.CREATURE, Tales.entities.thunderWolfSpawnRate, 2, 5, ForgeRegistries.BIOMES.getValuesCollection().stream()
-                        .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.elementalWolfsBiomeWhitelist)).contains(b.getRegistryName()))
+                        .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.thunderWolfsBiomeWhitelist)).contains(b.getRegistryName()))
                         .collect(Collectors.toSet())).build());
 
         reg.register(createEntry(EntitySkeletonWolf.class, "skeleton_wolf", TrackingType.LIVING).egg(0xB4B4B4, 0xBA91C5).build());
@@ -116,6 +118,13 @@ public class TalesEntities {
                 // For reference: 5, 1, 1 are the parameters for the witch in vanilla
                 .spawn(EnumCreatureType.MONSTER, Tales.entities.spellWitchSpawnRate, 1, 1, ForgeRegistries.BIOMES.getValuesCollection().stream()
                         .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.spellWitchBiomeWhitelist)).contains(b.getRegistryName()))
+                        .collect(Collectors.toSet())).build());
+
+
+        reg.register(createEntry(EntityVampire.class, "vampire", TrackingType.LIVING).egg(0x828282, 0x7a2c2c)
+                // For reference: 5, 1, 1 are the parameters for the witch in vanilla
+                .spawn(EnumCreatureType.MONSTER, Tales.entities.vampireSpawnRate, 1, 1, ForgeRegistries.BIOMES.getValuesCollection().stream()
+                        .filter(b -> Arrays.asList(Tales.toResourceLocations(Tales.entities.vampireBiomeWhitelist)).contains(b.getRegistryName()))
                         .collect(Collectors.toSet())).build());
 
         registerRituals(reg);
@@ -140,6 +149,7 @@ public class TalesEntities {
 
     private static void registerRituals(IForgeRegistry<EntityEntry> reg){
         reg.register(createEntry(EntityRitualMidnightTrading.class, "ritual_midnight_trading", TrackingType.CONSTRUCT).build());
+        reg.register(createEntry(EntityRitualRemnantFire.class, "ritual_remnant_fire", TrackingType.CONSTRUCT).build());
     }
 
     @SideOnly(Side.CLIENT)
@@ -168,6 +178,8 @@ public class TalesEntities {
         RenderingRegistry.registerEntityRenderingHandler(EntitySkeletonWolf.class, RenderSkeletonWolf::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityEarthWolf.class, RenderEarthWolf::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityThunderWolf.class, RenderThunderWolf::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityLich.class, RenderLich::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityVampire.class, RenderVampire::new);
 
         registerCirclesRenderers();
         registerRitualsRenderers();
@@ -208,6 +220,8 @@ public class TalesEntities {
     @SideOnly(Side.CLIENT)
     private static void registerRitualsRenderers(){
         RenderingRegistry.registerEntityRenderingHandler(EntityRitualMidnightTrading.class, manager -> new RenderCircleRitual(manager,
+                0.5f));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRitualRemnantFire.class, manager -> new RenderCircleRitual(manager,
                 0.5f));
     }
 

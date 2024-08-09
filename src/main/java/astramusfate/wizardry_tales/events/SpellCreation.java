@@ -6,6 +6,7 @@ import astramusfate.wizardry_tales.api.classes.IInscribed;
 import astramusfate.wizardry_tales.api.wizardry.ArcaneColor;
 import astramusfate.wizardry_tales.api.wizardry.ParticleCreator;
 import astramusfate.wizardry_tales.api.wizardry.Race;
+import astramusfate.wizardry_tales.api.wizardry.TalesTeleporter;
 import astramusfate.wizardry_tales.chanting.Chanting;
 import astramusfate.wizardry_tales.chanting.SpellPart;
 import astramusfate.wizardry_tales.data.Tales;
@@ -23,16 +24,20 @@ import astramusfate.wizardry_tales.entity.construct.sigils.chanting.EntityCustom
 import astramusfate.wizardry_tales.registry.TalesEffects;
 import astramusfate.wizardry_tales.registry.TalesItems;
 import com.google.common.collect.Lists;
+import electroblob.wizardry.block.BlockPedestal;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.construct.EntityForcefield;
 import electroblob.wizardry.entity.construct.EntityMagicConstruct;
 import electroblob.wizardry.entity.construct.EntityScaledConstruct;
-import electroblob.wizardry.entity.living.*;
+import electroblob.wizardry.entity.living.EntityEvilWizard;
+import electroblob.wizardry.entity.living.EntityWizard;
+import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.item.ISpellCastingItem;
 import electroblob.wizardry.packet.PacketCastSpell;
 import electroblob.wizardry.packet.WizardryPacketHandler;
+import electroblob.wizardry.potion.Curse;
 import electroblob.wizardry.registry.Spells;
 import electroblob.wizardry.registry.WizardryBlocks;
 import electroblob.wizardry.registry.WizardrySounds;
@@ -41,6 +46,7 @@ import electroblob.wizardry.tileentity.TileEntityTimer;
 import electroblob.wizardry.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -51,7 +57,6 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemDye;
@@ -117,6 +122,9 @@ public class SpellCreation extends SpellCreationHelper {
         if(!containsAny(spell, Arrays.asList(keyword.toLowerCase(Locale.ROOT).split(" ")))) return;
 
         createSpell(spell, player, player, false, event.getOriginalMessage());
+        if (contains(spell, "hide hidden")){
+            event.setMessage("");
+        }
     }
 
     public static void createSpell(List<String> words, Entity focal, @Nullable Entity target, boolean isServer){
@@ -140,6 +148,9 @@ public class SpellCreation extends SpellCreationHelper {
         mods.target = target;
 
         EntityLivingBase caster = getCaster(focal);
+        if (caster instanceof EntityPlayer){
+            mods.playerCaster = (EntityPlayer) caster;
+        }
 
         mods.set = Lists.newArrayList();
         mods.set.addAll(Arrays.asList(spell));
@@ -588,7 +599,7 @@ public class SpellCreation extends SpellCreationHelper {
     }
 
     /** Apply actions to the target. **/
-    public static void applyActions(@Nullable EntityLivingBase caster, SpellParams m){
+    public static void applyActions(@Nullable EntityLivingBase caster, SpellParams m) throws Exception {
         // Initial setup
         World world = m.focal.world;
         if (world == null) world = m.target.world;
@@ -605,6 +616,7 @@ public class SpellCreation extends SpellCreationHelper {
         if (target == null) return;
         Vec3d pos = m.pos;
         BlockPos spellBlock = new BlockPos(pos);
+        EntityPlayer playerCaster = m.playerCaster;
 
         float potency = m.potency.num();
         float duration = m.duration.num();
@@ -735,6 +747,7 @@ public class SpellCreation extends SpellCreationHelper {
                 if (summon == null){
                     for (ResourceLocation location : ForgeRegistries.ENTITIES.getKeys()){
                         EntityEntry p = ForgeRegistries.ENTITIES.getValue(location);
+
                         if (p != null && p.newInstance(world) instanceof EntityLiving
                         && findIn(next, Objects.requireNonNull(p.getRegistryName()).getResourcePath().replace(":", " "))){
                             summon = p.newInstance(world);
@@ -766,6 +779,12 @@ public class SpellCreation extends SpellCreationHelper {
                 }
                 entity.getEntityData().setInteger("lifetime", m.lifetime.num() < 0.0F ? 1 :
                         Solver.asTicks(m.lifetime.num()));
+
+                NBTTagCompound nbt = entity.writeToNBT(new NBTTagCompound());
+                nbt.setInteger("lifetime", m.lifetime.num() < 0.0F ? 1 :
+                        Solver.asTicks(m.lifetime.num()));
+                entity.readFromNBT(nbt);
+
                 BlockPos position = BlockUtils.findNearbyFloorSpace(target, (int) (2 + m.range.num() / 10), 4);
                 if (position != null && useMana(focal,
                         ((m.lifetime.num() / 10F) * (m.health.num() / 2F) * m.potency.num())
@@ -774,7 +793,6 @@ public class SpellCreation extends SpellCreationHelper {
                     entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(position)), null);
                     // To not get hammered!
                     try {
-
                         entity.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(m.health.num());
                         entity.setHealth(entity.getMaxHealth()); // Need to set this because we may have just modified the value
 
@@ -782,8 +800,10 @@ public class SpellCreation extends SpellCreationHelper {
                         entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(m.potency.num());
                     } catch (Exception ignore){}
                     Tenebria.create(world, entity);
+                    entity.playLivingSound();
                     world.playSound(focal.posX, focal.posY, focal.posZ, WizardrySounds.ENTITY_ZOMBIE_SPAWNER_SPAWN,
                             SoundCategory.PLAYERS, 0.7f, 1.0f, true);
+
                     return;
                 }
             }
@@ -906,6 +926,7 @@ public class SpellCreation extends SpellCreationHelper {
                         ITickable tickable = (ITickable) tile;
                         tickable.update();
                     }
+                    world.markAndNotifyBlock(spellBlock, null, state, state, 3);
                     m.element = Element.SORCERY;
                 }
 
@@ -913,6 +934,7 @@ public class SpellCreation extends SpellCreationHelper {
                     for (int i = 0; i<20; i++) {
                         state.getBlock().randomTick(world, spellBlock, state, world.rand);
                     }
+                    world.markAndNotifyBlock(spellBlock, null, state, state, 3);
                     m.element = Element.SORCERY;
                 }
             }
@@ -940,65 +962,28 @@ public class SpellCreation extends SpellCreationHelper {
                 ParticleBuilder.create(ParticleBuilder.Type.FLASH).pos(spellBlock.getX() + 0.5, spellBlock.getY() + 0.5, spellBlock.getZ() + 0.5).scale(3)
                         .clr(0.75f, 1, 0.85f).spawn(world);
             }
-            double summary1 = Math.abs(m.vector.x) + Math.abs(m.vector.y) + Math.abs(m.vector.z);
-            double summary2 = Math.abs(spellBlock.getX()) + Math.abs(spellBlock.getY()) + Math.abs(spellBlock.getZ());
-            if (summary1 - summary2 == 0){
-                if (BlockUtils.canBlockBeReplaced(world, spellBlock) && useMana(focal, 10)) {
-                    if (!world.isRemote) {
-                        boolean isCreative = caster instanceof EntityPlayer && ((EntityPlayer) caster).isCreative();
-                        Block block = WizardryBlocks.spectral_block;
-                        if (caster instanceof EntityPlayer){
-                            ItemStack stack = Thief.getInHands((EntityPlayer)caster, i -> i.getItem() instanceof ItemBlock);
-                            if (stack != null){
-                                block = Block.getBlockFromItem(stack.getItem());
-                                if (!isCreative) stack.shrink(1);
-                            }
-                        }
-                        world.setBlockState(spellBlock, block.getBlockState().getBaseState());
 
-                        if (world.getTileEntity(spellBlock) instanceof TileEntityTimer) {
-                            float durate = dynamicDuration < 0 && isCreative ? -1.0F : dynamicDuration;
-                            ((TileEntityTimer) Objects.requireNonNull(world.getTileEntity(spellBlock)))
-                                    .setLifetime(Solver.asTicks(durate));
+            if (BlockUtils.canBlockBeReplaced(world, spellBlock) && useMana(focal, 10)) {
+                if (!world.isRemote) {
+                    boolean isCreative = caster instanceof EntityPlayer && ((EntityPlayer) caster).isCreative();
+                    Block block = WizardryBlocks.spectral_block;
+                    if (caster instanceof EntityPlayer){
+                        ItemStack stack = Thief.getInHands((EntityPlayer)caster, i -> i.getItem() instanceof ItemBlock);
+                        if (stack != null){
+                            block = Block.getBlockFromItem(stack.getItem());
+                            if (!isCreative) stack.shrink(1);
                         }
                     }
+                    world.setBlockState(spellBlock, block.getBlockState().getBaseState());
 
-                    return;
-                }
-            }else {
-                boolean flag = false;
-                BlockPos destination = new BlockPos(spellBlock);
-                destination = destination.add(m.vector.x, m.vector.y, m.vector.z);
-                for (int x = 0; flag;) {
-                    for (int y = 0; flag;) {
-                        for (int z = 0; flag;) {
-                            BlockPos position = new BlockPos(spellBlock);
-                            position.add(x,y,z);
-                            x+=m.vector.x > 0 ? 1 : -1; y+=m.vector.y > 0 ? 1 : -1; z+=m.vector.z > 0 ? 1 : -1;
-                            flag = position.getDistance(destination.getX(), destination.getY(), destination.getZ()) > 0;
-                            boolean isCreative = caster instanceof EntityPlayer && ((EntityPlayer) caster).isCreative();
-                            if (BlockUtils.canBlockBeReplaced(world, spellBlock) && useMana(focal, 10)) {
-                                if (!world.isRemote) {
-                                    Block block = WizardryBlocks.spectral_block;
-                                    if (caster instanceof EntityPlayer) {
-                                        ItemStack stack = Thief.getInHands((EntityPlayer) caster, i -> i.getItem() instanceof ItemBlock);
-                                        if (stack != null) {
-                                            block = Block.getBlockFromItem(stack.getItem());
-                                            if(!isCreative) stack.shrink(1);
-                                        }
-                                    }
-                                    world.setBlockState(spellBlock, block.getBlockState().getBaseState());
-
-                                    if (world.getTileEntity(spellBlock) instanceof TileEntityTimer) {
-                                        float durate = dynamicDuration < 0 && isCreative ? -1.0F : dynamicDuration;
-                                        ((TileEntityTimer) Objects.requireNonNull(world.getTileEntity(spellBlock)))
-                                                .setLifetime(Solver.asTicks(durate));
-                                    }
-                                }
-                            }
-                        }
+                    if (world.getTileEntity(spellBlock) instanceof TileEntityTimer) {
+                        float durate = dynamicDuration < 0 && isCreative ? -1.0F : dynamicDuration;
+                        ((TileEntityTimer) Objects.requireNonNull(world.getTileEntity(spellBlock)))
+                                .setLifetime(Solver.asTicks(durate));
                     }
                 }
+
+                return;
             }
         }
 
@@ -1017,6 +1002,39 @@ public class SpellCreation extends SpellCreationHelper {
                 }
                 m.element = Element.SORCERY;
                 return;
+            }
+        }
+
+        // Activates redstone and pedestal blocks.
+        if (findIn(word, "activate") && useMana(focal, 10) && !world.isRemote){
+            IBlockState state = world.getBlockState(spellBlock);
+
+            if (state.getBlock() instanceof BlockPedestal){
+                world.setBlockState(spellBlock, state.getBlock().getDefaultState()
+                        .withProperty(BlockPedestal.NATURAL, true),3);
+            }
+
+            if (state.getPropertyKeys().stream().anyMatch(e -> e instanceof PropertyBool && e.getName().equals("powered"))) {
+                world.setBlockState(spellBlock, state.cycleProperty(PropertyBool.create("powered")), 3);
+
+            }
+
+            if (playerCaster != null){
+                state.getBlock().onBlockActivated(world, spellBlock, state, playerCaster, EnumHand.MAIN_HAND,
+                        playerCaster.getHorizontalFacing(), 0, 0, 0);
+            }
+        }
+
+        // Deactivate
+        if (findIn(word, "deactivate") && useMana(focal, 10)){
+            IBlockState state = world.getBlockState(spellBlock);
+            if (state.getBlock() instanceof BlockPedestal){
+                world.setBlockState(spellBlock, state.getBlock().getDefaultState()
+                        .withProperty(BlockPedestal.NATURAL, false));
+            }
+
+            if (state.getPropertyKeys().stream().anyMatch(e -> e instanceof PropertyBool && e.getName().equals("powered"))) {
+                world.setBlockState(spellBlock, state.withProperty(PropertyBool.create("powered"), false), 3);
             }
         }
 
@@ -1082,7 +1100,7 @@ public class SpellCreation extends SpellCreationHelper {
         }
 
         // * Undo Magic allows to remove magical entities
-        if (findIn(word, "undo") && findIn(next, "magic") && useMana(focal, 10)){
+        if (findIn(word, "undo cancel") && findIn(next, "magic") && useMana(focal, 10)){
             if (target instanceof EntityMagic){
                 ((EntityMagic)target).despawn();
             }else if (target instanceof EntityMagicConstruct){
@@ -1116,6 +1134,17 @@ public class SpellCreation extends SpellCreationHelper {
                     y = (float) target.getLookVec().y * potency;
                     z = (float) target.getLookVec().z * potency;
                 }
+                if (findIn(next, "caster") && findIn(next2, "look") && caster != null){
+                    x = (float) caster.getLookVec().x * potency;
+                    y = (float) caster.getLookVec().y * potency;
+                    z = (float) caster.getLookVec().z * potency;
+                }
+                if (findIn(next, "caster") && findIn(next2, "inverted invert inv")
+                        && findIn(next3, "look") && caster != null){
+                    x = (float) -caster.getLookVec().x * potency;
+                    y = (float) -caster.getLookVec().y * potency;
+                    z = (float) -caster.getLookVec().z * potency;
+                }
                 if (findIn(next, "inverted invert inv") && findIn(next2, "look")){
                     x = (float) -target.getLookVec().x * potency;
                     y = (float) -target.getLookVec().y * potency;
@@ -1124,7 +1153,11 @@ public class SpellCreation extends SpellCreationHelper {
                 distance = Math.abs(x) + Math.abs(y) + Math.abs(z);
             }
 
-            if(useMana(focal, (distance * distance) * 0.5, true) && !world.isRemote) {
+            double isCaster = target == caster ? 0.2 : 2;
+
+            if(world.isRemote){ Wizard.castParticles(world, Element.SORCERY, target.getPositionVector());}
+
+            if(distance > 0 && useMana(focal, Math.max(distance * isCaster, 1), true) && !world.isRemote) {
                 target.motionX=x * 0.1f;
                 target.motionY=y * 0.1f;
                 target.motionZ=z * 0.1f;
@@ -1135,16 +1168,113 @@ public class SpellCreation extends SpellCreationHelper {
             if(world.isRemote){ Wizard.castParticles(world, Element.SORCERY, target.getPositionVector());}
         }
 
+        // * Teleports target towards vector
+        if(findIn(word, "teleport teleportation tp")){
+            float x;
+            float y;
+            float z;
+            float additionalCost=1.0F;
+            if(!findIn(next, ignore)) {
+                x = getInteger(next, 0);
+                y = getInteger(next2, 0);
+                z = getInteger(next3, 0);
+            }else{
+                x = getInteger(next2, 0);
+                y = getInteger(next3, 0);
+                z = getInteger(next4, 0);
+            }
+            // Let's allow some things like we do in commands?
+            if (next.equals("~")) x = target.getPosition().getX();
+            if (next2.equals("~")) y = target.getPosition().getY();
+            if (next3.equals("~")) y = target.getPosition().getZ();
 
+            float distance = Math.abs(x) + Math.abs(y) + Math.abs(z);
+            boolean isFocused=false;
+            if (findIn(previous, "focus focused")){
+                distance= (float) target.getPosition().getDistance(Math.round(x),Math.round(y),Math.round(z));
+                additionalCost=1.15F;
+                isFocused=true;
+            }
+            if (distance == 0.0F){
+                if (findIn(next, "look")){
+                    x = (float) target.getLookVec().x * potency;
+                    y = (float) target.getLookVec().y * potency;
+                    z = (float) target.getLookVec().z * potency;
+                }
+                if (findIn(next, "caster") && findIn(next2, "look") && caster != null){
+                    x = (float) caster.getLookVec().x * potency;
+                    y = (float) (caster.getLookVec().y * potency) + 1.0F;
+                    z = (float) caster.getLookVec().z * potency;
+                }
+                if (findIn(next, "caster") && findIn(next2, "inverted invert inv")
+                        && findIn(next3, "look") && caster != null){
+                    x = (float) -caster.getLookVec().x * potency;
+                    y = (float) (-caster.getLookVec().y * potency) + 1.0F;
+                    z = (float) -caster.getLookVec().z * potency;
+                }
+                if (findIn(next, "inverted invert inv") && findIn(next2, "look")){
+                    x = (float) -target.getLookVec().x * potency;
+                    y = (float) -target.getLookVec().y * potency;
+                    z = (float) -target.getLookVec().z * potency;
+                }
+                distance = Math.abs(x) + Math.abs(y) + Math.abs(z);
+            }
+
+            double isCaster = target == caster ? 0.2 : 1.5;
+            if(world.isRemote){ Wizard.castParticles(world, Element.SORCERY, target.getPositionVector());}
+
+            if(distance > 0 && useMana(focal, Math.max(distance * isCaster * additionalCost, 1), true) && !world.isRemote) {
+                if (!isFocused)
+                    target.setPositionAndUpdate(target.posX + x, target.posY + y,
+                            target.posZ + z);
+                else
+                    target.setPositionAndUpdate(x, y,
+                            z);
+
+                target.fallDistance = 0;
+                Wizard.conjureCircle(world, Element.SORCERY, target.getPositionVector());
+            }
+        }
+
+        if (findIn(word, "change") && findIn(next, "dimension dimensions dims dim")&&
+                target.world != null){
+            int init = target.world.provider.getDimension();
+            int dimension = getInteger(next2, init);
+            int cost = caster == target ? 100 : 1000;
+            // All this to make things work properly
+            if (dimension != init && !world.isRemote && target.getServer() != null) {
+                if (target instanceof EntityPlayerMP) {
+                    if (useMana(focal, cost)) {
+                        TalesTeleporter.teleportPlayer((EntityPlayerMP) target, dimension, target.posX, target.posY, target.posZ);
+                        return;
+                    }
+                }
+                if (target instanceof EntityLiving){
+                    if (useMana(focal, cost)) {
+                        TalesTeleporter.teleportEntity((EntityLivingBase) target, dimension, target.posX, target.posY, target.posZ);
+                    }
+                }
+            }
+        }
 
         // ! Only Living ones:
         if (!(target instanceof EntityLivingBase)) return;
         EntityLivingBase living = (EntityLivingBase) target;
 
+        // * Undo Magic allows to remove magical effects
+        if (findIn(word, "undo cancel") && findIn(next, "magic")){
+            for (PotionEffect effect : Lists.newArrayList(living.getActivePotionEffects())){
+                if (!(effect.getPotion() instanceof Curse) && useMana(focal, (Solver.asSeconds(effect.getDuration())/5) + (effect.getAmplifier() * effect.getAmplifier()))){
+                    living.removePotionEffect(effect.getPotion());
+                }
+            }
+        }
+
         // * Applies potion effect
         if (findIn(word, "apply")) {
             //if (next.split(":").length <= 1) next = "minecraft:" + next;
             Potion potion = null;
+            int specificCost = 0;
             try {
                 potion = Potion.getPotionFromResourceLocation(next);
                 if (potion == null){
@@ -1166,6 +1296,16 @@ public class SpellCreation extends SpellCreationHelper {
                 Aterna.chant((EntityPlayer) caster, "Effect is not found!");
             }
             if (potion != null) {
+                ResourceLocation resource = potion.getRegistryName();
+                if (resource != null) {
+                    for (String value : Tales.chanting.applySpecificCost.clone()) {
+                        String id = value.split(" ")[0];
+                        String number = value.split(" ")[1];
+                        if (id.equalsIgnoreCase(resource.toString())) {
+                            specificCost = getInteger(number, 0);
+                        }
+                    }
+                }
                 PotionEffect effect = new PotionEffect(potion,
                         Solver.asTicks(duration), Math.max((int) (potency - 1), 0));
                 if (living.isPotionActive(potion) && living.getActivePotionEffect(potion) != null
@@ -1173,7 +1313,8 @@ public class SpellCreation extends SpellCreationHelper {
                  || Objects.requireNonNull(living.getActivePotionEffect(potion)).getDuration() > effect.getDuration()/2)){
                     return;
                 }
-                if (living.isPotionApplicable(effect) && useMana(focal, (potency * potency) * (duration / 10), true)){
+                if (living.isPotionApplicable(effect) && useMana(focal, ((potency * potency) * (duration / 10))
+                        + specificCost, true)){
                     if (!world.isRemote) {
                         living.addPotionEffect(effect);
                     }
@@ -1198,7 +1339,7 @@ public class SpellCreation extends SpellCreationHelper {
         // * Heals for certain amount of HP
         if (findIn(word, "heal")){
             if (useMana(focal, potency * potency, true)) {
-                if (!living.isEntityUndead()) {
+                if (!TalesEffects.isUndeadInclMobs(living)) {
                     living.heal(potency);
                 } else {
                     Sage.causeDamage(MagicDamage.DamageType.RADIANT, caster, living, potency * 2);
@@ -1219,26 +1360,19 @@ public class SpellCreation extends SpellCreationHelper {
             }
         }
 
-        // * Show feature!
-        if (findIn(word, "show") && caster != null) {
+        // * Show feature! Requires player caster since we need to show things to someone.
+        if (findIn(word, "show") && playerCaster != null) {
             if (findIn(next, "potion potions")) {
-                Collection<Potion> potionList = ForgeRegistries.POTIONS.getValuesCollection();
-                Collection<Potion> potions = new ArrayList<>(Collections.emptyList());
-                for (Potion p : potionList){
-                    if (p.getRegistryName() != null) {
-                        if (findIn(p.getRegistryName().getResourceDomain().toLowerCase(), next2)) {
-                            potions.add(p);
-                        }
-                    }
-                }
+                Collection<PotionEffect> potions = living.getActivePotionEffects();
 
-                if (potions.size() > 0) {
+                if (!potions.isEmpty()) {
                     StringBuilder builder = new StringBuilder();
                     potions.forEach(pot -> {
-                        if (pot.getRegistryName() != null) builder.append(pot.getRegistryName().toString()).append(" ");
+                        if (pot.getPotion().getRegistryName() != null) builder.append(pot.getPotion().getRegistryName().toString()).append(" ");
                     });
                     String result = builder.toString();
-                    Aterna.message((EntityPlayer) caster, result);
+                    if(!world.isRemote)
+                        Aterna.message(playerCaster, result);
                 }
             }
         }
@@ -1246,12 +1380,52 @@ public class SpellCreation extends SpellCreationHelper {
         // * Create wood item!
         if (findIn(word, "create") && living instanceof EntityPlayer){
             EntityPlayer player = (EntityPlayer) living;
-            if (findIn(next, "pickaxe") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_PICKAXE));
-            else if (findIn(next, "hoe") && useMana(focal,15, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_HOE));
-            else if (findIn(next, "axe") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_AXE));
-            else if (findIn(next, "shovel") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_SHOVEL));
-            else if (findIn(next, "sword") && useMana(focal,20, true)) Thief.addItem(player, Thief.stack(Items.WOODEN_SWORD));
-            else if (findIn(next, "wood log") && useMana(focal,30, true)) Thief.addItem(player, Thief.stack(Item.getItemFromBlock(Blocks.LOG)));
+            Item item = null;
+            ResourceLocation resource = null;
+            int cost = -1;
+            try {
+                for (ResourceLocation location : Item.REGISTRY.getKeys()){
+                    Item i = Item.REGISTRY.getObject(location);
+                    if (i != null && findIn(next, i.getUnlocalizedName().replace(":", " "))){
+                        item = i;
+                        resource = location;
+                    }
+                }
+                if (item == null){
+                    for (ResourceLocation location : Block.REGISTRY.getKeys()){
+                        Block b = Block.REGISTRY.getObject(location);
+                        if (b != Blocks.AIR) {
+                            Item i = Item.getItemFromBlock(b);
+                            if (findIn(next, i.getUnlocalizedName().replace(":", " "))) {
+                                item = i;
+                                resource = location;
+                            }
+                        }
+                    }
+                }
+            }catch (Exception ignore){}
+            if (resource != null) {
+                for (String value : Tales.chanting.createCostList.clone()) {
+                    String id = value.split(" ")[0];
+                    String number = value.split(" ")[1];
+                    WizardryTales.log.warn("ZEROONE: Create list is here!");
+                    if (findIn(id, resource.toString())) {
+                        cost = getInteger(number, -1);
+                        WizardryTales.log.warn("ZEROONE: Cost is here!");
+                        break;
+                    }
+                }
+                if (cost == -1){
+                    cost = 0;
+                    WizardryTales.log.warn("ZEROONE: Cost is -1");
+                    item = null;
+                }
+            }
+            WizardryTales.log.warn("ZEROONE: We're in creation phase");
+            if (item != null && useMana(focal,cost, true)){
+                Thief.addItem(player, Thief.stack(item));
+                WizardryTales.log.warn("ZEROONE: Item is created");
+            }
             m.element = Element.EARTH;
         }
     }

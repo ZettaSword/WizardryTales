@@ -5,14 +5,32 @@ import astramusfate.wizardry_tales.entity.construct.EntityMagicCircle;
 import astramusfate.wizardry_tales.entity.construct.sigils.EntityMagicCircleVertical;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.util.ParticleBuilder;
-import net.minecraft.client.particle.ParticleEnchantmentTable;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class Wizard {
+
+    /** Copy of tame method from Wolf class **/
+    public static void playHeartEffect(World world, Vec3d pos, boolean success) {
+        EnumParticleTypes particle = EnumParticleTypes.HEART;
+        Random rand = new Random();
+        if (!success) {
+            particle = EnumParticleTypes.SMOKE_NORMAL;
+        }
+
+        for(int lvt_3_1_ = 0; lvt_3_1_ < 7; ++lvt_3_1_) {
+            double lvt_4_1_ = rand.nextGaussian() * 0.02;
+            double lvt_6_1_ = rand.nextGaussian() * 0.02;
+            double lvt_8_1_ = rand.nextGaussian() * 0.02;
+            world.spawnParticle(particle, pos.x + (double)(rand.nextFloat() * 2.0F), pos.y + 0.5 + (rand.nextFloat()), pos.z + (rand.nextFloat() * 2.0F), lvt_4_1_, lvt_6_1_, lvt_8_1_);
+        }
+
+    }
 
     public static void conjureCircle(World world, Element element, Vec3d pos){
         EntityMagicCircle entity = new EntityMagicCircle(world);
@@ -24,8 +42,24 @@ public class Wizard {
         if(!world.isRemote) world.spawnEntity(entity);
     }
 
+    public static void conjureCircle(World world, Element element, Vec3d pos, float size){
+        EntityMagicCircle entity = new EntityMagicCircle(world);
+        entity.setLocation(element == null ? "u_magic" : "u_" + element.func_176610_l());
+        entity.setPosition(pos.x, pos.y + Tales.effects.y_offset, pos.z);
+        entity.lifetime = Solver.asTicks(1);
+        entity.chooseSize();
+        entity.setSizeMultiplier(size);
+        if(!world.isRemote) world.spawnEntity(entity);
+    }
+
     public static void conjureCircle(World world, String location, Vec3d pos){
         EntityMagicCircle entity = getCircle(world, location, pos);
+        if(!world.isRemote) world.spawnEntity(entity);
+    }
+
+    public static void conjureCircle(World world, String location, Vec3d pos, float size){
+        EntityMagicCircle entity = getCircle(world, location, pos);
+        entity.setSizeMultiplier(size);
         if(!world.isRemote) world.spawnEntity(entity);
     }
 
@@ -75,6 +109,10 @@ public class Wizard {
     }
 
     public static void castParticles(World world, Element element, Vec3d pos, int count){
+        castParticles(world, element, pos, count, 15);
+    }
+
+    public static void castParticles(World world, Element element, Vec3d pos, int count, int ticks){
         if(world.isRemote){
             for(int i = 0; i < count; i++) {
                 double x = pos.x + Solver.range(2);
@@ -84,11 +122,11 @@ public class Wizard {
                 switch (element) {
                     case FIRE:
                         ParticleBuilder.create(ParticleBuilder.Type.MAGIC_FIRE).collide(true)
-                                .pos(x, y, z).vel(0, -0.1, 0).time(15).clr(1f, 1f, 1f).spawn(world);
+                                .pos(x, y, z).vel(0, -0.1, 0).time(ticks).clr(1f, 1f, 1f).spawn(world);
                         break;
                     case ICE:
                         ParticleBuilder.create(ParticleBuilder.Type.SNOW).collide(true)
-                                .pos(x, y, z).vel(0, -0.1, 0).time(15).spawn(world);
+                                .pos(x, y, z).vel(0, -0.1, 0).time(ticks).spawn(world);
                         break;
                     case LIGHTNING:
                         ParticleBuilder.create(ParticleBuilder.Type.SPARK).pos(x,y,z).spawn(world);
@@ -96,22 +134,22 @@ public class Wizard {
                     case NECROMANCY:
                         ParticleBuilder.create(ParticleBuilder.Type.DARK_MAGIC).pos(x, y, z).clr(0x800080).spawn(world);
                         ParticleBuilder.create(ParticleBuilder.Type.DARK_MAGIC).pos(x, y, z).clr(0x9400D3).spawn(world);
-                        ParticleBuilder.create(ParticleBuilder.Type.SPARKLE).pos(x, y, z).time(12 + world.rand.nextInt(8)).clr(0x4B0082).vel(0, -0.1, 0).spawn(world);
+                        ParticleBuilder.create(ParticleBuilder.Type.SPARKLE).pos(x, y, z).time((ticks-3) + world.rand.nextInt(8)).clr(0x4B0082).vel(0, -0.1, 0).spawn(world);
                         break;
                     case EARTH:
-                        ParticleBuilder.create(ParticleBuilder.Type.LEAF).collide(true).pos(x, y, z).vel(0, -0.1, 0).time(15).spawn(world);
+                        ParticleBuilder.create(ParticleBuilder.Type.LEAF).collide(true).pos(x, y, z).vel(0, -0.1, 0).time(ticks).spawn(world);
                         break;
                     case SORCERY:
                         ParticleBuilder.create(ParticleBuilder.Type.SPARKLE).collide(true)
-                                .pos(x, y, z).vel(0, -0.1, 0).time(15).clr(0.2f, 0.6f, 1).spawn(world);
+                                .pos(x, y, z).vel(0, -0.1, 0).time(ticks).clr(0.2f, 0.6f, 1).spawn(world);
 
                         break;
                     case HEALING:
                         ParticleBuilder.create(ParticleBuilder.Type.SPARKLE).collide(true)
-                                .pos(x, y, z).vel(0, -0.1, 0).time(15).clr(0.8f, 1, 0.5f).spawn(world);
+                                .pos(x, y, z).vel(0, -0.1, 0).time(ticks).clr(0.8f, 1, 0.5f).spawn(world);
                         break;
 
-                    default: ParticleBuilder.create(type).collide(true).pos(x, y, z).vel(0, -0.1, 0).time(15).clr(1f, 1f, 1f).spawn(world);
+                    default: ParticleBuilder.create(type).collide(true).pos(x, y, z).vel(0, -0.1, 0).time(ticks).clr(1f, 1f, 1f).spawn(world);
                         break;
                 }
 

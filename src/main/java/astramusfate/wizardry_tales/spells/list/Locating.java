@@ -24,6 +24,7 @@ public class Locating extends Spell {
         if(caster != null) {
             if(!world.isRemote) {
                 Aterna.translate(caster, "spell.wizardry_tales:locating.comment");
+                Aterna.messageChat(caster, "Dimension ID: [ " + caster.world.provider.getDimension() + " ]");
                 Aterna.messageChat(caster, "X: [ " + (int) caster.posX + " ]");
                 Aterna.messageChat(caster, "Y: [ " + (int) caster.posY + " ]");
                 Aterna.messageChat(caster, "Z: [ " + (int) caster.posZ + " ]");

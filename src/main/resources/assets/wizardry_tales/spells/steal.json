@@ -1,0 +1,23 @@
+{
+  "enabled": {
+    "book": true,
+    "scroll": true,
+    "wands": true,
+    "npcs": true,
+    "dispensers": true,
+    "commands": true,
+    "treasure": true,
+	"trades": true,
+    "looting": true
+  },
+  "tier": "apprentice",
+  "element": "sorcery",
+  "type": "utility",
+  "cost": 80,
+  "chargeup": 20,
+  "cooldown": 120,
+  "base_properties": {
+    "range": 8,
+    "luck_factor": 0.02
+  }
+}

@@ -1,20 +1,50 @@
 package astramusfate.wizardry_tales.api;
 
 import astramusfate.wizardry_tales.WizardryTales;
+import electroblob.wizardry.util.RayTracer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+
+import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 /** Arcanist - Class to help with different rendering, such as shapes render, circles render, and etc.
  * <br><br/> scale() - multiplies current scale on given scale; So if: scale(0.5); scale(1.5); Then it will will scale [0.5*1.5];
  * <br><br/> GlStateManager.translate(given) - pluses to current xyz given xyz; [x+given.x, y+given.y, z+given.z];
  * **/
 public class Arcanist {
+
+    /**
+     * Helper method which performs a ray trace for blocks and entities from an entity's eye position in the direction
+     * they are looking, over a specified range, using {@link RayTracer#rayTrace(World, Vec3d, Vec3d, float, boolean, boolean, boolean, Class, Predicate)}. Aim assist is zero, the entity type is simply {@code Entity} (all entities), and the
+     * filter removes the given entity and any dying entities and allows all others.
+     *
+     * @param world The world in which to perform the ray trace.
+     * @param entity The entity from which to perform the ray trace. The ray trace will start from this entity's eye
+     * position and proceed in the direction the entity is looking. This entity will be ignored when ray tracing.
+     * @param range The distance over which the ray trace will be performed.
+     * @param hitLiquids True to return hits on the surfaces of liquids, false to ignore liquid blocks as if they were
+     * not there. {@code ignoreUncollidables} must be set to false for this setting to have an effect.
+     * @return A {@link RayTraceResult} representing the object that was hit, which may be an entity, a block or
+     * nothing. Returns {@code null} only if the origin and endpoint are within the same block and no entity was hit.
+     */
+    @Nullable
+    public static RayTraceResult rayTraceEntity(World world, Entity entity, double range, boolean hitLiquids, Predicate<Entity> removeIf){
+        // This method does not apply an offset like ray spells do, since it is not desirable in most other use cases.
+        Vec3d origin = entity.getPositionEyes(1);
+        Vec3d endpoint = origin.add(entity.getLookVec().scale(range));
+        return RayTracer.rayTrace(world, origin, endpoint, 0, hitLiquids, false, false, Entity.class, e-> e == entity || (e instanceof EntityLivingBase && ((EntityLivingBase) e).deathTime > 0) || removeIf.test(e));
+    }
 
     public static void startCircleSettings(){
         GlStateManager.enableBlend();

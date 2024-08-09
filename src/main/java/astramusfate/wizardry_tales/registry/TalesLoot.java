@@ -1,6 +1,7 @@
 package astramusfate.wizardry_tales.registry;
 
 import astramusfate.wizardry_tales.WizardryTales;
+import astramusfate.wizardry_tales.data.Tales;
 import electroblob.wizardry.Wizardry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.*;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Mod.EventBusSubscriber
@@ -43,7 +45,9 @@ public class TalesLoot {
 
     @SubscribeEvent
     public static void onLootTableLoadEvent(LootTableLoadEvent event) {
-
+        if (Arrays.asList(Tales.struct.tales_loot_entries).contains(event.getName())) {
+            event.getTable().addPool(getAdditive(WizardryTales.MODID + ":chests/dungeon_additions", WizardryTales.MODID + "_tales_dungeon_additions"));
+        }
         /*
         if (event.getName().toString().equals(WizardryTales.MODID + ":subsets/wand_upgrades")) {
             WAND_UPGRADES = event.getTable();
@@ -83,6 +87,8 @@ public class TalesLoot {
             LootPool sourcePool = EPIC_ARTEFACTS.getPool("main");
             injectEntries(sourcePool, targetPool);
         }
+
+
     }
 
     /**

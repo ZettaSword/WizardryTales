@@ -7,25 +7,19 @@ import astramusfate.wizardry_tales.data.cap.ISoul;
 import astramusfate.wizardry_tales.data.cap.Mana;
 import astramusfate.wizardry_tales.data.cap.StatIds;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.server.SPacketUpdateHealth;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.awt.*;
 import java.util.UUID;
 
 public class StatsListener extends EventsBase {
@@ -100,9 +94,9 @@ public class StatsListener extends EventsBase {
             int lvl = Math.round(level);
             if (lvl < 1) lvl = 1;
             living.getEntityData().setInteger("lvl", lvl);
-            living.setCustomNameTag(TextFormatting.RESET + "" + living.getDisplayName() + " Lvl." + lvl);
-            living.setHealth(living.getHealth());
-
+            //living.setCustomNameTag(TextFormatting.RESET + "" + living.getDisplayName() + " Lvl." + lvl);
+            living.setHealth(living.getMaxHealth() -1);
+            living.setHealth(living.getMaxHealth());
         }
     }
 
@@ -124,10 +118,6 @@ public class StatsListener extends EventsBase {
         checkAttributes(knockback, "constitution",
                 Math.min((float) soul.getStat(StatIds.con_id) /Tales.stats.con_cost,
                         0.5F * ((float) StatIds.con_id /Tales.stats.con_cost)/Tales.stats.con_max), Solver.MULTIPLY);
-
-        // Strength
-        checkAttributes(attack, "strength",
-                getStat(soul, StatIds.str_id, Tales.stats.str_cost, Tales.stats.str_max), Solver.ADD);
 
         // Strength
         checkAttributes(attack, "strength",

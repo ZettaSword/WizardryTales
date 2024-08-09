@@ -2,7 +2,9 @@ package astramusfate.wizardry_tales.registry;
 
 import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.blocks.BlockBloomingFlower;
+import astramusfate.wizardry_tales.blocks.BlockConjuredAir;
 import astramusfate.wizardry_tales.blocks.tile.TileEntityBlooming;
+import astramusfate.wizardry_tales.blocks.tile.TileEntityRevertingBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -46,6 +48,9 @@ public final class TalesBlocks {
 	@ObjectHolder("blooming_flower")
 	public static final Block blooming_flower = placeholder();
 
+	@ObjectHolder("conjured_air")
+	public static final Block conjured_air = placeholder();
+
 	/**
 	 * Sets both the registry and unlocalised names of the given block, then registers it with the given registry. Use
 	 * this instead of {@link Block#setRegistryName(String)} and {@link Block#setUnlocalizedName(String)} during
@@ -69,6 +74,7 @@ public final class TalesBlocks {
 		//registerBlock("alchemy_receptacle", new BlockAlchemyReceptacle());
 		//registerBlock("alchemy_table", new BlockAlchemyTable());
 		registerBlock(reg,"blooming_flower", new BlockBloomingFlower(Material.PLANTS));
+		registerBlock(reg, "conjured_air", new BlockConjuredAir());
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -87,6 +93,7 @@ public final class TalesBlocks {
 	/** Called from the preInit method in the main mod class to register all the tile entities. */
 	public static void registerTileEntities(){
 		GameRegistry.registerTileEntity(TileEntityBlooming.class, new ResourceLocation(WizardryTales.MODID, "blooming_flower"));
+		GameRegistry.registerTileEntity(TileEntityRevertingBlock.class, new ResourceLocation(WizardryTales.MODID, "reverting_tile"));
 		//GameRegistry.registerTileEntity(TileEntityAlchemyReceptacle.class, 		new ResourceLocation(WizardryTales.MODID, "alchemy_receptacle"));
 		//GameRegistry.registerTileEntity(TileEntityAlchemyTable.class, 	new ResourceLocation(WizardryTales.MODID, "alchemy_table"));
 	}

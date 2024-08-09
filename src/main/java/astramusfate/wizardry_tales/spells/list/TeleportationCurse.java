@@ -40,9 +40,10 @@ public class TeleportationCurse extends SpellRay {
 			EntityLivingBase entity = (EntityLivingBase)target;
 
 			entity.addPotionEffect(new PotionEffect(TalesEffects.teleportation_curse, Integer.MAX_VALUE, 0));
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 
 	@Override

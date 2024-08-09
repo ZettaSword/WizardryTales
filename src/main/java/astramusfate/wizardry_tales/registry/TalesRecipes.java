@@ -2,12 +2,11 @@ package astramusfate.wizardry_tales.registry;
 
 import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.data.Tales;
-import astramusfate.wizardry_tales.items.TalesScroll;
 import astramusfate.wizardry_tales.spells.TalesSpells;
 import electroblob.wizardry.constants.Element;
-import electroblob.wizardry.registry.WizardryBlocks;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.Spell;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -24,7 +23,7 @@ public class TalesRecipes {
     static final int ANY_META= 32767;
 
     public static void init(){
-        shapelessRecipe(new ItemStack(TalesItems.mana_bomb, 3), Ingredient.fromItem(Items.GLASS_BOTTLE),
+        shapelessRecipe(new ItemStack(TalesItems.mana_bomb, 3), "mana_bomb", Ingredient.fromItem(Items.GLASS_BOTTLE),
                 Ingredient.fromItem(Items.GUNPOWDER),
                 Ingredient.fromItem(WizardryItems.crystal_shard));
 
@@ -39,9 +38,8 @@ public class TalesRecipes {
         shapelessRecipe(WizardryItems.large_mana_flask, Ingredient.fromItem(TalesItems.large_pool_flask));
 
         // Mana Dust!
-        shapelessRecipe(TalesItems.mana_dust, Ingredient.fromItems(TalesItems.small_pool_flask, WizardryItems.small_mana_flask),
-                Ingredient.fromStacks(new ItemStack(WizardryItems.magic_crystal,1, ANY_META)),
-                        Ingredient.fromStacks(new ItemStack(WizardryItems.spectral_dust,1, Element.NECROMANCY.ordinal())));
+        shapelessRecipe(TalesItems.mana_dust, "mana_dust", Ingredient.fromItem(WizardryItems.magic_crystal),
+                Ingredient.fromItem(WizardryItems.spectral_dust));
 
         shapelessRecipe(Items.IRON_INGOT,
                 Ingredient.fromItem(TalesItems.mana_dust),
@@ -55,7 +53,7 @@ public class TalesRecipes {
                 Ingredient.fromItem(Items.GUNPOWDER),Ingredient.fromItem(Items.GUNPOWDER),
                 Ingredient.fromItem(Items.COAL),Ingredient.fromItem(Items.COAL));
 
-        shapelessRecipe(new ItemStack(Items.DYE, 1, EnumDyeColor.CYAN.getDyeDamage()),
+        shapelessRecipe(new ItemStack(Items.DYE, 1, EnumDyeColor.BLUE.getDyeDamage()),"lapis_lazuli",
                 Ingredient.fromItem(TalesItems.mana_dust),
                 Ingredient.fromItem(Items.IRON_NUGGET),Ingredient.fromItem(Items.GOLD_NUGGET),
                 Ingredient.fromItem(Items.REDSTONE), Ingredient.fromStacks(new ItemStack(Items.DYE, 1,
@@ -81,6 +79,12 @@ public class TalesRecipes {
                 Ingredient.fromItem(TalesItems.mana_dust),
                 Ingredient.fromItem(TalesItems.chanting_stone), Ingredient.fromItem(WizardryItems.spell_book));
         } catch (Exception ignore){}
+
+        // RITUALS!
+
+        shapelessRecipe(new ItemStack(TalesItems.ritual_of_forest_life, 1), "ritual_of_forest_life",
+                Ingredient.fromItem(TalesItems.mana_dust), Ingredient.fromItem(WizardryItems.blank_scroll),
+                Ingredient.fromItem(Items.WHEAT_SEEDS), Ingredient.fromItem(Item.getItemFromBlock(Blocks.SAPLING)));
 
         // Usual shapeless
         shapelessRecipe(TalesItems.casting_ring, "casting_ring",  Ingredient.fromItem(WizardryItems.medium_mana_flask),

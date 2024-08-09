@@ -68,6 +68,7 @@ public class CommandSetMaxMana extends CommandBase {
             } catch (Exception ignore){}
 
             soul.setMaxMP(manaOf, mana);
+            soul.setMP(manaOf, mana);
         }
 
     }
