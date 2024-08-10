@@ -1,5 +1,6 @@
 package astramusfate.wizardry_tales.entity.construct.sigils.chanting;
 
+import astramusfate.wizardry_tales.WizardryTales;
 import astramusfate.wizardry_tales.api.Wizard;
 import astramusfate.wizardry_tales.events.SpellCreation;
 import electroblob.wizardry.constants.Element;
@@ -8,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
@@ -51,17 +53,17 @@ public class EntityCustomSigil extends EntityCircleWords {
             }
 
             for(EntityLivingBase target : targets) {
-                if (this.isValidTarget(target) && filter.test(target)) {
+                if ((this.isValidTarget(target) && filter.test(target)) || (!this.hasOwner && target == this.getCaster())) {
                     if (this.getCaster() instanceof EntityPlayerMP) {
                         SpellCreation.createSpell(words, this, target, true);
                     }
                     if (this.world.isRemote) {
                         SpellCreation.createSpell(words, this, target, false);
                     }
-                }
-                if (!this.world.isRemote) {
-                    this.setDead();
-                    break;
+                    if (!this.world.isRemote) {
+                        this.setDead();
+                        break;
+                    }
                 }
             }
 
