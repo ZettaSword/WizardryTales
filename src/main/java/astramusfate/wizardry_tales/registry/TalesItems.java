@@ -6,10 +6,7 @@ import astramusfate.wizardry_tales.items.artefacts.ChantingCloak;
 import astramusfate.wizardry_tales.items.artefacts.ChantingRing;
 import astramusfate.wizardry_tales.items.artefacts.IceHalberd;
 import astramusfate.wizardry_tales.items.artefacts.TenebriaCrown;
-import astramusfate.wizardry_tales.items.rituals.RitualMidnightTrading;
-import astramusfate.wizardry_tales.items.rituals.RitualOfForestLife;
-import astramusfate.wizardry_tales.items.rituals.RitualRemnantFire;
-import astramusfate.wizardry_tales.items.rituals.RitualRingOfFire;
+import astramusfate.wizardry_tales.items.rituals.*;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.constants.Tier;
 import electroblob.wizardry.item.ItemArtefact;
@@ -307,6 +304,9 @@ public final class TalesItems {
 	@GameRegistry.ObjectHolder("ritual_of_forest_life")
 	public static final Item ritual_of_forest_life = placeholder();
 
+	@GameRegistry.ObjectHolder("ritual_of_mountain_living")
+	public static final Item ritual_of_mountain_living = placeholder();
+
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 
@@ -597,6 +597,7 @@ public final class TalesItems {
 		//2.2.7
 		reg.register(new RitualRemnantFire("remnant_fire"));
 		reg.register(new RitualOfForestLife("of_forest_life"));
+		reg.register(new RitualOfMountainLiving("of_mountain_living"));
 	}
 
 	private static void registerRitualsModels() {
@@ -604,6 +605,7 @@ public final class TalesItems {
 		registryModel(ritual_midnight_trading);
 		registryModel(ritual_remnant_fire);
 		registryModel(ritual_of_forest_life);
+		registryModel(ritual_of_mountain_living);
 	}
 
 //---------------------------------------------------------------------------
