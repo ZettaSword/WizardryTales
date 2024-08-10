@@ -1381,7 +1381,7 @@ public class SpellCreation extends SpellCreationHelper {
             try {
                 for (ResourceLocation location : Item.REGISTRY.getKeys()){
                     Item i = Item.REGISTRY.getObject(location);
-                    if (i != null && findIn(next, i.getUnlocalizedName().replace(":", " "))){
+                    if (i != null && findIn(next, String.valueOf(location))){
                         item = i;
                         resource = location;
                     }
