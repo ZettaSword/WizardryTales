@@ -203,7 +203,7 @@ public class EntityMagic extends Entity implements IEntityOwnable, IEntityAdditi
      * attacker. Also allows subclasses to override it if they wish to do so.
      */
     public boolean isValidTarget(Entity target){
-        return AllyDesignationSystem.isValidTarget(this.getCaster(), target);
+        return (AllyDesignationSystem.isValidTarget(this.getCaster(), target)) || (!this.hasOwner && target == this.getCaster());
     }
 
     @Nonnull

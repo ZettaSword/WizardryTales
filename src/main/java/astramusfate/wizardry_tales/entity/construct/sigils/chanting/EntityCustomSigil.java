@@ -53,7 +53,7 @@ public class EntityCustomSigil extends EntityCircleWords {
             }
 
             for(EntityLivingBase target : targets) {
-                if ((this.isValidTarget(target) && filter.test(target)) || (!this.hasOwner && target == this.getCaster())) {
+                if (this.isValidTarget(target) && filter.test(target)) {
                     if (this.getCaster() instanceof EntityPlayerMP) {
                         SpellCreation.createSpell(words, this, target, true);
                     }
