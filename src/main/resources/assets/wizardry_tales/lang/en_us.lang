@@ -402,3 +402,6 @@ item.wizardry_tales:ritual_summon_remnant_fire.desc=To activate ritual, you need
 
 item.wizardry_tales:ritual_of_forest_life.name=Ritual of Forest Life
 item.wizardry_tales:ritual_of_forest_life.desc=To activate ritual, you need one Mana Dust, one Apple, and one Sapling. Perform in Forest biomes. Can turn Humans into Elves.
+
+item.wizardry_tales:ritual_of_mountain_living.name=Ritual of Mountain Living
+item.wizardry_tales:ritual_of_mountain_living.desc=To activate ritual, you need one Magic Dust, one Iron Pickaxe, one Cobblestone. Perform in Forest biomes. Can turn Humans into Dwarfs.
