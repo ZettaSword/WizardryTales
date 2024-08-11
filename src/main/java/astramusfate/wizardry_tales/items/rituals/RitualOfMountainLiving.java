@@ -4,12 +4,14 @@ import astramusfate.wizardry_tales.api.Thief;
 import astramusfate.wizardry_tales.api.Wizard;
 import astramusfate.wizardry_tales.api.wizardry.ArcaneColor;
 import astramusfate.wizardry_tales.api.wizardry.Race;
+import astramusfate.wizardry_tales.events.RaceListener;
 import astramusfate.wizardry_tales.registry.TalesItems;
 import com.google.common.collect.Lists;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.registry.WizardrySounds;
 import electroblob.wizardry.util.ParticleBuilder;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
@@ -39,6 +41,9 @@ public class RitualOfMountainLiving extends ItemRitual {
         BlockPos spellBlock = player.getPosition();
         if (world.getBiome(spellBlock) instanceof BiomeForest && Race.is(player, Race.human)) {
             Race.set(player, Race.dwarf);
+            if (player instanceof EntityPlayerMP) {
+                RaceListener.tick(player);
+            }
             if (world.isRemote) {
                 ParticleBuilder.create(ParticleBuilder.Type.BEAM)
                         .pos(spellBlock.getX() + 0.5, world.getActualHeight(),

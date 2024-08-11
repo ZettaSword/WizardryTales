@@ -12,6 +12,9 @@
 	"recipes": {
 		"ritual_of_forest_life": {
 			"locations": ["wizardry_tales:ritual_of_forest_life"]
+		},
+		"ritual_of_mountain_living": {
+			"locations": ["wizardry_tales:ritual_of_mountain_living"]
 		}
 	},
 	"sections": {
@@ -119,6 +122,25 @@
 				"Their magic is more potent and costs less to cast if spell is Lightning or Earth else it costs a lot more!",
 				"For Human to become Elf, they need to find nearby forest, craft Mana Dust, get one Apple, and one Sapling. Craft and use Ritual of Forest Life.",
 				"#recipe ritual_of_forest_life"
+			]
+		},
+		"race_dwarf": {
+			"title": "Race: Dwarf",
+			"include_in_contents": "races",
+			"text": [
+				"Dwarfs usually live in forests or in mountains, they are very handy and strong.",
+				"They can sense ore around them if they'll right-click any pickaxe on block.",
+				"They can see in darkness of the caves, to mine efficiently.",
+				"Dwarfs break blocks 25% faster than other races.",
+				"Can't break an anvil, dwarfs are masters of their craft.",
+				"Get 20% less damage from not magical sources.",
+				"Their Fire and Earth magic is amplified, but magic of other elements costs a lot more.",
+				"They're generally slower than other races.",
+				"Physical attacks of dwarfs are stronger.",
+				"They have one heart less than other races.",
+				"And they're smaller than other races.",
+				"For Human to become Dwarf, they need to find nearby forest, craft Mana Dust, smelt and get one Iron Ingot, and one Coal Block. Craft and use Ritual of Mountain Living.",
+				"#recipe ritual_of_mountain_living"
 			]
 		},
 		"chanting": {

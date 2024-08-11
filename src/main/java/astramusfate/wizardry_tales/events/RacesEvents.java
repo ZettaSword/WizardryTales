@@ -8,7 +8,6 @@ import astramusfate.wizardry_tales.api.Wizard;
 import astramusfate.wizardry_tales.api.wizardry.ArcaneColor;
 import astramusfate.wizardry_tales.api.wizardry.Race;
 import astramusfate.wizardry_tales.data.EventsBase;
-import astramusfate.wizardry_tales.particle.TalesFx;
 import astramusfate.wizardry_tales.registry.TalesEffects;
 import com.google.common.collect.Lists;
 import electroblob.wizardry.block.BlockCrystalOre;
@@ -196,9 +195,6 @@ public class RacesEvents extends EventsBase {
             if (race.equals(Race.elf) && world.getBiome(pos) instanceof BiomeForest){
                 if(player.getFoodStats().needFood())
                     player.getFoodStats().addStats(5, 0);
-                for (int i = 0; i < 18; i++) {
-                    TalesFx.create(world, "magic", pos, Solver.particle(), ArcaneColor.NATURE);
-                }
             }
 
             if(race.equals(Race.undead)){

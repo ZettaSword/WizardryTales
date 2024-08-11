@@ -86,6 +86,22 @@ public class TalesRecipes {
                 Ingredient.fromItem(TalesItems.mana_dust), Ingredient.fromItem(WizardryItems.blank_scroll),
                 Ingredient.fromItem(Items.WHEAT_SEEDS), Ingredient.fromItem(Item.getItemFromBlock(Blocks.SAPLING)));
 
+        shapelessRecipe(new ItemStack(TalesItems.ritual_of_mountain_living, 1), "ritual_of_mountain_living",
+                Ingredient.fromItem(TalesItems.mana_dust), Ingredient.fromItem(WizardryItems.blank_scroll),
+                Ingredient.fromItem(Items.IRON_INGOT), Ingredient.fromItem(Item.getItemFromBlock(Blocks.COAL_BLOCK)));
+
+        shapelessRecipe(new ItemStack(TalesItems.ritual_ring_of_fire, 1), "ritual_ring_of_fire",
+                Ingredient.fromItem(TalesItems.mana_dust), Ingredient.fromItem(WizardryItems.blank_scroll),
+                Ingredient.fromItem(Items.FLINT));
+
+        shapelessRecipe(new ItemStack(TalesItems.ritual_midnight_trading, 1), "ritual_midnight_trading",
+                Ingredient.fromItem(TalesItems.mana_dust), Ingredient.fromItem(WizardryItems.blank_scroll),
+                Ingredient.fromItem(Items.EMERALD));
+
+        shapelessRecipe(new ItemStack(TalesItems.ritual_remnant_fire, 1), "ritual_remnant_fire",
+                Ingredient.fromItem(TalesItems.mana_dust), Ingredient.fromItem(WizardryItems.blank_scroll),
+                Ingredient.fromStacks(new ItemStack(WizardryItems.spectral_dust, 1, Element.FIRE.ordinal())));
+
         // Usual shapeless
         shapelessRecipe(TalesItems.casting_ring, "casting_ring",  Ingredient.fromItem(WizardryItems.medium_mana_flask),
                 Ingredient.fromItem(TalesItems.chanting_ring),

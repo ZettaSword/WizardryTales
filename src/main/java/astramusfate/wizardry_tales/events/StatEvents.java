@@ -66,14 +66,15 @@ public class StatEvents extends EventsBase {
                 145, 180);
 
         Arcanist.push();
-        Minecraft.getMinecraft().fontRenderer.drawString(player.getDisplayNameString(), left + 45, y + 22, 0x0D1228);
+        Minecraft.getMinecraft().fontRenderer.drawString(player.getDisplayNameString(), left + 45, y + 17, 0x0D1228);
+        Minecraft.getMinecraft().fontRenderer.drawString("Race: " + Aterna.capitalize(soul.getRace()), left + 20, y + 25, 0x0D1228);
         Minecraft.getMinecraft().fontRenderer.drawString("Health Points: " + (int)(player.getHealth()) + "/" + (int)((player.getMaxHealth())), left + 20, y + 50, 0x902C2E);
         Minecraft.getMinecraft().fontRenderer.drawString("Mana Points: " + (int)(Math.floor(soul.getMP())) + "/" + (int)(Math.floor(soul.getMaxMP())), left + 20, y + 70, 0x1D2A60);
 
-        Minecraft.getMinecraft().fontRenderer.drawString(("Strength: " + (int)(1 + (str/(Tales.stats.str_cost/10)))), left + 20, y + 90, 0x975D31);
-        Minecraft.getMinecraft().fontRenderer.drawString("Constitution: " + (int)(1 + (con/(Tales.stats.con_cost/10))), left + 20, y + 100, 0x902C2E);
-        Minecraft.getMinecraft().fontRenderer.drawString("Agility: " + (int)(1 + (agi/(Tales.stats.agi_cost/10))), left + 20, y + 110, 0x329050);
-        Minecraft.getMinecraft().fontRenderer.drawString("Intelligence: " + (int)(4 + (intell/(Tales.stats.int_cost/10))), left + 20, y + 120, 0x5C5690);
+        Minecraft.getMinecraft().fontRenderer.drawString(("Strength: " + (int)(1 + (str/((double) Tales.stats.str_cost /10)))), left + 20, y + 90, 0x975D31);
+        Minecraft.getMinecraft().fontRenderer.drawString("Constitution: " + (int)(1 + (con/((double) Tales.stats.con_cost /10))), left + 20, y + 100, 0x902C2E);
+        Minecraft.getMinecraft().fontRenderer.drawString("Agility: " + (int)(1 + (agi/((double) Tales.stats.agi_cost /10))), left + 20, y + 110, 0x329050);
+        Minecraft.getMinecraft().fontRenderer.drawString("Intelligence: " + (int)(4 + (intell/((double) Tales.stats.int_cost /10))), left + 20, y + 120, 0x5C5690);
         Arcanist.pop();
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);
