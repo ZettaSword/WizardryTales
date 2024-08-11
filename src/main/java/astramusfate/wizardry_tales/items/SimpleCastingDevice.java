@@ -78,8 +78,9 @@ public class SimpleCastingDevice extends ItemWand implements IWorkbenchItem, ISp
                     WandHelper.setProgression(wand, WandHelper.getProgression(wand) - tier.getProgression());
                 }
 
-                if(player != null) WizardData.get(player).setTierReached(tier);
+                tier = this.tier.next();
 
+                if(player != null) WizardData.get(player).setTierReached(tier);
                 ItemStack newWand = new ItemStack(TalesMaps.getMWand(tier, this.element));
                 newWand.setTagCompound(wand.getTagCompound());
                 // This needs to be done after copying the tag compound so the mana capacity for the new wand

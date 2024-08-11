@@ -84,7 +84,6 @@ public class WizardryTales {
         hasAncientSpellcraft = Loader.isModLoaded("ancientspellcraft");
 
         TalesLoot.preInit();
-        TalesMaps.preInit();
         TalesBlocks.registerTileEntities();
         Librarian.preInitBookShelfModelTextures();
 
@@ -110,6 +109,7 @@ public class WizardryTales {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        TalesMaps.preInit();
         proxy.init(event);
         proxy.registerParticles();
 
