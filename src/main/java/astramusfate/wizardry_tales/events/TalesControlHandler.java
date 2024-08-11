@@ -114,21 +114,20 @@ public class TalesControlHandler {
 	// Changed to a tick event to allow mouse button keybinds
 	// The 'lag' that happened previously was actually because the code only fired when a keyboard key was pressed!
 	@SubscribeEvent
-	public static void onTickEventTales(TickEvent.ClientTickEvent event){
+	public static void onTickEventTales(TickEvent.PlayerTickEvent event){
 
 		if(event.phase == TickEvent.Phase.END) return; // Only really needs to be once per tick
 
 		if(WizardryTales.proxy instanceof astramusfate.wizardry_tales.proxy.ClientProxy){
 
 			EntityPlayer player = Minecraft.getMinecraft().player;
-
 			if(player != null){
-
 				if(astramusfate.wizardry_tales.proxy.ClientProxy.CAST_SPELL.isKeyDown() && Minecraft.getMinecraft().inGameHasFocus){
 					ISoul soul = Mana.getSoul(player);
 					if (soul == null || soul.getCooldown() > 0) return;
 
 					ItemStack wand = getWandInUseSmarter(player);
+
 					if(wand == null){
 						Aterna.messageBar(player, "You need to wear Casting ring and Spellcasting item.");
 						return;
@@ -136,7 +135,6 @@ public class TalesControlHandler {
 					Spell spell = WandHelper.getCurrentSpell(wand);
 					SpellModifiers modifiers = SpellModifiers.fromNBT(wand.getTagCompound() == null ? new NBTTagCompound() : wand.getTagCompound());
 					if (WizardData.get(player) != null && !WizardData.get(player).hasSpellBeenDiscovered(spell)) return;
-
 					if (!spellCastRing) {
 						spellCastRing = true;
 						spellCastRing(player.getEntityId(), spell, modifiers);

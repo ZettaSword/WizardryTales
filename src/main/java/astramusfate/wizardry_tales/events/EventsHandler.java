@@ -108,7 +108,6 @@ public class EventsHandler extends EventsBase {
         }
     }
 
-    @SideOnly(Side.SERVER)
     @SubscribeEvent()
     public static void onPlayerTickCastingRingCooldown(TickEvent.PlayerTickEvent event){
         if(event.phase == TickEvent.Phase.START && event.player.ticksExisted > 5) {
