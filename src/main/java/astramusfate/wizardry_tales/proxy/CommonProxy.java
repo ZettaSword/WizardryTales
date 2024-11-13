@@ -1,6 +1,7 @@
 package astramusfate.wizardry_tales.proxy;
 
 import astramusfate.wizardry_tales.data.cap.*;
+import astramusfate.wizardry_tales.data.commands.CommandAddMana;
 import astramusfate.wizardry_tales.data.commands.CommandCheckMana;
 import astramusfate.wizardry_tales.data.commands.CommandSetMana;
 import astramusfate.wizardry_tales.data.commands.CommandSetMaxMana;
@@ -34,6 +35,7 @@ public class CommonProxy
        event.registerServerCommand(new CommandCheckMana());
        event.registerServerCommand(new CommandSetMana());
        event.registerServerCommand(new CommandSetMaxMana());
+       event.registerServerCommand(new CommandAddMana());
     }
 
     public void initialiseLayers(){}
